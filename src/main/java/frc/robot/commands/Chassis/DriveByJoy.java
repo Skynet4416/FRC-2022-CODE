@@ -1,4 +1,4 @@
-package frc.robot.commands.Chasis;
+package frc.robot.commands.Chassis;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
