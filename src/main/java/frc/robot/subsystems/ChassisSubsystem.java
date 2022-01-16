@@ -6,16 +6,16 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ChassisSubsystem extends SubsystemBase {
   // Initialize motor controllers.
-  private Spark _rightMaster = new Spark(Constants.Chassis.Motors.kMasterRight);
-  private Spark _rightSlave = new Spark(Constants.Chassis.Motors.kSlaveRight);
-  private Spark _leftMaster = new Spark(Constants.Chassis.Motors.kMasterLeft);
-  private Spark _leftSlave = new Spark(Constants.Chassis.Motors.kSlaveLeft);
+  private PWMSparkMax _rightMaster = new PWMSparkMax(Constants.Chassis.Motors.kMasterRight);
+  private PWMSparkMax _rightSlave = new PWMSparkMax(Constants.Chassis.Motors.kSlaveRight);
+  private PWMSparkMax _leftMaster = new PWMSparkMax(Constants.Chassis.Motors.kMasterLeft);
+  private PWMSparkMax _leftSlave = new PWMSparkMax(Constants.Chassis.Motors.kSlaveLeft);
 
   MotorControllerGroup m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
   MotorControllerGroup m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
