@@ -13,6 +13,12 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public class Inputs{
+        public class joysticks{
+            public static final double MIN_POWER = 0.15;
+        }
+
+    }
     public class Chassis{
         public class Motors{
             public static final int kMasterRight = -1;
