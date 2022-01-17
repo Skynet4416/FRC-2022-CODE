@@ -6,17 +6,18 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ChassisSubsystem extends SubsystemBase {
   // Initialize motor controllers.
-  private PWMSparkMax _rightMaster = new PWMSparkMax(Constants.Chassis.Motors.kMasterRight);
-  private PWMSparkMax _rightSlave = new PWMSparkMax(Constants.Chassis.Motors.kSlaveRight);
-  private PWMSparkMax _leftMaster = new PWMSparkMax(Constants.Chassis.Motors.kMasterLeft);
-  private PWMSparkMax _leftSlave = new PWMSparkMax(Constants.Chassis.Motors.kSlaveLeft);
-
+  private CANSparkMax _rightMaster = new CANSparkMax(Constants.Chassis.Motors.kMasterRight,MotorType.kBrushless);
+  private CANSparkMax _rightSlave = new CANSparkMax(Constants.Chassis.Motors.kSlaveRight,MotorType.kBrushless);
+  private CANSparkMax _leftMaster = new CANSparkMax(Constants.Chassis.Motors.kMasterLeft,MotorType.kBrushless);
+  private CANSparkMax _leftSlave = new CANSparkMax(Constants.Chassis.Motors.kSlaveLeft,MotorType.kBrushless);
   MotorControllerGroup m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
   MotorControllerGroup m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
 
