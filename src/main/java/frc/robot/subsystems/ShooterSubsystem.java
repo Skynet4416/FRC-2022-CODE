@@ -13,6 +13,8 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.TalonFXSimCollection;
+
+import frc.robot.Constants;
 import frc.robot.Constants.Shooter.Motors;
 
 public class ShooterSubsystem extends PIDSubsystem {
@@ -21,7 +23,7 @@ public class ShooterSubsystem extends PIDSubsystem {
     private PIDController PIDcontroller = new PIDController(0, 0, 0);
 
     public ShooterSubsystem() {
-        super(new PIDController(0, 0, 0));
+        super(new PIDController(Constants.Shooter.PID.kP, Constants.Shooter.PID.kI, Constants.Shooter.PID.kD));
         _slave.configFactoryDefault();
         _master.configFactoryDefault();
         _slave.follow(_master);
