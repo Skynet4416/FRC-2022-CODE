@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import java.util.Set;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -39,8 +37,6 @@ public class ShooterSubsystem extends PIDSubsystem {
     protected void useOutput(double output, double setpoint) {
         // TODO Auto-generated method stub
         _master.set(ControlMode.PercentOutput, output);
-        _slave.set(ControlMode.PercentOutput, output); // might not work (TEST) check wtice
-
     }
 
     @Override
