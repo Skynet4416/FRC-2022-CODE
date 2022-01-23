@@ -27,4 +27,12 @@ public final class Constants {
             public static final double kD = 0;
         }
     }
+    public final class Indexing
+    {
+        public final class Motors
+        {
+            public static final int Kmaster = -1;
+            public static final int  Kslave = -1;
+        }
+    }
 }
