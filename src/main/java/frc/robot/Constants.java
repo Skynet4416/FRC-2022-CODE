@@ -34,5 +34,6 @@ public final class Constants {
             public static final int Kmaster = -1;
             public static final int  Kslave = -1;
         }
+        public static final double kIndexingPercent = 0; //needs to be set to real power percentage
     }
 }
