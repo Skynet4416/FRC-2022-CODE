@@ -15,6 +15,7 @@ package frc.robot;
 public final class Constants {
     public static class Shooter{
         public static class Physics{
+            public static final int MAX_RPM = 6000;
             public static double diamater = 101.6; //in mm
             public static double gravitational_acceleration_near_earth = 9.83; //in m/s^2
             public static double ball_mass =  0.267619498; //in kg 
@@ -25,6 +26,10 @@ public final class Constants {
             public static double cross_area = Math.PI * Math.pow((diamater/2)/1000,2); //m^2
             public static double drag_thing = (density_of_air * drag_coefficient * cross_area)/2; // kg/m
             public static double resolution = 0.1;//in s 
+            public static double shooter_height = 0; // in meter
+            public static double threashold_x = 0;//in meter
+            public static double threashold_y = 0;//in meter
+
         }
     }
 }
