@@ -64,7 +64,7 @@ public class ShooterMeth {
         }
         return new double[][] {arrX,arrY};
     }
-    public static double[] FindMaxHight(double RPM, double angle_rad)
+    public static double[] FindMaxHight(double RPM, double angle_rad) // O(n)
     {
         double radius_in_memter = Physics.diamater /2000;
         double velocity = radius_in_memter*2*Math.PI*RPM/60;
@@ -81,7 +81,7 @@ public class ShooterMeth {
         }
         return return_arr;
     }
-    protected static double[] GetArrayOfRPM(int max_rpm)
+    protected static double[] GetArrayOfRPM(int max_rpm)//O(n)
     {
         double [] arr_of_rpm = new double[max_rpm];
         for(int i = 0; i< max_rpm; i++)
@@ -90,7 +90,7 @@ public class ShooterMeth {
         }
         return arr_of_rpm;
     }
-    public static double binarySearch(double arr[], int first, int last, double key_x,double key_y,double angle) throws Exception{  
+    public static double binarySearch(double arr[], int first, int last, double key_x,double key_y,double angle) throws Exception{  // O(n* log base 2(n)) without the search of 
         int mid = (first + last)/2;  
         while( first <= last ){  
             double[] max_point = FindMaxHight(arr[mid],angle);
@@ -113,7 +113,8 @@ public class ShooterMeth {
     public static double FindVelocityForDistance(double x,double y,double angle) throws Exception
     {
         double[] arr = GetArrayOfRPM(Physics.MAX_RPM);
-        double result = binarySearch(arr, 0,arr.length-1, x,y, angle);
+        double result = binarySearch(arr, 0,arr.length-1, x,y, angle); 
+        //o(n^2 log base 2 (n))
         return result;
 
     }
