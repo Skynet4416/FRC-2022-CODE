@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import javax.print.DocFlavor.STRING;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -28,7 +27,19 @@ public final class Constants {
             public static final int kMasterLeft = -1;
             public static final int kSlaveLeft = -1;
         }
+        public class FeedForward
+        {
+            public static final double kS = 0;
+            public static final double kv = 0;
+            public static final double ka = 0;
 
+        }
+        public class PID
+        {
+            public static final double kP = 0;
+            public static final double kI = 0;
+            public static final double kD = 0;
+        }
         public class Odometry{
             public static final double START_X = 0;
             public static final double START_Y = 0;
@@ -37,8 +48,10 @@ public final class Constants {
             public static final double DISTANCE_OF_ENCODER_COUNT = 0.1524 / 42; // wheel rad / number of encoder counts in a rev (https://www.revrobotics.com/rev-21-1650/)
         }
 
-        public class Kinematics{
-            public static final double TRACK_WIDTH = 0.56; // in meters
+        public class Physical{
+            public static final double Robot_Width = 27.14; // in Inches
+            public static final double ratio = 10.75;
+            public static final double wheel_size = 6; // inches
         }
     } 
 }

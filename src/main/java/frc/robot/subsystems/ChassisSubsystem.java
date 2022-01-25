@@ -4,22 +4,30 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
+
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.Chassis.Kinematics;
+import frc.robot.Globals;
+import frc.robot.Constants.Chassis.FeedForward;
 import frc.robot.Constants.Chassis.Odometry;
+import frc.robot.Constants.Chassis.PID;
+import frc.robot.Constants.Chassis.Physical;
 import frc.robot.sensors.NavxGyro;
 
 public class ChassisSubsystem extends SubsystemBase {
@@ -33,20 +41,49 @@ public class ChassisSubsystem extends SubsystemBase {
 
   private RelativeEncoder m_rightEncoder = _rightMaster.getEncoder();
   private RelativeEncoder m_leftEncoder = _leftMaster.getEncoder();
-
+  private Pose2d _pose;
   DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
   NavxGyro m_gyro = new NavxGyro(Port.kMXP);
-  Pose2d m_pose = new Pose2d();
-  private DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_gyro.getHeading());
+  private DifferentialDriveKinematics _kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Physical.Robot_Width));
+  private DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_gyro.getHeading(),Globals.startPos);
+  private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(FeedForward.kS, FeedForward.kv,FeedForward.ka);
+
+  private PIDController _left_controller = new PIDController(PID.kP, PID.kI, PID.kD);
+  private PIDController _right_controller = new PIDController(PID.kP, PID.kI, PID.kD);
+
+
+
+  public Rotation2d getHeading()
+  {
+    return m_gyro.getHeading();
+  }
+
+
+  public DifferentialDriveWheelSpeeds getSpeeds()
+  {
+    return new DifferentialDriveWheelSpeeds(_leftMaster.getEncoder().getVelocity()/ Physical.ratio * 2 * Math.PI * Units.inchesToMeters(Physical.wheel_size)
+    ,_rightMaster.getEncoder().getVelocity()/ Physical.ratio * 2 * Math.PI * Units.inchesToMeters(Physical.wheel_size));
+  }
+
+
+
 
   private double getLeftDistance(){
-      return m_leftEncoder.getPosition() * Odometry.DISTANCE_OF_ENCODER_COUNT;
+    return m_leftEncoder.getPosition() * Odometry.DISTANCE_OF_ENCODER_COUNT;
   }
+
+
+
+
 
   private double getRightDistance(){
     return m_rightEncoder.getPosition() * Odometry.DISTANCE_OF_ENCODER_COUNT;
   }
+
+
+
+
 
   /**
    * Creates the subsystem and configures motor controllers.
@@ -54,20 +91,47 @@ public class ChassisSubsystem extends SubsystemBase {
   public ChassisSubsystem () {
   }
 
+
+
+
   /**
    * Set chassis motor output.
    * 
    * @param left  Left setpoint (percentage).
    * @param right Right setpoint (percentage).
    */
+
+
   public void set(double left, double right) {
-      if (Math.abs(left) > 1 || Math.abs(right) > 1) return;
+    if (Math.abs(left) > 1 || Math.abs(right) > 1) return;
       
-      m_drive.tankDrive(left, right);
+    m_drive.tankDrive(left, right);
   }
+
+  
 
   @Override
   public void periodic() {
-      m_pose = m_odometry.update(m_gyro.getHeading(), getLeftDistance(), getRightDistance());    
+    _pose = m_odometry.update(m_gyro.getHeading(), getLeftDistance(), getRightDistance());    
+  }
+  
+  
+  
+  public SimpleMotorFeedforward getFeedforward()
+  {
+    return feedforward;
+  } 
+  
+  
+  
+  public PIDController getLeftController()
+  {
+    return _left_controller;
+  }
+
+
+  public PIDController getRightController()
+  {
+    return _right_controller;
   }
 }
