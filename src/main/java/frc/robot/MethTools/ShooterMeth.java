@@ -95,7 +95,7 @@ public class ShooterMeth {
         while( first <= last ){  
             double[] max_point = FindMaxHight(arr[mid],angle);
 
-           if (max_point[0] + Physics.threashold_x < key_x && max_point[1] + Physics.threashold_y < key_y ){  
+           if (max_point[0] + Physics.threashold_x < key_x || max_point[1] + Physics.threashold_y < key_y ){  
              first = mid + 1;     
            }else if ( Math.abs(max_point[0]-key_x) < Physics.threashold_x && Math.abs(max_point[1]-key_y)< Physics.threashold_y) { 
                return arr[mid];
