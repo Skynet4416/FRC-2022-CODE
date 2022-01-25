@@ -1,47 +1,63 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
-import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
-import com.ctre.phoenix.motorcontrol.TalonFXSimCollection;
 
-import frc.robot.Constants;
+import frc.robot.Constants.Shooter;
 import frc.robot.Constants.Shooter.Motors;
 
-public class ShooterSubsystem extends PIDSubsystem {
+public class ShooterSubsystem extends SubsystemBase {
     private TalonFX _master = new TalonFX(Motors.Kmaster); // not sure we will use this engine
     private TalonFX _slave = new TalonFX(Motors.Kslave); // not sure we will use this engine
-    private PIDController PIDcontroller = new PIDController(0, 0, 0);
 
     public ShooterSubsystem() {
-        super(new PIDController(Constants.Shooter.PID.kP, Constants.Shooter.PID.kI, Constants.Shooter.PID.kD));
         _slave.configFactoryDefault();
         _master.configFactoryDefault();
+        _master.config_kD(0, Shooter.PID.kD);
+        _master.config_kP(0, Shooter.PID.kP);
+        _master.config_kI(0, Shooter.PID.kI, 0);
+        _master.config_kF(0, Shooter.PID.kF);
+        _slave.config_kD(0, Shooter.PID.kD);
+        _slave.config_kP(0, Shooter.PID.kP);
+        _slave.config_kI(0, Shooter.PID.kI, 0);
+        _slave.config_kF(0, Shooter.PID.kF);
         _slave.follow(_master);
         _slave.setInverted(InvertType.InvertMotorOutput);
     }
-
     @Override
-    public void periodic() {
-
+    public void periodic()
+    {
+        _master.config_kP(0,SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKP, Shooter.PID.kP));
+        _master.config_kI(0,SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKI, Shooter.PID.kI));
+        _master.config_kD(0,SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKD, Shooter.PID.kD));
+        _master.config_kF(0,SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKF, Shooter.PID.kF));
+        
+        _slave.config_kP(0,SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKP, Shooter.PID.kP));
+        _slave.config_kI(0,SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKI, Shooter.PID.kI));
+        _slave.config_kD(0,SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKD, Shooter.PID.kD));
+        _slave.config_kF(0,SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKF, Shooter.PID.kF));
+        
+        SmartDashboard.putNumber("Shooter Master Velocity (RPM)", _master.getSelectedSensorVelocity());
+        SmartDashboard.putNumber("Shooter Master Current",_master.getMotorOutputPercent());
+        SmartDashboard.putNumber("Shooter Slave Current",_slave.getMotorOutputPercent());
+        SmartDashboard.putNumber("Shooter Slave Velocity (RPM)", _slave.getSelectedSensorVelocity());
+    } 
+    public void SetRPM(int RPM)
+    {
+        _master.set(ControlMode.Velocity, RPM);
+        _slave.set(ControlMode.Velocity, RPM);
     }
-
-    @Override
-    protected void useOutput(double output, double setpoint) {
-        // TODO Auto-generated method stub
-        _master.set(ControlMode.PercentOutput, output);
+    public TalonFX GetMaster()
+    {
+        return _master;
     }
-
-    @Override
-    protected double getMeasurement() {
-        // TODO Auto-generated method stub
-        return 0;
+    public TalonFX GetSlave()
+    {
+        return _slave;
     }
 }

@@ -25,6 +25,16 @@ public final class Constants {
             public static final double kP = 0;
             public static final double kI = 0;
             public static final double kD = 0;
+            public static final double kF = 0;
+            public static final double MAX_RPM = 0;
+        }
+        public final class SmartDashboard
+        {
+
+            public static final String ShooterKP = "Shooter kP";
+            public static final String ShooterKI = "Shooter kI";
+            public static final String ShooterKD = "Shooter kD";
+            public static final String ShooterKF = "Shooter kF";
         }
     }
     public final class Indexing
