@@ -18,6 +18,8 @@ public final class Constants {
         public final class Motors{
             public static final int  Kmaster = -1;
             public static final int  Kslave = -1;
+            public static final int left_servo = -1;
+            public static final int right_servo = -1;
         }
         public final class PID
         {
