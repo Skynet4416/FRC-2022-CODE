@@ -29,7 +29,10 @@ public final class Constants {
             public static double shooter_height = 0; // in meter
             public static double threashold_x = 0;//in meter
             public static double threashold_y = 0;//in meter
-
+          
+    public class Intake{
+        public class Motors{
+            public static final int kIntake = -1;
         }
     }
 }
