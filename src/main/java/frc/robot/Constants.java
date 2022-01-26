@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -17,6 +18,55 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static class Inputs {
+        public class joysticks {
+            public static final double MIN_POWER = 0.15;
+        }
+
+    }
+
+    public class Chassis {
+        public class Motors {
+            public static final int kMasterRight = -1;
+            public static final int kSlaveRight = -1;
+            public static final int kMasterLeft = -1;
+            public static final int kSlaveLeft = -1;
+        }
+
+        public class FeedForward {
+            public static final double kS = 0;
+            public static final double kv = 0;
+            public static final double ka = 0;
+
+        }
+
+        public class PID {
+            public static final double kP = 0;
+            public static final double kI = 0;
+            public static final double kD = 0;
+        }
+
+        public class Odometry {
+            public static final double START_X = 0;
+            public static final double START_Y = 0;
+            public static final double START_ANGLE = 0;
+
+            public static final double DISTANCE_OF_ENCODER_COUNT = 0.1524 / 42; // wheel rad / number of encoder counts in a rev (https://www.revrobotics.com/rev-21-1650/)
+        }
+
+        public class Physical {
+            public static final double Robot_Width = 27.14; // in Inches
+            public static final double ratio = 10.75;
+            public static final double wheel_size = 6; // inches
+        }
+    }
+
+    public class Intake {
+        public class Motors {
+            public static final int kIntake = -1;
+            public static final double PowerPercentage = 0;
+        }
+    }
     public static class Shooter {
         public static class Physics {
             public static final int MAX_RPM = 6000;
@@ -33,12 +83,6 @@ public final class Constants {
             public static double shooter_height = 0; // in meter
             public static double threashold_x = 0;// in meter
             public static double threashold_y = 0;// in meter
-        }
-    }
-
-    public class Intake {
-        public class Motors {
-            public static final int kIntake = -1;
         }
     }
 }
