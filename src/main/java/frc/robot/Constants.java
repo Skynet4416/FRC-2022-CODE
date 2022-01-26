@@ -54,4 +54,9 @@ public final class Constants {
             public static final double wheel_size = 6; // inches
         }
     } 
+    public class Intake{
+        public class Motors{
+            public static final int kIntake = -1;
+        }
+    }
 }
