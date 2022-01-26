@@ -12,6 +12,7 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+<<<<<<< HEAD
 public final class Constants {
     public static class Shooter{
         public static class Physics{
@@ -36,3 +37,6 @@ public final class Constants {
         }
     }
 }
+=======
+public final class Constants {}
+>>>>>>> parent of 2940991 (Merge pull request #2 from Skynet4416/Intake)
