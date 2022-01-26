@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -36,22 +37,42 @@ public class ChassisSubsystem extends SubsystemBase {
   private CANSparkMax _rightSlave = new CANSparkMax(Constants.Chassis.Motors.kSlaveRight,MotorType.kBrushless);
   private CANSparkMax _leftMaster = new CANSparkMax(Constants.Chassis.Motors.kMasterLeft,MotorType.kBrushless);
   private CANSparkMax _leftSlave = new CANSparkMax(Constants.Chassis.Motors.kSlaveLeft,MotorType.kBrushless);
-  private MotorControllerGroup m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
-  private MotorControllerGroup m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
+  private MotorControllerGroup m_left; 
+  private MotorControllerGroup m_right; 
 
-  private RelativeEncoder m_rightEncoder = _rightMaster.getEncoder();
-  private RelativeEncoder m_leftEncoder = _leftMaster.getEncoder();
-  private Pose2d _pose;
-  DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
+  private RelativeEncoder _rightEncoder = _rightMaster.getEncoder();
+  private RelativeEncoder _leftEncoder = _leftMaster.getEncoder();
+  private Pose2d _pose = Globals.startPos;
+  private DifferentialDrive m_drive; 
 
-  NavxGyro m_gyro = new NavxGyro(Port.kMXP);
+  private NavxGyro m_gyro = new NavxGyro(Port.kMXP);
   private DifferentialDriveKinematics _kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Physical.Robot_Width));
-  private DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_gyro.getHeading(),Globals.startPos);
+  private DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_gyro.getHeading(),_pose);
   private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(FeedForward.kS, FeedForward.kv,FeedForward.ka);
 
   private PIDController _left_controller = new PIDController(PID.kP, PID.kI, PID.kD);
   private PIDController _right_controller = new PIDController(PID.kP, PID.kI, PID.kD);
 
+
+  public ChassisSubsystem () {
+
+    _leftMaster.restoreFactoryDefaults();
+    _leftSlave.restoreFactoryDefaults();
+    _rightMaster.restoreFactoryDefaults();
+    _rightSlave.restoreFactoryDefaults();
+
+    _leftMaster.setIdleMode(IdleMode.kCoast);
+    _leftSlave.setIdleMode(IdleMode.kCoast);
+    _rightMaster.setIdleMode(IdleMode.kCoast);
+    _rightSlave.setIdleMode(IdleMode.kCoast);
+
+    m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
+    m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
+    
+    m_drive = new DifferentialDrive(m_left, m_right);
+
+
+  }
 
 
   public Rotation2d getHeading()
@@ -70,7 +91,7 @@ public class ChassisSubsystem extends SubsystemBase {
 
 
   private double getLeftDistance(){
-    return m_leftEncoder.getPosition() * Odometry.DISTANCE_OF_ENCODER_COUNT;
+    return _leftEncoder.getPosition() * Odometry.DISTANCE_OF_ENCODER_COUNT;
   }
 
 
@@ -78,21 +99,24 @@ public class ChassisSubsystem extends SubsystemBase {
 
 
   private double getRightDistance(){
-    return m_rightEncoder.getPosition() * Odometry.DISTANCE_OF_ENCODER_COUNT;
+    return _rightEncoder.getPosition() * Odometry.DISTANCE_OF_ENCODER_COUNT;
   }
 
-
+  public void zeroHeading() {
+    m_gyro.reset();
+  }
 
 
 
   /**
    * Creates the subsystem and configures motor controllers.
    */
-  public ChassisSubsystem () {
+
+  public void resetEncoders()
+  {
+    _rightEncoder.setPosition(0);
+    _leftEncoder.setPosition(0);
   }
-
-
-
 
   /**
    * Set chassis motor output.
@@ -133,5 +157,15 @@ public class ChassisSubsystem extends SubsystemBase {
   public PIDController getRightController()
   {
     return _right_controller;
+  }
+
+  public DifferentialDriveKinematics getDifferentialDriveKinematics()
+  {
+    return _kinematics;
+  }
+
+  public DifferentialDriveOdometry getOdometry()
+  {
+    return m_odometry;
   }
 }
