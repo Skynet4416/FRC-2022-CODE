@@ -13,6 +13,23 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static class Shooter{
+        public static class Physics{
+            public static final int MAX_RPM = 6000;
+            public static double diamater = 101.6; //in mm
+            public static double gravitational_acceleration_near_earth = 9.83; //in m/s^2
+            public static double ball_mass =  0.267619498; //in kg 
+            public static double density_of_air = 1.293;//in kg/m^3
+            public static double drag_coefficient = 0.47; // no units
+            public static double RPM_presentange_loss = 0.0;
+            public static double circumference = (diamater/1000) * Math.PI;
+            public static double cross_area = Math.PI * Math.pow((diamater/2)/1000,2); //m^2
+            public static double drag_thing = (density_of_air * drag_coefficient * cross_area)/2; // kg/m
+            public static double resolution = 0.1;//in s 
+            public static double shooter_height = 0; // in meter
+            public static double threashold_x = 0;//in meter
+            public static double threashold_y = 0;//in meter
+          
     public class Intake{
         public class Motors{
             public static final int kIntake = -1;
