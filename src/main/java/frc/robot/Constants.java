@@ -20,5 +20,10 @@ public final class Constants {
             public static final double speed = 1;
             public static final int kangleMotor = 3;
         }
+        public class Encoders
+        {
+            public static final int ChannelA  = -1;
+            public static final int ChannelB = -1;
+        }
     }
 }
