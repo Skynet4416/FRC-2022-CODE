@@ -18,6 +18,7 @@ public final class Constants {
             public static final int Kmaster = -1;
             public static final int Kslave = -1;
             public static final double speed = 1;
+            public static final int kangleMotor = 3;
         }
     }
 }
