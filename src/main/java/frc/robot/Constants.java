@@ -17,8 +17,10 @@ public final class Constants {
         public class Motors{
             public static final int Kmaster = -1;
             public static final int Kslave = -1;
-            public static final double speed = 1;
-            public static final int kangleMotor = 3;
+            public static final double elevator_precentage = 1;
+            public static final int KangleMotor = -1;
+            public static final double angle_move_precentage = 1;
+            public static final int Khook = -1;
         }
         public class Encoders
         {

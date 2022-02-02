@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,9 +18,9 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
         _slave.follow(_master);
         _slave.setInverted(true);
     }
-    public void set()
+    public void set(double precentage)
     {
-        _master.set(VictorSPXControlMode.PercentOutput, Elevator.Motors.speed);
+        _master.set(VictorSPXControlMode.PercentOutput,precentage);
     }
     
 }
