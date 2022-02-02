@@ -27,7 +27,7 @@ public class IntakeSpinUp extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_subsystem.setIntake(Constants.Intake.Motors.PowerPrecentage);
+      m_subsystem.setIntake(Constants.Intake.Motors.precentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,6 +37,7 @@ public class IntakeSpinUp extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_subsystem.setIntake(0);
   }
 
   // Returns true when the command should end.

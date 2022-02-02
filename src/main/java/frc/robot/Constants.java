@@ -16,6 +16,7 @@ public final class Constants {
     public class Intake{
         public class Motors{
             public static final int kIntake = -1;
+            public static final double precentage = 1;
         }
     }
 }
