@@ -13,14 +13,13 @@ public class AngleAiming {
     public void ResetEncoder(){
         _encoder.reset();
     }  
-
     public AngleAiming()
     {
         _encoder.reset();
         _anglemotor.configFactoryDefault();
     }
-    public void Set(double speed){
-        _anglemotor.set(ControlMode.PercentOutput, speed);;
+    public void Set(double precnetege){
+        _anglemotor.set(ControlMode.PercentOutput, precnetege);;
     }
 
 }
