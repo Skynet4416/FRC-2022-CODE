@@ -57,7 +57,7 @@ public final class Constants {
         public class Physical {
             public static final double Robot_Width = 27.14; // in Inches
             public static final double ratio = 10.75;
-            public static final double wheel_size = 6; // inches
+            public static final double wheel_radius = 3; // inches
         }
     }
 

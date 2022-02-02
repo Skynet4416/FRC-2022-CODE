@@ -71,7 +71,7 @@ public class ChassisSubsystem extends SubsystemBase {
     
     m_drive = new DifferentialDrive(m_left, m_right);
 
-
+  
   }
 
 
@@ -83,8 +83,8 @@ public class ChassisSubsystem extends SubsystemBase {
 
   public DifferentialDriveWheelSpeeds getSpeeds()
   {
-    return new DifferentialDriveWheelSpeeds(_leftMaster.getEncoder().getVelocity()/ Physical.ratio * 2 * Math.PI * Units.inchesToMeters(Physical.wheel_size)
-    ,_rightMaster.getEncoder().getVelocity()/ Physical.ratio * 2 * Math.PI * Units.inchesToMeters(Physical.wheel_size));
+    return new DifferentialDriveWheelSpeeds(_leftMaster.getEncoder().getVelocity()/ Physical.ratio * 2 * Math.PI * Units.inchesToMeters(Physical.wheel_radius)
+    ,_rightMaster.getEncoder().getVelocity()/ Physical.ratio * 2 * Math.PI * Units.inchesToMeters(Physical.wheel_radius));
   }
 
 
