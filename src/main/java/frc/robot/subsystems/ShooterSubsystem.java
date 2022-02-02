@@ -12,8 +12,8 @@ import frc.robot.Constants.Shooter;
 import frc.robot.Constants.Shooter.Motors;
 
 public class ShooterSubsystem extends SubsystemBase {
-    private TalonFX _master = new TalonFX(Motors.Kmaster); // not sure we will use this engine
-    private TalonFX _slave = new TalonFX(Motors.Kslave); // not sure we will use this engine
+    private TalonFX _master = new TalonFX(Motors.Kmaster);
+    private TalonFX _slave = new TalonFX(Motors.Kslave); 
 
     public ShooterSubsystem() {
         _slave.configFactoryDefault();
