@@ -21,6 +21,8 @@ public final class Constants {
     public static class Inputs {
         public class joysticks {
             public static final double MIN_POWER = 0.15;
+            public static final int LEFT_JOY_PORT = 0;
+            public static final int RIGHT_JOY_PORT = 1;
         }
 
     }
