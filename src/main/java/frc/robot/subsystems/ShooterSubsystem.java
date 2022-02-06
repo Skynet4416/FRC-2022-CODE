@@ -47,7 +47,7 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Slave Current",_slave.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter Slave Velocity (RPM)", _slave.getSelectedSensorVelocity());
     } 
-    public void SetRPM(int RPM)
+    public void SetRPM(double RPM)
     {
         _master.set(ControlMode.Velocity, RPM);
         _slave.set(ControlMode.Velocity, RPM);

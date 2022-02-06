@@ -32,6 +32,9 @@ public final class Constants {
         }
         public final class SmartDashboard
         {
+            public static final String RightServoAngle = "Right Servo Angle";
+            public static final String LeftServoAngle = "Left Servo Angle";
+            public static final String AngleToSet = "Angle To Set";
 
             public static final String ShooterKP = "Shooter kP";
             public static final String ShooterKI = "Shooter kI";
