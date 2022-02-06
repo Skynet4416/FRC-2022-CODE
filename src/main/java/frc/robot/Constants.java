@@ -12,7 +12,6 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-<<<<<<< HEAD
 public final class Constants {
     public static class Shooter{
         public static class Physics{
@@ -30,10 +29,11 @@ public final class Constants {
             public static double shooter_height = 0; // in meter
             public static double threashold_x = 0;//in meter
             public static double threashold_y = 0;//in meter
-
+            public static double hub_distance = 0; // in meter
+            public static double hub_diameter = 0; // in meter
+            public static double hub_height = 0; // in meter
+            public static double threashold = 0; // in meter
+            public static double optimisation_RPM_Resolution = 100; // in RPM
         }
     }
 }
-=======
-public final class Constants {}
->>>>>>> parent of 2940991 (Merge pull request #2 from Skynet4416/Intake)

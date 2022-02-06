@@ -1,0 +1,8 @@
+
+build/jni/release/opencv_gapi452.pdb
+build/jni/release/opencv_flann452.dll
+*.dll
+*.pdb
+*.class
+*.jar
+*.bin
