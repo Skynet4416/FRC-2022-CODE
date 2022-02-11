@@ -16,6 +16,7 @@ public class ShooterSubsystem extends SubsystemBase {
     private TalonFX _slave = new TalonFX(Motors.Kslave); 
 
     public ShooterSubsystem() {
+        SmartDashboard.putNumber("Shooter Precentage", 0);
         _slave.configFactoryDefault();
         _master.configFactoryDefault();
         _master.config_kD(0, Shooter.PID.kD);
@@ -27,7 +28,7 @@ public class ShooterSubsystem extends SubsystemBase {
         _slave.config_kI(0, Shooter.PID.kI, 0);
         _slave.config_kF(0, Shooter.PID.kF);
         _slave.follow(_master);
-        _slave.setInverted(InvertType.InvertMotorOutput);
+        _slave.setInverted(InvertType.FollowMaster);
     }
     @Override
     public void periodic()
@@ -59,5 +60,11 @@ public class ShooterSubsystem extends SubsystemBase {
     public TalonFX GetSlave()
     {
         return _slave;
+    }
+    public void setPercentage(double precentege)
+    {
+        
+        _master.set(ControlMode.PercentOutput,precentege);
+        _slave.set(ControlMode.PercentOutput,precentege);
     }
 }

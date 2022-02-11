@@ -16,10 +16,13 @@ public final class Constants {
     public final class Shooter
     {
         public final class Motors{
-            public static final int  Kmaster = -1;
-            public static final int  Kslave = -1;
-            public static final int left_servo = -1;
-            public static final int right_servo = -1;
+            public static final int  Kmaster = 50;
+            public static final int  Kslave = 51;
+            public static final int left_Motor = 1;
+            public static final int right_Motor = 0;
+            public static final double Min = 20;
+            public static final double Max = 70;
+            public static final double AngleThreashold = 0.25;
         }
         public final class PID
         {
