@@ -12,18 +12,15 @@ public class IndexingSubsystem extends SubsystemBase {
     private VictorSPX _master = new VictorSPX(Motors.Kmaster);
     private VictorSPX _slave = new VictorSPX(Motors.Kslave);
 
-
-    public IndexingSubsystem()
-    {
+    public IndexingSubsystem() {
         _master.configFactoryDefault();
         _slave.configFactoryDefault();
         _slave.follow(_master);
         _slave.setInverted(InvertType.InvertMotorOutput);
     }
 
-    public void setPercentage(double percent)
-    {
-        //sets the percentage of power for the motors
+    public void setPercentage(double percent) {
+        // sets the percentage of power for the motors
         _master.set(ControlMode.PercentOutput, percent);
     }
 }

@@ -9,9 +9,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class ShootBallCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private ShooterSubsystem _shooter;
   private double RPM;
+
   /**
    * Creates a new ExampleCommand.
    *
@@ -26,17 +27,18 @@ public class ShootBallCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      _shooter.SetRPM(RPM);
+    _shooter.SetRPM(RPM);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-      _shooter.SetRPM(0);
+    _shooter.SetRPM(0);
   }
 
   // Returns true when the command should end.

@@ -328,6 +328,17 @@
               "_source0": "network_table:///SmartDashboard/Turn Angle Point By",
               "_title": "Turn Angle Point By"
             }
+          },
+          "8,2": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]",
+              "_title": "LiveWindow/Ungrouped/PowerDistribution[0]"
+            }
           }
         }
       }
@@ -383,6 +394,73 @@
                   "Visuals/Starting angle": 180.0,
                   "Visuals/Show tick mark ring": true,
                   "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan0",
+                  "_title": "PowerDistribution[0]/Chan0"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan1",
+                  "_title": "PowerDistribution[0]/Chan1"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan2",
+                  "_title": "PowerDistribution[0]/Chan2"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan3",
+                  "_title": "PowerDistribution[0]/Chan3"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan4",
+                  "_title": "PowerDistribution[0]/Chan4"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan5",
+                  "_title": "PowerDistribution[0]/Chan5"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan6",
+                  "_title": "PowerDistribution[0]/Chan6"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan7",
+                  "_title": "PowerDistribution[0]/Chan7"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan8",
+                  "_title": "PowerDistribution[0]/Chan8"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Chan9",
+                  "_title": "PowerDistribution[0]/Chan9"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/Voltage",
+                  "_title": "PowerDistribution[0]/Voltage"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/TotalCurrent",
+                  "_title": "PowerDistribution[0]/TotalCurrent"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/SwitchableChannel",
+                  "_title": "PowerDistribution[0]/SwitchableChannel",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -441,12 +519,105 @@
           }
         }
       }
+    },
+    {
+      "title": "Tab 3",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Precentage",
+              "_title": "SmartDashboard/Shooter Precentage"
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Shooter Slave Velocity (RPM)",
+              "_title": "SmartDashboard/Shooter Slave Velocity (RPM)",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Shooter Slave Velocity (RPM)": true
+            }
+          },
+          "3,1": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Shooter Master Velocity (RPM)",
+              "_title": "SmartDashboard/Shooter Master Velocity (RPM)",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Shooter Master Velocity (RPM)": true
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Shooter Slave Velocity (RPM)",
+              "_title": "SmartDashboard/Shooter Slave Velocity (RPM)",
+              "Range/Min": 0.0,
+              "Range/Max": 7000.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Shooter Master Velocity (RPM)",
+              "_title": "SmartDashboard/Shooter Master Velocity (RPM)",
+              "Range/Min": 0.0,
+              "Range/Max": 7000.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {
-    "x": -7.199999809265137,
-    "y": -7.199999809265137,
-    "width": 1550.4000244140625,
-    "height": 838.4000244140625
+    "x": -6.400000095367432,
+    "y": 1.600000023841858,
+    "width": 1547.199951171875,
+    "height": 828.7999877929688
   }
 }

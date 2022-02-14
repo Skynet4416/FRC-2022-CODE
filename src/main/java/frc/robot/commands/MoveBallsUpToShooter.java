@@ -5,25 +5,21 @@ import frc.robot.subsystems.IndexingSubsystem;
 
 import frc.robot.Constants;
 
-public class MoveBallsUpToShooter extends CommandBase{
+public class MoveBallsUpToShooter extends CommandBase {
     private IndexingSubsystem m_indexing;
 
-
     @Override
-    public void initialize()
-    {
+    public void initialize() {
         this.m_indexing.setPercentage(Constants.Indexing.kIndexingPercent);
     }
 
     @Override
-    public boolean isFinished()
-    {
+    public boolean isFinished() {
         return false;
     }
 
     @Override
-    public void end(boolean interrupted)
-    {
+    public void end(boolean interrupted) {
         this.m_indexing.setPercentage(0);
     }
 }
