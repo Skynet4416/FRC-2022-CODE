@@ -21,7 +21,7 @@ public final class Constants {
         public final class Motors {
             public static final int Kmaster = 50;
             public static final int Kslave = 51;
-            public static final int left_master = -1;
+            public static final int left_master =  12;
             public static final int right_slave = -1;
             public static final double Min = 20;
             public static final double Max = 70;

@@ -31,6 +31,7 @@ public class ShooterAngleSubsystem extends SubsystemBase {
         right_slave.follow(left_master);
         SmartDashboard.putNumber(Constants.Shooter.SmartDashboard.AngleToSet, 0);
         right_slave.setInverted(InvertType.FollowMaster);
+        initQuadrature(left_master);
     }
 
     public void initQuadrature(TalonSRX talon) {
@@ -85,7 +86,8 @@ public class ShooterAngleSubsystem extends SubsystemBase {
     }
 
     public double GetAngle() {
-        return (ToDeg(right_slave.getSelectedSensorPosition(0)) + ToDeg(left_master.getSelectedSensorPosition())) / 2;
+        System.out.println(ToDeg(left_master.getSelectedSensorPosition()));
+        return ToDeg(left_master.getSelectedSensorPosition());
     }
 
     public void Set(double precentage) {
@@ -101,5 +103,10 @@ public class ShooterAngleSubsystem extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber(frc.robot.Constants.Shooter.SmartDashboard.LeftAngle, GetAngle());
         SmartDashboard.putNumber(frc.robot.Constants.Shooter.SmartDashboard.RightAngle, 180 - GetAngle());
+    }
+    public void SetAbs()
+    {
+        initQuadrature(left_master);
+        initQuadrature(right_slave);
     }
 }

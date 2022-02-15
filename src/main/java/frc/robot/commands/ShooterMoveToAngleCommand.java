@@ -50,7 +50,7 @@ public class ShooterMoveToAngleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.`x
   @Override
   public void execute() {
-
+    _angle_moving.SetAbs();
   }
 
   // System.out.println(_angle_moving.encoder.get());
