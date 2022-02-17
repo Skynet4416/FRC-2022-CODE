@@ -107,6 +107,6 @@ public class ShooterAngleSubsystem extends SubsystemBase {
     public void SetAbs()
     {
         initQuadrature(left_master);
-        initQuadrature(right_slave);
+        // initQuadrature(right_slave);
     }
 }

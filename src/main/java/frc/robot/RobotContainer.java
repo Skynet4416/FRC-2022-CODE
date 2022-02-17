@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ShootBallOnPrecentageCommand;
+import frc.robot.commands.ShooterAngleMoveTestCommand;
 import frc.robot.commands.ShooterMoveToAngleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterAngleSubsystem;
@@ -38,7 +40,7 @@ public class RobotContainer {
   private final JoystickButton B = new JoystickButton(system_controller, XboxController.Button.kB.value);
   private final ShooterSubsystem shooter = new ShooterSubsystem();
   private final ShooterAngleSubsystem shooter_angle_subsystem = new ShooterAngleSubsystem();
-
+  
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -56,10 +58,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-    this.A.whenPressed(new ShooterMoveToAngleCommand(shooter_angle_subsystem));
+    SmartDashboard.putNumber("Precentage", 0);
+    // this.A.whenPressed(new ShooterMoveToAngleCommand(shooter_angle_subsystem));
     this.B.whileHeld(new ShootBallOnPrecentageCommand(shooter));
-  }
+    this.A.whileHeld(new ShooterAngleMoveTestCommand(shooter_angle_subsystem)); 
+   }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
