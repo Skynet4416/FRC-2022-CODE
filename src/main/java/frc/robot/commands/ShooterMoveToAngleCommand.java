@@ -18,7 +18,6 @@ public class ShooterMoveToAngleCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private ShooterAngleSubsystem _angle_moving;
   private double angle;
-  private double increasement = 0.25;
 
   /**
    * Creates a new ExampleCommand.
@@ -44,7 +43,7 @@ public class ShooterMoveToAngleCommand extends CommandBase {
       end(true);
       return;
     }
-    _angle_moving.Set(angle < _angle_moving.GetAngle() ? -1 * Motors.AnglePrecentage : Motors.AnglePrecentage);
+    _angle_moving.Set(angle < _angle_moving.GetLeftAngle() ? -1 * Motors.AnglePrecentage : Motors.AnglePrecentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.`x
@@ -64,6 +63,6 @@ public class ShooterMoveToAngleCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return  (_angle_moving.GetAngle()== angle) || Math.abs((_angle_moving.GetAngle() - angle)) <= Motors.AngleThreashold;
+    return  (_angle_moving.GetLeftAngle()== angle) || Math.abs((_angle_moving.GetLeftAngle() - angle)) <= Motors.AngleThreashold;
   }
 }

@@ -84,25 +84,29 @@ public class ShooterAngleSubsystem extends SubsystemBase {
     public int ToUnits(double angle) {
         return (int) (angle * 4096 / 360);
     }
-
-    public double GetAngle() {
-        System.out.println(ToDeg(left_master.getSelectedSensorPosition()));
+    public double GetLeftRealAngle()
+    {
         return ToDeg(left_master.getSelectedSensorPosition());
+    }
+    public double GetRightRealAngle()
+    {
+        return ToDeg(right_slave.getSelectedSensorPosition());
+    }
+    public double GetLeftAngle() {
+        return ToDeg(left_master.getSelectedSensorPosition());
+    }
+    public double GetRightAngle() {
+        return ToDeg(right_slave.getSelectedSensorPosition());
     }
 
     public void Set(double precentage) {
         left_master.set(ControlMode.PercentOutput, precentage);
     }
 
-    // public double map(double x, double in_min, double in_max, double out_min,
-    // double out_max)
-    // {
-    // return (x*in_min) * (out_max-out_min) / (in_max-in_min) +out_min;
-    // }
     @Override
     public void periodic() {
-        SmartDashboard.putNumber(frc.robot.Constants.Shooter.SmartDashboard.LeftAngle, GetAngle());
-        SmartDashboard.putNumber(frc.robot.Constants.Shooter.SmartDashboard.RightAngle, 180 - GetAngle());
+        SmartDashboard.putNumber(frc.robot.Constants.Shooter.SmartDashboard.LeftAngle, GetLeftAngle());
+        SmartDashboard.putNumber(frc.robot.Constants.Shooter.SmartDashboard.RightAngle, 180 - GetRightAngle());
     }
     public void SetAbs()
     {
