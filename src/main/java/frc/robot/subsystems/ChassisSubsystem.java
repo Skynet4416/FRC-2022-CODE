@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.util.Units;
 
 import edu.wpi.first.wpilibj.SPI.Port;
@@ -22,6 +23,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Globals;
@@ -52,10 +54,10 @@ public class ChassisSubsystem extends SubsystemBase {
 
   private PIDController _left_controller = new PIDController(PID.kP, PID.kI, PID.kD);
   private PIDController _right_controller = new PIDController(PID.kP, PID.kI, PID.kD);
-
+  private TrajectoryConfig _config = new TrajectoryConfig(Odometry.max_velocity,Odometry.max_acceleration);
 
   public ChassisSubsystem () {
-
+    _config.setKinematics(_kinematics);
     _leftMaster.restoreFactoryDefaults();
     _leftSlave.restoreFactoryDefaults();
     _rightMaster.restoreFactoryDefaults();
@@ -167,5 +169,9 @@ public class ChassisSubsystem extends SubsystemBase {
   public DifferentialDriveOdometry getOdometry()
   {
     return m_odometry;
+  }
+  public TrajectoryConfig GetConfig()
+  {
+    return _config;
   }
 }
