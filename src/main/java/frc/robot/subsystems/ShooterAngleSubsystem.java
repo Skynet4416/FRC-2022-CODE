@@ -6,13 +6,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Globals;
-import frc.robot.Constants.Shooter.Motors;
+import frc.robot.Constants.Shooter.Physics.Motors;
 
 public class ShooterAngleSubsystem extends SubsystemBase {
     private TalonSRX left_master = new TalonSRX(Motors.left_master);
@@ -29,7 +26,7 @@ public class ShooterAngleSubsystem extends SubsystemBase {
         left_master.configFactoryDefault();
         right_slave.configFactoryDefault();
         right_slave.follow(left_master);
-        SmartDashboard.putNumber(Constants.Shooter.SmartDashboard.AngleToSet, 0);
+        SmartDashboard.putNumber(Constants.Shooter.Physics.SmartDashboard.AngleToSet, 0);
         right_slave.setInverted(InvertType.FollowMaster);
         initQuadrature(left_master);
     }
@@ -105,8 +102,8 @@ public class ShooterAngleSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber(frc.robot.Constants.Shooter.SmartDashboard.LeftAngle, GetLeftAngle());
-        SmartDashboard.putNumber(frc.robot.Constants.Shooter.SmartDashboard.RightAngle, 180 - GetRightAngle());
+        SmartDashboard.putNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.LeftAngle, GetLeftAngle());
+        SmartDashboard.putNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.RightAngle, 180 - GetRightAngle());
     }
     public void SetAbs()
     {

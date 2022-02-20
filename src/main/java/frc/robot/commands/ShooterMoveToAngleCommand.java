@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.Globals;
-import frc.robot.Constants.Shooter.Motors;
+import frc.robot.Constants.Shooter.Physics.Motors;
 import frc.robot.subsystems.ShooterAngleSubsystem;
 
 import java.time.Instant;
@@ -34,7 +34,7 @@ public class ShooterMoveToAngleCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    angle = (SmartDashboard.getNumber(frc.robot.Constants.Shooter.SmartDashboard.AngleToSet, 0));
+    angle = (SmartDashboard.getNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.AngleToSet, 0));
     // _angle_moving.SetAngle(0);
     // System.out.println(SmartsDashboard.getNumber(frc.robot.Constants.Shooter.SmartDashboard.AngleToSet,
     // 0));

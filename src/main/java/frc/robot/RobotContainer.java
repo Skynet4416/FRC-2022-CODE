@@ -46,7 +46,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 
     // Configure the button bindings

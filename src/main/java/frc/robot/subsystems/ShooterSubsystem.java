@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 
 import frc.robot.Constants.Shooter;
-import frc.robot.Constants.Shooter.Motors;
+import frc.robot.Constants.Shooter.Physics.Motors;
 
 public class ShooterSubsystem extends SubsystemBase {
     private TalonFX _master = new TalonFX(Motors.Kmaster);
@@ -18,29 +18,29 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Precentage", 0);
         _slave.configFactoryDefault();
         _master.configFactoryDefault();
-        _master.config_kD(0, Shooter.PID.kD);
-        _master.config_kP(0, Shooter.PID.kP);
-        _master.config_kI(0, Shooter.PID.kI, 0);
-        _master.config_kF(0, Shooter.PID.kF);
-        _slave.config_kD(0, Shooter.PID.kD);
-        _slave.config_kP(0, Shooter.PID.kP);
-        _slave.config_kI(0, Shooter.PID.kI, 0);
-        _slave.config_kF(0, Shooter.PID.kF);
+        _master.config_kD(0, Shooter.Physics.PID.kD);
+        _master.config_kP(0, Shooter.Physics.PID.kP);
+        _master.config_kI(0, Shooter.Physics.PID.kI, 0);
+        _master.config_kF(0, Shooter.Physics.PID.kF);
+        _slave.config_kD(0, Shooter.Physics.PID.kD);
+        _slave.config_kP(0, Shooter.Physics.PID.kP);
+        _slave.config_kI(0, Shooter.Physics.PID.kI, 0);
+        _slave.config_kF(0, Shooter.Physics.PID.kF);
         _slave.follow(_master);
         _slave.setInverted(InvertType.FollowMaster);
     }
 
     @Override
     public void periodic() {
-        _master.config_kP(0, SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKP, Shooter.PID.kP));
-        _master.config_kI(0, SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKI, Shooter.PID.kI));
-        _master.config_kD(0, SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKD, Shooter.PID.kD));
-        _master.config_kF(0, SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKF, Shooter.PID.kF));
+        _master.config_kP(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP, Shooter.Physics.PID.kP));
+        _master.config_kI(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kI));
+        _master.config_kD(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kD));
+        _master.config_kF(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF, Shooter.Physics.PID.kF));
 
-        _slave.config_kP(0, SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKP, Shooter.PID.kP));
-        _slave.config_kI(0, SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKI, Shooter.PID.kI));
-        _slave.config_kD(0, SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKD, Shooter.PID.kD));
-        _slave.config_kF(0, SmartDashboard.getNumber(Shooter.SmartDashboard.ShooterKF, Shooter.PID.kF));
+        _slave.config_kP(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP, Shooter.Physics.PID.kP));
+        _slave.config_kI(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kI));
+        _slave.config_kD(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kD));
+        _slave.config_kF(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF, Shooter.Physics.PID.kF));
 
         SmartDashboard.putNumber("Shooter Master Velocity (RPM)", _master.getSelectedSensorVelocity() * 600 / 2048);
         SmartDashboard.putNumber("Shooter Master Current", _master.getMotorOutputPercent());
