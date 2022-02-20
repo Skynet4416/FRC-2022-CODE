@@ -144,6 +144,8 @@ public final class Constants {
             public static double shooter_height = 0; // in meter
             public static double threashold_x = 0;// in meter
             public static double threashold_y = 0;// in meter
+            
+            public static final double precentage = 1;
         }
     }
 }
