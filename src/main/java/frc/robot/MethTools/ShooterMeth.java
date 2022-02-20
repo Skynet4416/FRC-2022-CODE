@@ -102,7 +102,7 @@ public class ShooterMeth {
         return arr_of_rpm;
     }
     
-    public static boolean fits_in_hub(double[][] trajectory)
+    public static boolean fits_in_hub(double[][] trajectory, double hub_distance)
     {
         Point lastPoint = new Point();
         Point currentPoint = new Point();
@@ -113,9 +113,9 @@ public class ShooterMeth {
             lastPoint.y = currentPoint.y;
             currentPoint.x = trajectory[i][0];
             currentPoint.y = trajectory[i][1];
-            if (currentPoint.x > Physics.hub_distance + Physics.hub_diameter /2 && currentPoint.y>Physics.hub_height)
+            if (currentPoint.x > hub_distance + Physics.hub_diameter /2 && currentPoint.y>Physics.hub_height)
                 return false;
-            else if (currentPoint.x > Physics.hub_height + Physics.threashold + Physics.diamater && lastPoint.y > (Physics.hub_height + Physics.threashold + Physics.diamater) && currentPoint.x > (Physics.hub_distance - Physics.hub_diameter/2) && currentPoint.x < Physics.hub_distance + Physics.hub_diameter && lastPoint.x > Physics.hub_distance-Physics.hub_diameter/2)
+            else if (currentPoint.x > Physics.hub_height + Physics.threashold + Physics.diamater && lastPoint.y > (Physics.hub_height + Physics.threashold + Physics.diamater) && currentPoint.x > (hub_distance - Physics.hub_diameter/2) && currentPoint.x < hub_distance + Physics.hub_diameter && lastPoint.x > hub_distance-Physics.hub_diameter/2)
             {
                 return false;
             }
@@ -123,7 +123,7 @@ public class ShooterMeth {
         return false;        
 
     }   
-    public static double[] optimize()
+    public static double[] optimize(double hub_distance)
     {
         boolean done = false;
         double rpm = Physics.MAX_RPM *(1-Physics.RPM_presentange_loss);
@@ -137,7 +137,7 @@ public class ShooterMeth {
             boolean prevfit = false;
             while (rpm - Physics.optimisation_RPM_Resolution > 0)
             {
-                if( fits_in_hub(line))
+                if( fits_in_hub(line, hub_distance))
                 {
                     prevfit = true;
                     best_rpm = rpm;
@@ -156,35 +156,5 @@ public class ShooterMeth {
         }
         line = ReturnArrayOfPos(best_rpm, Math.toRadians(best_angle));
         return new double[] {best_rpm,best_angle};
-    }
-
-    public static double binarySearch(double arr[], int first, int last, double key_x, double key_y, double angle)
-            throws Exception { // O(n* log base 2(n)) without the search of
-        int mid = (first + last) / 2;
-        while (first <= last) {
-            double[] max_point = FindMaxHight(arr[mid], angle);
-
-            if (max_point[0] + Physics.threashold_x < key_x || max_point[1] + Physics.threashold_y < key_y) {
-                first = mid + 1;
-            } else if (Math.abs(max_point[0] - key_x) < Physics.threashold_x
-                    && Math.abs(max_point[1] - key_y) < Physics.threashold_y) {
-                return arr[mid];
-            } else {
-                last = mid - 1;
-            }
-            mid = (first + last) / 2;
-        }
-        if (first > last) {
-            throw new Exception("element not found");
-        }
-        return -1;
-    }
-
-    public static double FindVelocityForDistance(double x, double y, double angle) throws Exception {
-        double[] arr = GetArrayOfRPM(Physics.MAX_RPM);
-        double result = binarySearch(arr, 0, arr.length - 1, x, y, angle);
-        // o(n^2 log base 2 (n))
-        return result;
-
     }
 }

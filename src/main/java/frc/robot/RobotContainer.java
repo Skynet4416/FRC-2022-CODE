@@ -9,14 +9,22 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Chassis.DriveByJoy;
 import frc.robot.subsystems.ChassisSubsystem;
+import frc.robot.subsystems.IndexingSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.IndexStuck;
+import frc.robot.commands.IntakeSpinUp;
+import frc.robot.commands.MoveBallsUpToShooter;
+import frc.robot.commands.ShootBallCommand;
 import frc.robot.commands.ShootBallOnPrecentageCommand;
 import frc.robot.commands.ShooterAngleMoveTestCommand;
+import frc.robot.commands.ShooterMoveToAngleCommand;
 import frc.robot.subsystems.ShooterAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -33,18 +41,21 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   // The robot's subsystems and commands are defined here...
   PowerDistribution pdp = new PowerDistribution(0, ModuleType.kCTRE);
-  private final XboxController system_controller = new XboxController(0);
-  private final JoystickButton A = new JoystickButton(system_controller, XboxController.Button.kA.value);
-  private final JoystickButton B = new JoystickButton(system_controller, XboxController.Button.kB.value);
+
+
   private final ShooterSubsystem shooter = new ShooterSubsystem();
   private final ShooterAngleSubsystem shooter_angle_subsystem = new ShooterAngleSubsystem();
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+  private final IndexingSubsystem indexingSubsystem = new IndexingSubsystem();
+
+
   
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-    final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+    
 
     // Configure the button bindings
     configureButtonBindings();
@@ -65,8 +76,11 @@ public class RobotContainer {
   private void configureButtonBindings() {
     SmartDashboard.putNumber("Precentage", 0);
     // this.A.whenPressed(new ShooterMoveToAngleCommand(shooter_angle_subsystem));
-    this.B.whileHeld(new ShootBallOnPrecentageCommand(shooter));
-    this.A.whileHeld(new ShooterAngleMoveTestCommand(shooter_angle_subsystem)); 
+    OI.B.whileHeld(new ShootBallOnPrecentageCommand(shooter));
+    OI.A.whileHeld(new ShooterAngleMoveTestCommand(shooter_angle_subsystem));
+    OI.X.whileHeld(new ParallelCommandGroup(new IntakeSpinUp(intakeSubsystem), new IndexStuck(indexingSubsystem)));
+    OI.Y.whileHeld(new SequentialCommandGroup(new ShooterMoveToAngleCommand(shooter_angle_subsystem), new ShootBallCommand(shooter), new MoveBallsUpToShooter(indexingSubsystem))); // TODO : also need to add turning to the hub
+
    }
 
   /**

@@ -203,6 +203,6 @@ public final class Constants {
             public static double optimisation_RPM_Resolution = 100; // in RPM
         }
 
-        public static final double kIndexingPercent = 0; // needs to be set to real power percentage
+        public static final double kIndexingPercent = 0.5; // needs to be set to real power percentage
     }
 }
