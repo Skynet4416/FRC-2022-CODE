@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
@@ -15,7 +14,6 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ShootBallOnPrecentageCommand;
 import frc.robot.commands.ShooterAngleMoveTestCommand;
-import frc.robot.commands.ShooterMoveToAngleCommand;
 import frc.robot.subsystems.ShooterAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -32,7 +30,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * should be declared here.
  */
 public class RobotContainer {
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   // The robot's subsystems and commands are defined here...
   PowerDistribution pdp = new PowerDistribution(0, ModuleType.kCTRE);

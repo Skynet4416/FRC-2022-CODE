@@ -137,6 +137,7 @@ public final class Constants {
             public static double density_of_air = 1.293;// in kg/m^3
             public static double drag_coefficient = 0.47; // no units
             public static double RPM_presentange_loss = 0.0;
+            public static double optimisation_RPM_Resolution = 100; // in RPM
             public static double circumference = (diamater / 1000) * Math.PI;
             public static double cross_area = Math.PI * Math.pow((diamater / 2) / 1000, 2); // m^2
             public static double drag_thing = (density_of_air * drag_coefficient * cross_area) / 2; // kg/m
@@ -158,6 +159,8 @@ public final class Constants {
                 public static final double kEndDeg = 180;
                 public static final double kStartDeg = 0;
                 public static final double AnglePrecentage = 0;
+
+                
             }
     
             public final class PID {
@@ -183,10 +186,17 @@ public final class Constants {
     }
 
 
-    public final class Indexing {
-        public final class Motors {
+    public static final class Indexing {
+        public static final class Motors {
             public static final int Kmaster = -1;
             public static final int Kslave = -1;
+            public static double threashold_x = 0;//in meter
+            public static double threashold_y = 0;//in meter
+            public static double hub_distance = 0; // in meter
+            public static double hub_diameter = 0; // in meter
+            public static double hub_height = 0; // in meter
+            public static double threashold = 0; // in meter
+            public static double optimisation_RPM_Resolution = 100; // in RPM
         }
 
         public static final double kIndexingPercent = 0; // needs to be set to real power percentage
