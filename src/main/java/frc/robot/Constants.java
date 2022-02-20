@@ -145,6 +145,10 @@ public final class Constants {
             public static double shooter_height = 0; // in meter
             public static double threashold_x = 0;// in meter
             public static double threashold_y = 0;// in meter
+            public static double hub_distance = 0; // in meter
+            public static double hub_diameter = 0; // in meter
+            public static double hub_height = 0; // in meter
+            public static double threashold = 0; // in meter
             
             public static final double precentage = 1;
 

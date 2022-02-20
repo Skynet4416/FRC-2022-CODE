@@ -1,7 +1,5 @@
 package frc.robot.MethTools;
 
-import javax.sound.sampled.Line;
-
 import frc.robot.Constants.Shooter.Physics;
 
 public class ShooterMeth {
@@ -107,17 +105,17 @@ public class ShooterMeth {
     public static boolean fits_in_hub(double[][] trajectory)
     {
         Point lastPoint = new Point();
-        Point currePoint = new Point();
-        boolean prev_fit = false;
+        Point currentPoint = new Point();
+        boolean prevfit = false;
         for(int i = 0; i<trajectory[0].length; i++)
         {
-            lastPoint.x = currePoint.x;
-            lastPoint.y = currePoint.y;
-            currePoint.x = trajectory[i][0];
-            currePoint.y = trajectory[i][1];
-            if (currePoint.x > Physics.hub_distance + Physics.hub_diameter /2 && current_point.y>Physics.hub_height)
+            lastPoint.x = currentPoint.x;
+            lastPoint.y = currentPoint.y;
+            currentPoint.x = trajectory[i][0];
+            currentPoint.y = trajectory[i][1];
+            if (currentPoint.x > Physics.hub_distance + Physics.hub_diameter /2 && currentPoint.y>Physics.hub_height)
                 return false;
-            else if (currePoint.x > Physics.hub_height + Physics.threashold + Physics.diamater && lastPoint.y > (Physics.hub_height + Physics.threashold + Physics.diamater) && currePoint.x > (Physics.hub_distance - Physics.hub_diameter/2) && currePoint.x < Physics.hub_distance + Physics.hub_diameter && lastPoint.x > Physics.hub_distance-Physics.hub_diameter/2)
+            else if (currentPoint.x > Physics.hub_height + Physics.threashold + Physics.diamater && lastPoint.y > (Physics.hub_height + Physics.threashold + Physics.diamater) && currentPoint.x > (Physics.hub_distance - Physics.hub_diameter/2) && currentPoint.x < Physics.hub_distance + Physics.hub_diameter && lastPoint.x > Physics.hub_distance-Physics.hub_diameter/2)
             {
                 return false;
             }
@@ -136,17 +134,17 @@ public class ShooterMeth {
         {
             rpm = best_rpm;
             line = ReturnArrayOfPos(rpm, Math.toRadians(90-angle+45));
-            boolean prevfit = false
+            boolean prevfit = false;
             while (rpm - Physics.optimisation_RPM_Resolution > 0)
             {
                 if( fits_in_hub(line))
                 {
-                    prev_fit = true;
+                    prevfit = true;
                     best_rpm = rpm;
-                    best_angle = (90-angle + 45)
+                    best_angle = (90-angle + 45);
                 }
                 else{
-                    if(prev_fit)
+                    if(prevfit)
                     {
                         rpm = 0;
                     }
