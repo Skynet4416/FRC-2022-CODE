@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -25,6 +28,58 @@ public final class Constants {
             public static final int RIGHT_JOY_PORT = 1;
         }
 
+    }
+
+    public final class Field {
+        public final class Waypoints {
+            public final class BlueAllince {
+                public final class Balls {
+                    public final Pose2d red_hangar = new Pose2d(Units.inchesToMeters(-88.303),
+                            Units.inchesToMeters(124.946), new Rotation2d(0));
+                    public final Pose2d blue_hangar = new Pose2d(Units.inchesToMeters(-121.396),
+                            Units.inchesToMeters(81.643), new Rotation2d(0));
+                    public final Pose2d red_terminal = new Pose2d(Units.inchesToMeters(-146.227),
+                            Units.inchesToMeters(-33.767), new Rotation2d(0));
+                    public final Pose2d blue_terminal = new Pose2d(Units.inchesToMeters(-124.946),
+                            Units.inchesToMeters(-88.303), new Rotation2d(0));
+                    public final Pose2d blue_wall = new Pose2d(Units.inchesToMeters(-25.91),
+                            Units.inchesToMeters(-150.79), new Rotation2d(0));
+                    public final Pose2d red_wall = new Pose2d(Units.inchesToMeters(33.767),
+                            Units.inchesToMeters(-149.767), new Rotation2d(0));
+                    public final Pose2d blue_on_terminal = new Pose2d(Units.inchesToMeters(-282.08),
+                            Units.inchesToMeters(-117.725), new Rotation2d(0));
+                }
+
+                public final Pose2d safe_zone = new Pose2d(Units.inchesToMeters(-191.01), Units.inchesToMeters(53.74),
+                        new Rotation2d(0));
+                public final Pose2d safe_zone_wall = new Pose2d(Units.inchesToMeters(-197.26),
+                        Units.inchesToMeters(150.26), new Rotation2d(0));
+            }
+
+            public final class RedAllince {
+                public final class Balls {
+                    public final Pose2d blue_hangar = new Pose2d(Units.inchesToMeters(-88.303),
+                            Units.inchesToMeters(-124.946), new Rotation2d(0));
+                    public final Pose2d red_hangar = new Pose2d(Units.inchesToMeters(-129.396),
+                            Units.inchesToMeters(-81.643), new Rotation2d(0));
+                    public final Pose2d blue_terminal = new Pose2d(Units.inchesToMeters(149.227),
+                            Units.inchesToMeters(33.767), new Rotation2d(0));
+                    public final Pose2d red_terminal = new Pose2d(Units.inchesToMeters(124.946),
+                            Units.inchesToMeters(88.303), new Rotation2d(0));
+                    public final Pose2d red_wall = new Pose2d(Units.inchesToMeters(25.91), Units.inchesToMeters(150.79),
+                            new Rotation2d(0));
+                    public final Pose2d blue_wall = new Pose2d(Units.inchesToMeters(-33.767),
+                            Units.inchesToMeters(149.767), new Rotation2d(0));
+                    public final Pose2d red_on_terminal = new Pose2d(Units.inchesToMeters(282.08),
+                            Units.inchesToMeters(117.725), new Rotation2d(0));
+                }
+
+                public final Pose2d safe_zone = new Pose2d(Units.inchesToMeters(191.01), Units.inchesToMeters(-53.74),
+                        new Rotation2d(0));
+                public final Pose2d safe_zone_wall = new Pose2d(Units.inchesToMeters(197.26),
+                        Units.inchesToMeters(-150.24), new Rotation2d(0));
+            }
+        }
     }
 
     public class Chassis {
@@ -52,14 +107,17 @@ public final class Constants {
             public static final double START_X = 0;
             public static final double START_Y = 0;
             public static final double START_ANGLE = 0;
-
-            public static final double DISTANCE_OF_ENCODER_COUNT = 0.1524 / 42; // wheel rad / number of encoder counts in a rev (https://www.revrobotics.com/rev-21-1650/)
+            public static final double max_velocity = 0; // m/s
+            public static final double max_acceleration = 0; // m/s^2
+            public static final double DISTANCE_OF_ENCODER_COUNT = 0.1524 / 42; // wheel rad / number of encoder counts
+                                                                                // in a rev
+                                                                                // (https://www.revrobotics.com/rev-21-1650/)
         }
 
         public class Physical {
             public static final double Robot_Width = 27.14; // in Inches
             public static final double ratio = 10.75;
-            public static final double wheel_size = 6; // inches
+            public static final double wheel_radius = 3; // inches
         }
     }
 
@@ -69,6 +127,7 @@ public final class Constants {
             public static final double PowerPercentage = 0;
         }
     }
+
     public static class Shooter {
         public static class Physics {
             public static final int MAX_RPM = 6000;
