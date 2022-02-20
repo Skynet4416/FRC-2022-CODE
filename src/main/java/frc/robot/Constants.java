@@ -146,6 +146,49 @@ public final class Constants {
             public static double threashold_y = 0;// in meter
             
             public static final double precentage = 1;
+
+            public final class Motors {
+                public static final int Kmaster = 50;
+                public static final int Kslave = 51;
+                public static final int left_master =  12;
+                public static final int right_slave = -1;
+                public static final double Min = 20;
+                public static final double Max = 70;
+                public static final double AngleThreashold = 0.25;
+                public static final double kEndDeg = 180;
+                public static final double kStartDeg = 0;
+                public static final double AnglePrecentage = 0;
+            }
+    
+            public final class PID {
+                // needs to be set to real values
+                public static final double kP = 0;
+                public static final double kI = 0;
+                public static final double kD = 0;
+                public static final double kF = 0;
+                public static final double MAX_RPM = 0;
+            }
+    
+            public final class SmartDashboard {
+                public static final String RightAngle = "Right Angle";
+                public static final String LeftAngle = "Left Angle";
+                public static final String AngleToSet = "Angle To Set";
+    
+                public static final String ShooterKP = "Shooter kP";
+                public static final String ShooterKI = "Shooter kI";
+                public static final String ShooterKD = "Shooter kD";
+                public static final String ShooterKF = "Shooter kF";
+            }
         }
+    }
+
+
+    public final class Indexing {
+        public final class Motors {
+            public static final int Kmaster = -1;
+            public static final int Kslave = -1;
+        }
+
+        public static final double kIndexingPercent = 0; // needs to be set to real power percentage
     }
 }

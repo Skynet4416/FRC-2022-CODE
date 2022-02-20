@@ -4,30 +4,30 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class IntakeSpinUp extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final IntakeSubsystem m_subsystem;
+public class ShootBallCommand extends CommandBase {
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+  private ShooterSubsystem _shooter;
+  private double RPM;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeSpinUp(IntakeSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public ShootBallCommand(ShooterSubsystem shooter) {
+    _shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_subsystem.setIntake(Constants.Intake.Motors.PowerPercentage);
+    _shooter.SetRPM(RPM);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,7 +38,7 @@ public class IntakeSpinUp extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.setIntake(0);
+    _shooter.SetRPM(0);
   }
 
   // Returns true when the command should end.
