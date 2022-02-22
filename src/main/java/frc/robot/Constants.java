@@ -20,6 +20,7 @@ public final class Constants {
             public static final double elevator_precentage = 1;
             public static final int KangleMotor = -1;
             public static final double angle_move_precentage = 1;
+            public static final long miliseconds_for_hook = 500;
             public static final int Khook = -1;
         }
         public class Encoders
