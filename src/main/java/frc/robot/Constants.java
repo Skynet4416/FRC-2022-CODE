@@ -28,5 +28,9 @@ public final class Constants {
             public static final int ChannelA  = -1;
             public static final int ChannelB = -1;
         }
+        public class SmartDashboard
+        {
+            public static final String CurrentAngle = "Climbing Current Angle";
+        }
     }
 }
