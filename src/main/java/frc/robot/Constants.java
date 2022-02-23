@@ -205,4 +205,25 @@ public final class Constants {
 
         public static final double kIndexingPercent = 0.5; // needs to be set to real power percentage
     }
+    
+    public class Elevator{
+        public class Motors{
+            public static final int Kmaster = -1;
+            public static final int Kslave = -1;
+            public static final double elevator_precentage = 1;
+            public static final int KangleMotor = -1;
+            public static final double angle_move_precentage = 1;
+            public static final long miliseconds_for_hook = 500;
+            public static final int Khook = -1;
+        }
+        public class Encoders
+        {
+            public static final int ChannelA  = -1;
+            public static final int ChannelB = -1;
+        }
+        public class SmartDashboard
+        {
+            public static final String CurrentAngle = "Climbing Current Angle";
+        }
+    }
 }
