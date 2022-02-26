@@ -74,7 +74,7 @@ public class ShooterMeth {
     }
     public static double RPMToVelcoity(double rpm)
     {
-        double rps  = (rpm*(1-Physics.RPM_presentange_loss))/60;
+        double rps  = (rpm)/60;
         double circumference = (Physics.diamater/1000)*Math.PI;
         double velocity = rps * circumference;
         return velocity;
@@ -108,18 +108,17 @@ public class ShooterMeth {
     {
         Point lastPoint = new Point();
         Point currePoint = new Point();
-        boolean prev_fit = false;
         for(int i = 0; i<trajectory[0].length; i++)
         {
             lastPoint.x = currePoint.x;
             lastPoint.y = currePoint.y;
             currePoint.x = trajectory[i][0];
             currePoint.y = trajectory[i][1];
-            if (currePoint.x > Physics.hub_distance + Physics.hub_diameter /2 && current_point.y>Physics.hub_height)
+            if (currePoint.x > Physics.hub_distance + Physics.hub_diameter /2)
                 return false;
             else if (currePoint.x > Physics.hub_height + Physics.threashold + Physics.diamater && lastPoint.y > (Physics.hub_height + Physics.threashold + Physics.diamater) && currePoint.x > (Physics.hub_distance - Physics.hub_diameter/2) && currePoint.x < Physics.hub_distance + Physics.hub_diameter && lastPoint.x > Physics.hub_distance-Physics.hub_diameter/2)
             {
-                return false;
+                return true;
             }
         }
         return false;        
@@ -127,34 +126,26 @@ public class ShooterMeth {
     }   
     public static double[] optimize()
     {
-        boolean done = false;
         double rpm = Physics.MAX_RPM *(1-Physics.RPM_presentange_loss);
         double best_rpm = Physics.MAX_RPM*(1-Physics.RPM_presentange_loss);
-        double best_angle = -1;
-        double[][] line;
+        double best_angle = 45;
+        double[][] line = ReturnArrayOfPos(RPMToVelcoity(best_rpm), Math.toRadians(90-best_angle + 45));
         for(int angle = 45; angle<90; angle++)
         {
-            rpm = best_rpm;
-            line = ReturnArrayOfPos(rpm, Math.toRadians(90-angle+45));
-            boolean prevfit = false
-            while (rpm - Physics.optimisation_RPM_Resolution > 0)
+            if (rpm<=0)
             {
-                if( fits_in_hub(line))
-                {
-                    prev_fit = true;
-                    best_rpm = rpm;
-                    best_angle = (90-angle + 45)
-                }
-                else{
-                    if(prev_fit)
-                    {
-                        rpm = 0;
-                    }
-                }
-                rpm -= Physics.optimisation_RPM_Resolution;
-                line = ReturnArrayOfPos(rpm, Math.toRadians(90-angle+45));
+                rpm = best_rpm;
             }
-            line = ReturnArrayOfPos(best_rpm, Math.toRadians(best_angle));
+            while(!fits_in_hub(line))
+            {
+                best_rpm = rpm;
+                best_angle = 90-angle+45;
+            }
+            if (fits_in_hub(line))
+            {
+                best_rpm = rpm;
+                best_angle = 90-angle+45;
+            }
         }
         line = ReturnArrayOfPos(best_rpm, Math.toRadians(best_angle));
         return new double[] {best_rpm,best_angle};
