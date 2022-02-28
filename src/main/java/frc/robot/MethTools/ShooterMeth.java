@@ -106,6 +106,7 @@ public class ShooterMeth {
     
     public static boolean fits_in_hub(double[][] trajectory)
     {
+        boolean over_thresh = false;
         Point lastPoint = new Point();
         Point currePoint = new Point();
         for(int i = 0; i<trajectory[0].length; i++)
@@ -116,9 +117,13 @@ public class ShooterMeth {
             currePoint.y = trajectory[i][1];
             if (currePoint.x > Physics.hub_distance + Physics.hub_diameter /2)
                 return false;
-            else if (currePoint.x > Physics.hub_height + Physics.threashold + Physics.diamater && lastPoint.y > (Physics.hub_height + Physics.threashold + Physics.diamater) && currePoint.x > (Physics.hub_distance - Physics.hub_diameter/2) && currePoint.x < Physics.hub_distance + Physics.hub_diameter && lastPoint.x > Physics.hub_distance-Physics.hub_diameter/2)
+            else if (currePoint.x >= Physics.hub_distance - (Physics.hub_diameter/2) && currePoint.x <= Physics.hub_distance + (Physics.hub_diameter /2) && currePoint.y<= Physics.hub_height && (lastPoint.y >= Physics.hub_height) && over_thresh)
             {
                 return true;
+            }
+            else if (!over_thresh && (currePoint.y <= Physics.hub_height+Physics.diamater+Physics.threashold_y) && (lastPoint.y >= Physics.hub_height+Physics.diamater+Physics.threashold_y) && currePoint.x >= Physics.hub_distance-Physics.hub_diameter/2)
+            {
+                over_thresh =true;
             }
         }
         return false;        
@@ -136,10 +141,13 @@ public class ShooterMeth {
             {
                 rpm = best_rpm;
             }
-            while(!fits_in_hub(line))
+            boolean fits = false;
+            while(!fits && rpm > 0)
             {
-                best_rpm = rpm;
-                best_angle = 90-angle+45;
+               rpm -= Physics.optimisation_RPM_Resolution;
+               line = ReturnArrayOfPos(rpm, Math.toRadians(90-angle +45));
+               fits = fits_in_hub(line);
+                
             }
             if (fits_in_hub(line))
             {
