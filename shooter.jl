@@ -101,6 +101,8 @@ function fits_in_hub(line)
     pX = 0
     pY = 0
 
+    overThresh = false
+
     for i in collect(1:length(line[1]))
         lpY = pY
         lpX = pX
@@ -109,8 +111,10 @@ function fits_in_hub(line)
         pY = line[2][i]
         if pX > Hub_Distance + Hub_Diameter/2
             return false
-        elseif(pY < Hub_Height+Ball_Diameter+Ball_Threshold && lpY > (Hub_Height+Ball_Diameter+Ball_Threshold) && pX > ((Hub_Distance-Hub_Diameter/2)) && pX < Hub_Distance + Hub_Diameter/2 && lpX > Hub_Distance-Hub_Diameter/2)
+        elseif (pX >= Hub_Distance-(Hub_Diameter/2)) && (pX <= Hub_Distance+(Hub_Diameter/2)) && (pY <= Hub_Height) && (lpY >= Hub_Height) && overThresh
             return true
+        elseif !overThresh && (pY <= Hub_Height+Ball_Diameter+Ball_Threshold) && (lpY >= Hub_Height+Ball_Diameter+Ball_Threshold) && pX >= Hub_Distance-Hub_Diameter/2
+            overThresh = true
         end
     end
     return false
@@ -135,9 +139,12 @@ function optimize()
         if(rpm <= 0)
             rpm = bestRPM
         end
-        while(!fits_in_hub(line) && rpm > 0)
+        
+        fitInHub = false
+        while(!fitInHub && rpm > 0)
             rpm -= optimisation_RPM_Resolution
             line = line_angle_rpm(rpm,(90-angle)+45)
+            fitInHub = fits_in_hub(line)
         end
         if fits_in_hub(line)
             bestRPM = rpm
@@ -152,8 +159,16 @@ function optimize()
         # ONLY FOR PLOTTING, NOT REQUIRED FOR OPTIMISATION
 
     end
+    
+    # ONLY FOR PLOTTING, NOT REQUIRED FOR OPTIMISATION
     line = line_angle_rpm(bestRPM,bestAngle)
-    plot!(line[1],line[2],label=string(bestRPM," ",bestAngle),linecolor=:cyan)
+    if fits_in_hub(line)
+        plot!(line[1],line[2],label=string(bestRPM," ",bestAngle),linecolor=:cyan)
+    else
+        plot!(line[1],line[2],label=string(bestRPM," ",bestAngle),linecolor=:red)
+    end
+    # ONLY FOR PLOTTING, NOT REQUIRED FOR OPTIMISATION
+
 end
 
 # plot!(x.(time_points),y.(time_points),label="No Drag",linecolor=:red); # no friction
