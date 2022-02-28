@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
@@ -82,7 +84,26 @@ public final class Constants {
         }
     }
 
-    public class Chassis {
+    public static class Chassis {
+        public static final class SmartDashboard{
+
+            public final static String TurnAnglePointAx = null;
+            public  final static String TurnAnglePointAy = null;
+            public  final static String TurnAnglePointBx = null;
+            public  final static String TurnAnglePointBy = null;
+            public  final static String TurnAnglePointCx = null;
+            public  final static String TurnAnglePointCy = null;
+            public  final static String TurnAnglePointDx = null;
+            public  final static String TurnAnglePointDy = null;
+            public  final static String TurnAngleThreshold = null;
+            public final static String kP = null;            
+        }
+        public static class TurnToAngleConstants{
+
+            public static final double kP =0;
+            public static final  double kPmin = 0;
+            public static final double kPmax = 0;
+        }
         public class Motors {
             public static final int kMasterRight = -1;
             public static final int kSlaveRight = -1;
