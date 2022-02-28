@@ -1,5 +1,6 @@
 package frc.robot.MethTools;
 
+
 import frc.robot.Constants.Shooter.Physics;
 
 public class ShooterMeth {
@@ -72,7 +73,7 @@ public class ShooterMeth {
     }
     public static double RPMToVelcoity(double rpm)
     {
-        double rps  = (rpm*(1-Physics.RPM_presentange_loss))/60;
+        double rps  = (rpm)/60;
         double circumference = (Physics.diamater/1000)*Math.PI;
         double velocity = rps * circumference;
         return velocity;
@@ -102,59 +103,88 @@ public class ShooterMeth {
         return arr_of_rpm;
     }
     
-    public static boolean fits_in_hub(double[][] trajectory, double hub_distance)
+    public static boolean fits_in_hub(double[][] trajectory)
     {
+        boolean over_thresh = false;
         Point lastPoint = new Point();
-        Point currentPoint = new Point();
-        boolean prevfit = false;
+        Point currePoint = new Point();
         for(int i = 0; i<trajectory[0].length; i++)
         {
-            lastPoint.x = currentPoint.x;
-            lastPoint.y = currentPoint.y;
-            currentPoint.x = trajectory[i][0];
-            currentPoint.y = trajectory[i][1];
-            if (currentPoint.x > hub_distance + Physics.hub_diameter /2 && currentPoint.y>Physics.hub_height)
+            lastPoint.x = currePoint.x;
+            lastPoint.y = currePoint.y;
+            currePoint.x = trajectory[i][0];
+            currePoint.y = trajectory[i][1];
+            if (currePoint.x > Physics.hub_distance + Physics.hub_diameter /2)
                 return false;
-            else if (currentPoint.x > Physics.hub_height + Physics.threashold + Physics.diamater && lastPoint.y > (Physics.hub_height + Physics.threashold + Physics.diamater) && currentPoint.x > (hub_distance - Physics.hub_diameter/2) && currentPoint.x < hub_distance + Physics.hub_diameter && lastPoint.x > hub_distance-Physics.hub_diameter/2)
+            else if (currePoint.x >= Physics.hub_distance - (Physics.hub_diameter/2) && currePoint.x <= Physics.hub_distance + (Physics.hub_diameter /2) && currePoint.y<= Physics.hub_height && (lastPoint.y >= Physics.hub_height) && over_thresh)
             {
-                return false;
+                return true;
+            }
+            else if (!over_thresh && (currePoint.y <= Physics.hub_height+Physics.diamater+Physics.threashold_y) && (lastPoint.y >= Physics.hub_height+Physics.diamater+Physics.threashold_y) && currePoint.x >= Physics.hub_distance-Physics.hub_diameter/2)
+            {
+                over_thresh =true;
             }
         }
         return false;        
 
     }   
-    public static double[] optimize(double hub_distance)
+    public static double[] optimize()
     {
-        boolean done = false;
         double rpm = Physics.MAX_RPM *(1-Physics.RPM_presentange_loss);
         double best_rpm = Physics.MAX_RPM*(1-Physics.RPM_presentange_loss);
-        double best_angle = -1;
-        double[][] line;
+        double best_angle = 45;
+        double[][] line = ReturnArrayOfPos(RPMToVelcoity(best_rpm), Math.toRadians(90-best_angle + 45));
         for(int angle = 45; angle<90; angle++)
         {
-            rpm = best_rpm;
-            line = ReturnArrayOfPos(rpm, Math.toRadians(90-angle+45));
-            boolean prevfit = false;
-            while (rpm - Physics.optimisation_RPM_Resolution > 0)
+            if (rpm<=0)
             {
-                if( fits_in_hub(line, hub_distance))
-                {
-                    prevfit = true;
-                    best_rpm = rpm;
-                    best_angle = (90-angle + 45);
-                }
-                else{
-                    if(prevfit)
-                    {
-                        rpm = 0;
-                    }
-                }
-                rpm -= Physics.optimisation_RPM_Resolution;
-                line = ReturnArrayOfPos(rpm, Math.toRadians(90-angle+45));
+                rpm = best_rpm;
             }
-            line = ReturnArrayOfPos(best_rpm, Math.toRadians(best_angle));
+            boolean fits = false;
+            while(!fits && rpm > 0)
+            {
+               rpm -= Physics.optimisation_RPM_Resolution;
+               line = ReturnArrayOfPos(rpm, Math.toRadians(90-angle +45));
+               fits = fits_in_hub(line);
+                
+            }
+            if (fits_in_hub(line))
+            {
+                best_rpm = rpm;
+                best_angle = 90-angle+45;
+            }
         }
         line = ReturnArrayOfPos(best_rpm, Math.toRadians(best_angle));
         return new double[] {best_rpm,best_angle};
+    }
+
+    public static double binarySearch(double arr[], int first, int last, double key_x, double key_y, double angle)
+            throws Exception { // O(n* log base 2(n)) without the search of
+        int mid = (first + last) / 2;
+        while (first <= last) {
+            double[] max_point = FindMaxHight(arr[mid], angle);
+
+            if (max_point[0] + Physics.threashold_x < key_x || max_point[1] + Physics.threashold_y < key_y) {
+                first = mid + 1;
+            } else if (Math.abs(max_point[0] - key_x) < Physics.threashold_x
+                    && Math.abs(max_point[1] - key_y) < Physics.threashold_y) {
+                return arr[mid];
+            } else {
+                last = mid - 1;
+            }
+            mid = (first + last) / 2;
+        }
+        if (first > last) {
+            throw new Exception("element not found");
+        }
+        return -1;
+    }
+
+    public static double FindVelocityForDistance(double x, double y, double angle) throws Exception {
+        double[] arr = GetArrayOfRPM(Physics.MAX_RPM);
+        double result = binarySearch(arr, 0, arr.length - 1, x, y, angle);
+        // o(n^2 log base 2 (n))
+        return result;
+
     }
 }
