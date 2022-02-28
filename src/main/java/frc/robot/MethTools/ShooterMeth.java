@@ -1,6 +1,5 @@
 package frc.robot.MethTools;
 
-import javax.sound.sampled.Line;
 
 import frc.robot.Constants.Shooter.Physics;
 
