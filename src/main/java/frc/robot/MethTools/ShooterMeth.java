@@ -1,6 +1,7 @@
 package frc.robot.MethTools;
 
 
+import frc.robot.Globals;
 import frc.robot.Constants.Shooter.Physics;
 
 public class ShooterMeth {
@@ -114,13 +115,13 @@ public class ShooterMeth {
             lastPoint.y = currePoint.y;
             currePoint.x = trajectory[i][0];
             currePoint.y = trajectory[i][1];
-            if (currePoint.x > Physics.hub_distance + Physics.hub_diameter /2)
+            if (currePoint.x > Globals.hub_distance + Physics.hub_diameter /2)
                 return false;
-            else if (currePoint.x >= Physics.hub_distance - (Physics.hub_diameter/2) && currePoint.x <= Physics.hub_distance + (Physics.hub_diameter /2) && currePoint.y<= Physics.hub_height && (lastPoint.y >= Physics.hub_height) && over_thresh)
+            else if (currePoint.x >= Globals.hub_distance - (Physics.hub_diameter/2) && currePoint.x <=  Globals.hub_distance + (Physics.hub_diameter /2) && currePoint.y<= Physics.hub_height && (lastPoint.y >= Physics.hub_height) && over_thresh)
             {
                 return true;
             }
-            else if (!over_thresh && (currePoint.y <= Physics.hub_height+Physics.diamater+Physics.threashold_y) && (lastPoint.y >= Physics.hub_height+Physics.diamater+Physics.threashold_y) && currePoint.x >= Physics.hub_distance-Physics.hub_diameter/2)
+            else if (!over_thresh && (currePoint.y <= Physics.hub_height+Physics.diamater+Physics.threashold_y) && (lastPoint.y >= Physics.hub_height+Physics.diamater+Physics.threashold_y) && currePoint.x >=  Globals.hub_distance-Physics.hub_diameter/2)
             {
                 over_thresh =true;
             }

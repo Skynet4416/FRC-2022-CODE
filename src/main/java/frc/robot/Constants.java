@@ -155,7 +155,8 @@ public final class Constants {
             public static double diamater = 101.6; // in mm
             public static double gravitational_acceleration_near_earth = 9.83; // in m/s^2
             public static double ball_mass = 0.267619498; // in kg
-            public static double density_of_air = 1.293;// in kg/m^3
+            public static double temperture = 25; // in celsius
+            public static double density_of_air = -0.0046 * temperture + 1.2978;// in kg/m^3
             public static double drag_coefficient = 0.47; // no units
             public static double RPM_presentange_loss = 0.0;
             public static double optimisation_RPM_Resolution = 100; // in RPM
@@ -166,11 +167,8 @@ public final class Constants {
             public static double shooter_height = 0; // in meter
             public static double threashold_x = 0;// in meter
             public static double threashold_y = 0;// in meter
-            public static double hub_distance = 0; // in meter
-            public static double hub_diameter = 0; // in meter
-            public static double hub_height = 0; // in meter
-            public static double threashold = 0; // in meter
-            
+            public static double hub_diameter = Units.inchesToMeters(25); // in meter
+            public static double hub_height = Units.inchesToMeters(104.02); // in meter            
             public static final double precentage = 1;
 
             public final class Motors {
@@ -215,13 +213,6 @@ public final class Constants {
         public static final class Motors {
             public static final int Kmaster = -1;
             public static final int Kslave = -1;
-            public static double threashold_x = 0;//in meter
-            public static double threashold_y = 0;//in meter
-            public static double hub_distance = 0; // in meter
-            public static double hub_diameter = 0; // in meter
-            public static double hub_height = 0; // in meter
-            public static double threashold = 0; // in meter
-            public static double optimisation_RPM_Resolution = 100; // in RPM
         }
 
         public static final double kIndexingPercent = 0.5; // needs to be set to real power percentage
