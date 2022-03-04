@@ -105,10 +105,10 @@ public final class Constants {
             public static final double kPmax = 0;
         }
         public class Motors {
-            public static final int kMasterRight = -1;
-            public static final int kSlaveRight = -1;
-            public static final int kMasterLeft = -1;
-            public static final int kSlaveLeft = -1;
+            public static final int kMasterRight = 10;
+            public static final int kSlaveRight = 11;
+            public static final int kMasterLeft = 12;
+            public static final int kSlaveLeft = 13;
         }
 
         public class FeedForward {
@@ -144,7 +144,7 @@ public final class Constants {
 
     public class Intake {
         public class Motors {
-            public static final int kIntake = -1;
+            public static final int kIntake = 20;
             public static final double PowerPercentage = 0;
         }
     }
@@ -174,8 +174,8 @@ public final class Constants {
             public final class Motors {
                 public static final int Kmaster = 50;
                 public static final int Kslave = 51;
-                public static final int left_master =  12;
-                public static final int right_slave = -1;
+                public static final int left_master =  41;
+                public static final int right_slave = 40;
                 public static final double Min = 20;
                 public static final double Max = 70;
                 public static final double AngleThreashold = 0.25;
@@ -211,8 +211,17 @@ public final class Constants {
 
     public static final class Indexing {
         public static final class Motors {
-            public static final int Kmaster = -1;
-            public static final int Kslave = -1;
+
+
+            public static final int Kmaster = 30;
+            public static final int Kslave = 31;
+            public static double threashold_x = 0;//in meter
+            public static double threashold_y = 0;//in meter
+            public static double hub_distance = 0; // in meter
+            public static double hub_diameter = 0; // in meter
+            public static double hub_height = 0; // in meter
+            public static double threashold = 0; // in meter
+            public static double optimisation_RPM_Resolution = 100; // in RPM
         }
 
         public static final double kIndexingPercent = 0.5; // needs to be set to real power percentage
@@ -220,13 +229,13 @@ public final class Constants {
     
     public class Elevator{
         public class Motors{
-            public static final int Kmaster = -1;
-            public static final int Kslave = -1;
+            public static final int Kmaster = 60;
+            public static final int Kslave = 61;
             public static final double elevator_precentage = 1;
-            public static final int KangleMotor = -1;
+            public static final int KangleMotor = 62;
             public static final double angle_move_precentage = 1;
             public static final long miliseconds_for_hook = 500;
-            public static final int Khook = -1;
+            public static final int Khook = 63;
         }
         public class Angle{
             public class PID{
