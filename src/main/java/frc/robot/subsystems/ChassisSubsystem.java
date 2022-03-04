@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkMax;
@@ -40,6 +41,7 @@ public class ChassisSubsystem extends SubsystemBase {
   private CANSparkMax _rightSlave = new CANSparkMax(Constants.Chassis.Motors.kSlaveRight,MotorType.kBrushless);
   private CANSparkMax _leftMaster = new CANSparkMax(Constants.Chassis.Motors.kMasterLeft,MotorType.kBrushless);
   private CANSparkMax _leftSlave = new CANSparkMax(Constants.Chassis.Motors.kSlaveLeft,MotorType.kBrushless);
+  
   private MotorControllerGroup m_left; 
   private MotorControllerGroup m_right; 
   private final Field2d m_field = new Field2d();
@@ -69,8 +71,10 @@ public class ChassisSubsystem extends SubsystemBase {
     _leftSlave.setIdleMode(IdleMode.kCoast);
     _rightMaster.setIdleMode(IdleMode.kCoast);
     _rightSlave.setIdleMode(IdleMode.kCoast);
+
     _rightSlave.setInverted(true);
     _leftSlave.setInverted(true);
+
     m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
   
     m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
@@ -150,6 +154,7 @@ public class ChassisSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Rotation 2D", getHeading().getDegrees());
     m_field.setRobotPose(m_odometry.getPoseMeters());
     
+
   }
   
   
