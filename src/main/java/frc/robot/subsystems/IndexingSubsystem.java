@@ -19,7 +19,7 @@ public class IndexingSubsystem extends SubsystemBase {
     public void setPercentage(double percent) {
         // sets the percentage of power for the motors
         _master.set(ControlMode.PercentOutput, percent);
-        _master.set(ControlMode.PercentOutput, -percent);
+        _slave.set(ControlMode.PercentOutput, -percent);
     }
 
     public void setPercentageSame(double percent){

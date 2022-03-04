@@ -1,14 +1,14 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Elevator;
-import frc.robot.Constants.Elevator.Encoders;
+import frc.robot.Constants.Elevator.Angle;
 
 public class AngleAimingSubsystem extends SubsystemBase{
     private TalonSRX _anglemotor = new TalonSRX(Constants.Elevator.Motors.KangleMotor);
@@ -16,10 +16,26 @@ public class AngleAimingSubsystem extends SubsystemBase{
     public AngleAimingSubsystem()
     {
         _anglemotor.configFactoryDefault();
+        _anglemotor.config_kD(0, Angle.PID.Kd);
+        _anglemotor.config_kI(0,  Angle.PID.Ki);
+        _anglemotor.config_kP(0,  Angle.PID.Kp);
+        _anglemotor.config_kF(0,  Angle.PID.Kf);
+        _anglemotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        SmartDashboard.putNumber("Elevator Angle KP", Angle.PID.Kp);
+        SmartDashboard.putNumber("Elevator Angle KD", Angle.PID.Kd);
+        SmartDashboard.putNumber("Elevator Angle KI", Angle.PID.Ki);
+        SmartDashboard.putNumber("Elevator Angle KF", Angle.PID.Kf);
+
+
     }
-    public void set(double precnetege,boolean reversed){
+    public void setManual(double precnetege,boolean reversed){
         _anglemotor.set(ControlMode.PercentOutput, reversed?-1* precnetege:precnetege);
     }
+    public void setPosition(double angle)
+    {
+        _anglemotor.set(ControlMode.Position, angle/360 * 4096);
+    }
+
     public void initQuadrature() {
         /* get the absolute pulse width position */
         int pulseWidth = _anglemotor.getSensorCollection().getPulseWidthPosition();
@@ -47,6 +63,11 @@ public class AngleAimingSubsystem extends SubsystemBase{
     public void periodic()
     {
         SmartDashboard.putNumber(Elevator.SmartDashboard.CurrentAngle, get_angle());
+        _anglemotor.config_kD(0,SmartDashboard.getNumber("Elevator Angle KD", 0));
+        _anglemotor.config_kP(0,SmartDashboard.getNumber("Elevator Angle KP", 0));
+        _anglemotor.config_kI(0,SmartDashboard.getNumber("Elevator Angle KI", 0));
+        _anglemotor.config_kF(0,SmartDashboard.getNumber("Elevator Angle KF", 0));
+
     }
 
 

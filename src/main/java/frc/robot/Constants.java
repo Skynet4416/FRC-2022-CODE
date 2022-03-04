@@ -228,6 +228,22 @@ public final class Constants {
             public static final long miliseconds_for_hook = 500;
             public static final int Khook = -1;
         }
+        public class Angle{
+            public class PID{
+                public static final double Kf = 0;
+                public static final double Kd = 0;
+                public static final double Kp = 0;
+                public static final double Ki = 0;
+            }
+        }
+        public class UpAndDown{
+            public class PID{
+                public static final double Kf = 0;
+                public static final double Kd = 0;
+                public static final double Kp = 0;
+                public static final double Ki = 0;
+            }
+        }
         public class Encoders
         {
             public static final int ChannelA  = -1;
@@ -235,6 +251,12 @@ public final class Constants {
         }
         public class SmartDashboard
         {
+            public class UpAndDown{
+                public static final String Kd = "Elevator Kd";
+                public static final String Kf = "Elevator Kf";
+                public static final String Ki = "Elevator Ki";
+                public static final String Kp = "Elevator Kp";
+            }
             public static final String CurrentAngle = "Climbing Current Angle";
         }
     }

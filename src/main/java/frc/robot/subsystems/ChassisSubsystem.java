@@ -17,6 +17,8 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -40,7 +42,7 @@ public class ChassisSubsystem extends SubsystemBase {
   private CANSparkMax _leftSlave = new CANSparkMax(Constants.Chassis.Motors.kSlaveLeft,MotorType.kBrushless);
   private MotorControllerGroup m_left; 
   private MotorControllerGroup m_right; 
-
+  private final Field2d m_field = new Field2d();
   private RelativeEncoder _rightEncoder = _rightMaster.getEncoder();
   private RelativeEncoder _leftEncoder = _leftMaster.getEncoder();
   private Pose2d _pose = Globals.startPos;
@@ -56,6 +58,7 @@ public class ChassisSubsystem extends SubsystemBase {
   private TrajectoryConfig _config = new TrajectoryConfig(Odometry.max_velocity,Odometry.max_acceleration);
 
   public ChassisSubsystem () {
+    SmartDashboard.putData("Field", m_field);
     _config.setKinematics(_kinematics);
     _leftMaster.restoreFactoryDefaults();
     _leftSlave.restoreFactoryDefaults();
@@ -66,8 +69,10 @@ public class ChassisSubsystem extends SubsystemBase {
     _leftSlave.setIdleMode(IdleMode.kCoast);
     _rightMaster.setIdleMode(IdleMode.kCoast);
     _rightSlave.setIdleMode(IdleMode.kCoast);
-
+    _rightSlave.setInverted(true);
+    _leftSlave.setInverted(true);
     m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
+  
     m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
     
     m_drive = new DifferentialDrive(m_left, m_right);
@@ -137,7 +142,14 @@ public class ChassisSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    _pose = m_odometry.update(m_gyro.getHeading(), getLeftDistance(), getRightDistance());    
+    _pose = m_odometry.update(m_gyro.getHeading(), getLeftDistance(), getRightDistance()); 
+    SmartDashboard.putNumber("Left Velocity", getSpeeds().leftMetersPerSecond);
+    SmartDashboard.putNumber("Right Velocity", getSpeeds().rightMetersPerSecond);
+    SmartDashboard.putNumber("X Position", m_odometry.getPoseMeters().getX());
+    SmartDashboard.putNumber("Y Position", m_odometry.getPoseMeters().getY());
+    SmartDashboard.putNumber("Rotation 2D", getHeading().getDegrees());
+    m_field.setRobotPose(m_odometry.getPoseMeters());
+    
   }
   
   
