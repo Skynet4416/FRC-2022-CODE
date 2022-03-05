@@ -13,7 +13,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.util.Units;
-
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -51,6 +52,7 @@ public class ChassisSubsystem extends SubsystemBase {
   private DifferentialDrive m_drive; 
 
   private NavxGyro m_gyro = new NavxGyro(Port.kMXP);
+  public AHRS ahrs;
   private DifferentialDriveKinematics _kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Physical.Robot_Width));
   private DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_gyro.getHeading(),_pose);
   private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(FeedForward.kS, FeedForward.kv,FeedForward.ka);
@@ -80,6 +82,8 @@ public class ChassisSubsystem extends SubsystemBase {
     m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
     
     m_drive = new DifferentialDrive(m_left, m_right);
+    ahrs = m_gyro.ahrs;
+
 
   
   }
@@ -156,15 +160,14 @@ public class ChassisSubsystem extends SubsystemBase {
     
 
   }
-  
-  
-  
+  public Pose2d getPosition()
+  {
+    return m_odometry.getPoseMeters();
+  }
   public SimpleMotorFeedforward getFeedforward()
   {
     return feedforward;
   } 
-  
-  
   
   public PIDController getLeftController()
   {
@@ -189,5 +192,10 @@ public class ChassisSubsystem extends SubsystemBase {
   public TrajectoryConfig GetConfig()
   {
     return _config;
+  }
+  public void setVoltage(double left, double right)
+  {
+    m_left.setVoltage(left);
+    m_right.setVoltage(right);
   }
 }

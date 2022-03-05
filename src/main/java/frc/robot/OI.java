@@ -12,9 +12,12 @@ public class OI {
         return leftJoy.getTrigger() || rightJoy.getTrigger();
     }
 
-    public static XboxController system_controller = new XboxController(0);
+    public static XboxController system_controller = new XboxController(2);
     public static JoystickButton A = new JoystickButton(system_controller, XboxController.Button.kA.value);
     public static JoystickButton B = new JoystickButton(system_controller, XboxController.Button.kB.value);
     public static JoystickButton X = new JoystickButton(system_controller, XboxController.Button.kX.value);
     public static JoystickButton Y = new JoystickButton(system_controller, XboxController.Button.kY.value);
+    public static JoystickButton right_trigger = new JoystickButton(system_controller, XboxController.Button.kRightBumper.value);
+    public static JoystickButton left_trigger = new JoystickButton(system_controller, XboxController.Button.kLeftBumper.value);
+
 }

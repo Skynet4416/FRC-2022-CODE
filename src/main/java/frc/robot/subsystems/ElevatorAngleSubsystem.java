@@ -10,10 +10,10 @@ import frc.robot.Constants;
 import frc.robot.Constants.Elevator;
 import frc.robot.Constants.Elevator.Angle;
 
-public class AngleAimingSubsystem extends SubsystemBase{
+public class ElevatorAngleSubsystem extends SubsystemBase{
     private TalonSRX _anglemotor = new TalonSRX(Constants.Elevator.Motors.KangleMotor);
     private int kTimeoutMs = 30;
-    public AngleAimingSubsystem()
+    public ElevatorAngleSubsystem()
     {
         _anglemotor.configFactoryDefault();
         _anglemotor.config_kD(0, Angle.PID.Kd);

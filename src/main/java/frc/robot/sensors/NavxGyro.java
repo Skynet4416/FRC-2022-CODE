@@ -5,7 +5,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.SPI.Port;
 
 public class NavxGyro {
-    private AHRS ahrs;
+    public AHRS ahrs;
 
     public NavxGyro(Port port){
         ahrs = new AHRS(port);
