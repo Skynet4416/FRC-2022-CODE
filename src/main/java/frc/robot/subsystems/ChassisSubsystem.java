@@ -13,7 +13,6 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -44,6 +43,7 @@ public class ChassisSubsystem extends SubsystemBase {
   private CANSparkMax _leftSlave = new CANSparkMax(Constants.Chassis.Motors.kSlaveLeft,MotorType.kBrushless);
   
   private MotorControllerGroup m_left; 
+
   private MotorControllerGroup m_right; 
   private final Field2d m_field = new Field2d();
   private RelativeEncoder _rightEncoder = _rightMaster.getEncoder();
@@ -69,18 +69,18 @@ public class ChassisSubsystem extends SubsystemBase {
     _rightMaster.restoreFactoryDefaults();
     _rightSlave.restoreFactoryDefaults();
 
+
     _leftMaster.setIdleMode(IdleMode.kCoast);
     _leftSlave.setIdleMode(IdleMode.kCoast);
     _rightMaster.setIdleMode(IdleMode.kCoast);
     _rightSlave.setIdleMode(IdleMode.kCoast);
 
-    _rightSlave.setInverted(true);
-    _leftSlave.setInverted(true);
+
 
     m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
   
     m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
-    
+    m_left.setInverted(true);
     m_drive = new DifferentialDrive(m_left, m_right);
     ahrs = m_gyro.ahrs;
 

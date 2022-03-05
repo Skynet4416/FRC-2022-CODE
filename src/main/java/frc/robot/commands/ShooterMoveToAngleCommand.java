@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.Globals;
+import frc.robot.Constants.Shooter;
 import frc.robot.Constants.Shooter.Physics.Motors;
 import frc.robot.subsystems.ShooterAngleSubsystem;
 
@@ -43,13 +44,12 @@ public class ShooterMoveToAngleCommand extends CommandBase {
       end(true);
       return;
     }
-    _angle_moving.Set(angle < _angle_moving.GetLeftAngle() ? -1 * Motors.AnglePrecentage : Motors.AnglePrecentage);
+    _angle_moving.Set(Shooter.Physics.left_home-angle < _angle_moving.GetLeftAngle() ? -1 * Motors.AnglePrecentage : Motors.AnglePrecentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.`x
   @Override
   public void execute() {
-    _angle_moving.SetAbs();
   }
 
   // System.out.println(_angle_moving.encoder.get());
@@ -63,6 +63,6 @@ public class ShooterMoveToAngleCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return  (_angle_moving.GetLeftAngle()== angle) || Math.abs((_angle_moving.GetLeftAngle() - angle)) <= Motors.AngleThreashold;
+    return  (_angle_moving.GetLeftAngle()== Shooter.Physics.left_home - angle) || Math.abs((_angle_moving.GetLeftAngle() - (Shooter.Physics.left_home - angle))) <= Motors.AngleThreashold;
   }
 }

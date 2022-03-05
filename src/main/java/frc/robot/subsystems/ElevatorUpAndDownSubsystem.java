@@ -19,10 +19,9 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
         _master.configFactoryDefault();
         _slave.configFactoryDefault();
         _slave.follow(_master);
-        _slave.setInverted(true);
         _master.configFactoryDefault();
         _slave.configFactoryDefault();
-
+        
         _master.config_kD(0, PID.Kd);
         _master.config_kF(0, PID.Kf);
         _master.config_kI(0, PID.Ki);
@@ -67,3 +66,4 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
     }
 
 }
+

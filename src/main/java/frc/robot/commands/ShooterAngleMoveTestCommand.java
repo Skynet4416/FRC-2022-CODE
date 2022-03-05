@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.Shooter;
 import frc.robot.subsystems.ShooterAngleSubsystem;
 
 public class ShooterAngleMoveTestCommand extends CommandBase {
@@ -13,9 +14,8 @@ public class ShooterAngleMoveTestCommand extends CommandBase {
     @Override
     public void initialize()
     {
-        angle_moving.Set(SmartDashboard.getNumber("Precentage", 0));
         angle_moving.SetAbs();
-
+        angle_moving.Set(SmartDashboard.getNumber("Precentage", 0));
     }
 
     @Override
@@ -26,5 +26,10 @@ public class ShooterAngleMoveTestCommand extends CommandBase {
     public void end(boolean inter)
     {
         angle_moving.Set(0);
+    }
+    @Override
+    public boolean isFinished()
+    {
+return false;
     }
 }

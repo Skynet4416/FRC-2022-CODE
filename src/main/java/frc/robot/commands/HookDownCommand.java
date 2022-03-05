@@ -14,7 +14,7 @@ public class HookDownCommand extends CommandBase{
       // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    _hook.set(Motors.elevator_precentage,true);
+    _hook.set(Motors.hook_precentage,true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -30,6 +30,6 @@ public class HookDownCommand extends CommandBase{
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return _hook.IsClosed();
   }
 }

@@ -18,6 +18,11 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public IntakeSubsystem() {
       _intake = new VictorSPX(Motors.kIntake);
+      _intake.configFactoryDefault();
+      for(int i =2;i < 21; i++)
+      {
+          _intake.setStatusFramePeriod(i, 1000);
+      }
     }
 
     /**

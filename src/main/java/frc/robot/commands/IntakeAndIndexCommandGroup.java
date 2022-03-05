@@ -7,6 +7,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class IntakeAndIndexCommandGroup extends ParallelCommandGroup{
     public IntakeAndIndexCommandGroup(IntakeSubsystem intake, IndexingSubsystem indexing)
     {
-        addCommands(new IntakeSpinUp(intake),new IndexStuck(indexing));
+        addCommands(new IntakeSpinUp(intake,false),new IndexStuck(indexing));
     }
 }

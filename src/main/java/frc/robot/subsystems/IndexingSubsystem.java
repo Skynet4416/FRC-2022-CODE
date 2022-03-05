@@ -14,6 +14,11 @@ public class IndexingSubsystem extends SubsystemBase {
     public IndexingSubsystem() {
         _master.configFactoryDefault();
         _slave.configFactoryDefault();
+        for(int i =2;i < 21; i++)
+        {
+            _master.setStatusFramePeriod(i, 1000);
+            _slave.setStatusFramePeriod(i, 1000);
+        }
     }
 
     public void setPercentage(double percent) {
@@ -24,6 +29,6 @@ public class IndexingSubsystem extends SubsystemBase {
 
     public void setPercentageSame(double percent){
         _master.set(ControlMode.PercentOutput, percent);
-        _master.set(ControlMode.PercentOutput, percent);
+        _slave.set(ControlMode.PercentOutput, percent);
     }
 }

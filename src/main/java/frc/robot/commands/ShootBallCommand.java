@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -27,7 +28,7 @@ public class ShootBallCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    _shooter.SetRPM(RPM);
+    _shooter.setPercentage(SmartDashboard.getNumber("Shooter Precnetage", 0));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,7 +39,7 @@ public class ShootBallCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    _shooter.SetRPM(0);
+    _shooter.setPercentage(0);
   }
 
   // Returns true when the command should end.

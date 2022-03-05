@@ -12,7 +12,6 @@ import frc.robot.Constants.Elevator.Angle;
 
 public class ElevatorAngleSubsystem extends SubsystemBase{
     private TalonSRX _anglemotor = new TalonSRX(Constants.Elevator.Motors.KangleMotor);
-    private int kTimeoutMs = 30;
     public ElevatorAngleSubsystem()
     {
         _anglemotor.configFactoryDefault();
@@ -26,24 +25,15 @@ public class ElevatorAngleSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("Elevator Angle KI", Angle.PID.Ki);
         SmartDashboard.putNumber("Elevator Angle KF", Angle.PID.Kf);
 
-
     }
     public void setManual(double precnetege,boolean reversed){
         _anglemotor.set(ControlMode.PercentOutput, reversed?-1* precnetege:precnetege);
     }
     public void setPosition(double angle)
     {
-        _anglemotor.set(ControlMode.Position, angle/360 * 4096);
+        _anglemotor.set(ControlMode.Position, (angle* 4096)/46.6/360);
     }
 
-    public void initQuadrature() {
-        /* get the absolute pulse width position */
-        int pulseWidth = _anglemotor.getSensorCollection().getPulseWidthPosition();
-        pulseWidth = pulseWidth & 0xFFF;
-
-        /* Update Quadrature position */
-        _anglemotor.getSensorCollection().setQuadraturePosition(pulseWidth, kTimeoutMs);
-    }
     public double ToDeg(double units) {
         double deg = units * 360.0 / 4096.0;
 
@@ -56,7 +46,6 @@ public class ElevatorAngleSubsystem extends SubsystemBase{
     }
     public double get_angle()
     {
-        initQuadrature();
         return ToDeg(_anglemotor.getSelectedSensorPosition());
     }
     @Override

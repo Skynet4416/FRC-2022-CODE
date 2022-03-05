@@ -13,14 +13,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class IndexCommand extends CommandBase {
   private final IndexingSubsystem m_subsystem;
-
+  private boolean reversed;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IndexCommand(IndexingSubsystem subsystem) {
+  public IndexCommand(IndexingSubsystem subsystem,boolean inversed){
     m_subsystem = subsystem;
+    this.reversed = inversed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -28,7 +29,7 @@ public class IndexCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_subsystem.setPercentage(Indexing.kIndexingPercent);
+      m_subsystem.setPercentage(reversed? -Indexing.kIndexingPercent: Indexing.kIndexingPercent);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -12,14 +12,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class IntakeSpinUp extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_subsystem;
+  private boolean reversed;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeSpinUp(IntakeSubsystem subsystem) {
+  public IntakeSpinUp(IntakeSubsystem subsystem,boolean reversed) {
     m_subsystem = subsystem;
+    this.reversed = reversed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -27,7 +29,7 @@ public class IntakeSpinUp extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_subsystem.setIntake(Constants.Intake.Motors.PowerPercentage);
+      m_subsystem.setIntake(reversed?-Constants.Intake.Motors.PowerPercentage:Constants.Intake.Motors.PowerPercentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

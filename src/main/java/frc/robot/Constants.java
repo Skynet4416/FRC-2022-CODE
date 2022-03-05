@@ -87,16 +87,16 @@ public final class Constants {
     public static class Chassis {
         public static final class SmartDashboard{
 
-            public final static String TurnAnglePointAx = null;
-            public  final static String TurnAnglePointAy = null;
-            public  final static String TurnAnglePointBx = null;
-            public  final static String TurnAnglePointBy = null;
-            public  final static String TurnAnglePointCx = null;
-            public  final static String TurnAnglePointCy = null;
-            public  final static String TurnAnglePointDx = null;
-            public  final static String TurnAnglePointDy = null;
-            public  final static String TurnAngleThreshold = null;
-            public final static String kP = null;            
+            public final static String TurnAnglePointAx = "Turn Angle Point Ax";
+            public  final static String TurnAnglePointAy = "Turn Angle Point Ay";
+            public  final static String TurnAnglePointBx = "Turn Angle Point Bx";
+            public  final static String TurnAnglePointBy = "Turn Angle Point By";
+            public  final static String TurnAnglePointCx = "Turn Angle Point Cx";
+            public  final static String TurnAnglePointCy = "Turn Angle Point Cy";
+            public  final static String TurnAnglePointDx = "Turn Angle Point Dx";
+            public  final static String TurnAnglePointDy = "Turn Angle Point Dy";
+            public  final static String TurnAngleThreshold = "Turn Angle Theshold";
+            public final static String kP = "Turn Angle KP";            
         }
         public static class TurnToAngleConstants{
 
@@ -145,7 +145,7 @@ public final class Constants {
     public class Intake {
         public class Motors {
             public static final int kIntake = 20;
-            public static final double PowerPercentage = 0;
+            public static final double PowerPercentage = 1;
         }
     }
 
@@ -185,6 +185,8 @@ public final class Constants {
 
                 
             }
+            public static final double left_home = 326;
+            public static final double right_home = 166.8;
     
             public final class PID {
                 // needs to be set to real values
@@ -211,31 +213,24 @@ public final class Constants {
 
     public static final class Indexing {
         public static final class Motors {
-
-
             public static final int Kmaster = 30;
             public static final int Kslave = 31;
-            public static double threashold_x = 0;//in meter
-            public static double threashold_y = 0;//in meter
-            public static double hub_distance = 0; // in meter
-            public static double hub_diameter = 0; // in meter
-            public static double hub_height = 0; // in meter
-            public static double threashold = 0; // in meter
-            public static double optimisation_RPM_Resolution = 100; // in RPM
         }
 
-        public static final double kIndexingPercent = 0.5; // needs to be set to real power percentage
+        public static final double kIndexingPercent = 1; // needs to be set to real power percentage
     }
     
     public class Elevator{
         public class Motors{
-            public static final int Kmaster = 60;
-            public static final int Kslave = 61;
-            public static final double elevator_precentage = 1;
-            public static final int KangleMotor = 62;
+
+            public static final int Kmaster = 4;
+            public static final int Kslave = 5;
+            public static final double elevator_precentage = 0.4;
+            public static final int KangleMotor = 6;
             public static final double angle_move_precentage = 1;
-            public static final long miliseconds_for_hook = 500;
-            public static final int Khook = 63;
+            public static final int Khook = 7;
+            public static final double hook_precentage = 0.2;
+            
         }
         public class Angle{
             public class PID{
