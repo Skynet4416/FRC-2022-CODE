@@ -39,7 +39,7 @@ public class DriveByJoy extends CommandBase {
     @Override
     public void execute() {
         if (Globals.joyControlEnbaled){
-            double left = this.m_left.getAsDouble();
+            double left = -this.m_left.getAsDouble();
             left = Math.abs(left) > Constants.Inputs.joysticks.MIN_POWER ? left : 0;
             
             double right = this.m_right.getAsDouble();
