@@ -44,7 +44,8 @@ public class ShooterMoveToAngleCommand extends CommandBase {
       end(true);
       return;
     }
-    _angle_moving.Set(Shooter.Physics.left_home-angle < _angle_moving.GetLeftAngle() ? -1 * Motors.AnglePrecentage : Motors.AnglePrecentage);
+    _angle_moving.setLeftAngle(angle);
+    _angle_moving.setRightAngle(angle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.`x
@@ -57,12 +58,12 @@ public class ShooterMoveToAngleCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     System.out.println("Command Ended");
-    _angle_moving.Set(0);
+    _angle_moving.setPrecnetage(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return  (_angle_moving.GetLeftAngle()== Shooter.Physics.left_home - angle) || Math.abs((_angle_moving.GetLeftAngle() - (Shooter.Physics.left_home - angle))) <= Motors.AngleThreashold;
+    return  (_angle_moving.getLeftAngle()== angle) || Math.abs((_angle_moving.getLeftAngle() -angle)) <= Motors.AngleThreashold;
   }
 }

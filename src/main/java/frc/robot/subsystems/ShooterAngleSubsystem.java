@@ -3,119 +3,111 @@ package frc.robot.subsystems;
 import java.time.Instant;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.Chassis.Physical;
+import frc.robot.Constants.Elevator.Angle.PID;
+import frc.robot.Constants.Shooter.Physics;
 import frc.robot.Constants.Shooter.Physics.Motors;
+import frc.robot.Constants.Shooter.Physics.PIDAngle;
 
 public class ShooterAngleSubsystem extends SubsystemBase {
     private TalonSRX left_master = new TalonSRX(Motors.left_master);
     private TalonSRX right_slave = new TalonSRX(Motors.right_slave);
     public Instant start_time;
     private final boolean kDiscontinuityPresent = false;
-    private final int kBookEnd_0 = ToUnits(Motors.kStartDeg);
-    private final int kBookEnd_1 = ToUnits(Motors.kEndDeg);
     // private double time_to_finish = 1000; // in milliseconds
     public double start_angle;
-    private int kTimeoutMs = 30;
 
     public ShooterAngleSubsystem() {
         left_master.configFactoryDefault();
         right_slave.configFactoryDefault();
+        right_slave.follow(left_master);
+        right_slave.setInverted(InvertType.FollowMaster);
+        left_master.setNeutralMode(NeutralMode.Brake);
+        right_slave.setNeutralMode(NeutralMode.Brake);
         SmartDashboard.putNumber(Constants.Shooter.Physics.SmartDashboard.AngleToSet, 0);
-        initQuadrature(left_master);
-        initQuadrature(right_slave);;
+        left_master.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        right_slave.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        left_master.config_kD(0,PIDAngle.kD);
+        left_master.config_kP(0,PIDAngle.kP);
+        left_master.config_kF(0,PIDAngle.kF);
+        left_master.config_kI(0,PIDAngle.kI);
+
+        right_slave.config_kD(0,PIDAngle.kD);
+        right_slave.config_kP(0,PIDAngle.kP);
+        right_slave.config_kF(0,PIDAngle.kF);
+        right_slave.config_kI(0,PIDAngle.kI);
+        
+        SmartDashboard.putNumber("Shooter Angle KP",PIDAngle.kP);
+        SmartDashboard.putNumber("Shooter Angle KI",PIDAngle.kI);
+        SmartDashboard.putNumber("Shooter Angle KD",PIDAngle.kD);
+        SmartDashboard.putNumber("Shooter Angle KF",PIDAngle.kF);
+
+
     }
-
-    public void initQuadrature(TalonSRX talon) {
-        /* get the absolute pulse width position */
-        int pulseWidth = talon.getSensorCollection().getPulseWidthPosition();
-
-        /**
-         * If there is a discontinuity in our measured range, subtract one half
-         * rotation to remove it
-         */
-        if (kDiscontinuityPresent) {
-
-            /* Calculate the center */
-            int newCenter;
-            newCenter = (kBookEnd_0 + kBookEnd_1) / 2;
-            newCenter &= 0xFFF;
-
-            /**
-             * Apply the offset so the discontinuity is in the unused portion of
-             * the sensor
-             */
-            pulseWidth -= newCenter;
-        }
-
-        /**
-         * Mask out the bottom 12 bits to normalize to [0,4095],
-         * or in other words, to stay within [0,360) degrees
-         */
-        pulseWidth = pulseWidth & 0xFFF;
-
-        /* Update Quadrature position */
-        talon.getSensorCollection().setQuadraturePosition(pulseWidth, kTimeoutMs);
+    public double ToDeg(double units)
+    {
+        return (double)units/4096;
     }
-
-    /**
-     * @param units CTRE mag encoder sensor units
-     * @return degrees rounded to tenths.
-     */
-    public double ToDeg(double units) {
-        double deg = units * 360.0 / 4096.0;
-
-        /* truncate to 0.1 res */
-        deg *= 10;
-        deg = (int) deg;
-        deg /= 10;
-
-        return deg;
+    
+    public double ToUnits(double angle) {
+        return (double) (angle * 4096 / 360);
     }
-
-    public int ToUnits(double angle) {
-        return (int) (angle * 4096 / 360);
-    }
-    public double GetLeftRealAngle()
+    public double getLeftAbsuluteAngle()
     {
         return ToDeg(left_master.getSelectedSensorPosition());
     }
-    public double GetRightRealAngle()
+    public double getRightAbsuluteAngle()
     {
         return ToDeg(right_slave.getSelectedSensorPosition());
     }
-    public double GetLeftAngle() {
-        return ToDeg(left_master.getSelectedSensorPosition());
-    }
-    public double GetRightAngle() {
-        return ToDeg(right_slave.getSelectedSensorPosition());
-    }
-
-    public void Set(double precentage) {
-        left_master.set(ControlMode.PercentOutput, precentage);
-        right_slave.set(ControlMode.PercentOutput, -precentage);
-
-    }
-    public void SetLeft(double precentage)
+    public double getLeftAngle()
     {
-     left_master.set(ControlMode.PercentOutput,precentage);   
+        return Physics.left_home - getLeftAbsuluteAngle();
     }
-    public void SetRight(double precentage)
+    public double getRightAngle()
     {
-     right_slave.set(ControlMode.PercentOutput,precentage);   
+        return getRightAbsuluteAngle()-Physics.right_home;
+    }
+    public void setLeftAngle(double angle_to_set)
+    {
+        left_master.set(ControlMode.Position, ToUnits(Physics.left_home + angle_to_set));
+    }
+    public void setRightAngle(double angle_to_set)
+    {
+        right_slave.set(ControlMode.Position, ToUnits(Physics.right_home + angle_to_set));
+    }
+    public void setPrecnetage(double left)
+    {
+        left_master.set(ControlMode.PercentOutput, left);
+    }
+    public void setAngle(double angle_to_set)
+    {
+        left_master.set(ControlMode.Position,ToUnits(angle_to_set + Physics.left_home));
     }
     @Override
     public void periodic() {
-        SmartDashboard.putNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.LeftAngle, GetLeftAngle());
-        SmartDashboard.putNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.RightAngle, GetRightAngle());
+        SmartDashboard.putNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.LeftAbsuluteAngle, getLeftAbsuluteAngle());
+        SmartDashboard.putNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.RighAbsulureAngle, getRightAbsuluteAngle());
+        SmartDashboard.putNumber(Physics.SmartDashboard.LeftAngle, getLeftAngle());
+        SmartDashboard.putNumber(Physics.SmartDashboard.RightAngle, getRightAngle());
+        left_master.config_kD(0,SmartDashboard.getNumber("Shooter Angle KD", 0));
+        left_master.config_kI(0,SmartDashboard.getNumber("Shooter Angle KI", 0));
+        left_master.config_kP(0,SmartDashboard.getNumber("Shooter Angle KP", 0));
+        left_master.config_kF(0,SmartDashboard.getNumber("Shooter Angle KF", 0));
+
+        right_slave.config_kD(0,SmartDashboard.getNumber("Shooter Angle KD", 0));
+        right_slave.config_kI(0,SmartDashboard.getNumber("Shooter Angle KI", 0));
+        right_slave.config_kP(0,SmartDashboard.getNumber("Shooter Angle KP", 0));
+        right_slave.config_kF(0,SmartDashboard.getNumber("Shooter Angle KF", 0));
+
     }
-    public void SetAbs()
-    {
-        initQuadrature(left_master);
-        initQuadrature(right_slave);
-    }
+
 }

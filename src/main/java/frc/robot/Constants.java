@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -179,15 +180,19 @@ public final class Constants {
                 public static final double Min = 20;
                 public static final double Max = 70;
                 public static final double AngleThreashold = 0.25;
-                public static final double kEndDeg = 180;
-                public static final double kStartDeg = 0;
                 public static final double AnglePrecentage = 0;
-
-                
             }
-            public static final double left_home = 326;
-            public static final double right_home = 166.8;
-    
+            public static final double left_home = 326; //needs to be adjested
+            public static final double right_home = 166.8; // needs to be adjested 
+            public static final boolean left_moving_towords_ = false;
+            public static final boolean right_moving_towords_ = false;
+
+            public final class PIDAngle{
+                public static final double kP = 0;
+                public static final double kI = 0;
+                public static final double kD = 0;
+                public static final double kF = 0;
+            }
             public final class PID {
                 // needs to be set to real values
                 public static final double kP = 0;
@@ -198,10 +203,11 @@ public final class Constants {
             }
     
             public final class SmartDashboard {
-                public static final String RightAngle = "Right Angle";
-                public static final String LeftAngle = "Left Angle";
+                public static final String RighAbsulureAngle = "Right Absulute Angle";
+                public static final String LeftAbsuluteAngle = "Left Absulute Angle";
                 public static final String AngleToSet = "Angle To Set";
-    
+                public static final String LeftAngle = "Left Angle";
+                public static final String RightAngle = "Right Angle";
                 public static final String ShooterKP = "Shooter kP";
                 public static final String ShooterKI = "Shooter kI";
                 public static final String ShooterKD = "Shooter kD";
