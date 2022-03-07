@@ -19,5 +19,5 @@ public class OI {
     public static JoystickButton Y = new JoystickButton(system_controller, XboxController.Button.kY.value);
     public static JoystickButton right_trigger = new JoystickButton(system_controller, XboxController.Button.kRightBumper.value);
     public static JoystickButton left_trigger = new JoystickButton(system_controller, XboxController.Button.kLeftBumper.value);
-
+    
 }
