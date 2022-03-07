@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.Arrays;
 import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.trajectory.Trajectory;
@@ -74,7 +75,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     BooleanSupplier triggeror = () -> OI.leftJoy.getTrigger() || OI.rightJoy.getTrigger();
-    chassisSubsystem.setDefaultCommand(new DriveByJoy(chassisSubsystem, OI.leftJoy::getY, OI.rightJoy::getY, triggeror));
+    DoubleSupplier throttle = () -> OI.rightJoy.getThrottle();
+    chassisSubsystem.setDefaultCommand(new DriveByJoy(chassisSubsystem, OI.leftJoy::getY, OI.rightJoy::getY, triggeror, throttle));
     // configure OI
     // OI.A.whileHeld(new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem));
     // OI.left_trigger.whileHeld(new IndexCommand(indexingSubsystem, false));

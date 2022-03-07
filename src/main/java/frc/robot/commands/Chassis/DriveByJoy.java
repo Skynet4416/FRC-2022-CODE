@@ -16,6 +16,7 @@ public class DriveByJoy extends CommandBase {
     private DoubleSupplier m_left;
     private DoubleSupplier m_right;
     private BooleanSupplier m_straight;
+    private DoubleSupplier m_limit;
 
     /**
      * Creates a new DriveByJoy command.
@@ -24,12 +25,13 @@ public class DriveByJoy extends CommandBase {
      * @param left    Supplier for left motor output.
      * @param right   Supplier for right motor output.
      */
-    public DriveByJoy(ChassisSubsystem chassis, DoubleSupplier left, DoubleSupplier right, BooleanSupplier straight) {
+    public DriveByJoy(ChassisSubsystem chassis, DoubleSupplier left, DoubleSupplier right, BooleanSupplier straight, DoubleSupplier limit) {
         this.addRequirements(chassis);
         this.m_chassis = chassis;
         this.m_left = left;
         this.m_right = right;
         this.m_straight = straight;
+        this.m_limit = limit;
     }
 
     @Override
@@ -39,11 +41,16 @@ public class DriveByJoy extends CommandBase {
     @Override
     public void execute() {
         if (Globals.joyControlEnbaled){
-            double left = -this.m_left.getAsDouble();
+            double left = this.m_left.getAsDouble();
             left = Math.abs(left) > Constants.Inputs.joysticks.MIN_POWER ? left : 0;
             
             double right = this.m_right.getAsDouble();
             right = Math.abs(right) > Constants.Inputs.joysticks.MIN_POWER ? right : 0;
+
+            double limiter = this.m_limit.getAsDouble();
+
+            left *= limiter;
+            right *= limiter;
 
             if(m_straight.getAsBoolean()){
                 double avg = (left + right) / 2;
@@ -51,7 +58,7 @@ public class DriveByJoy extends CommandBase {
                 right = avg;
             }
     
-            this.m_chassis.set(left, right);
+            this.m_chassis.set(-left, right);
 
         }
 
