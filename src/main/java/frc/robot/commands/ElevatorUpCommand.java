@@ -14,7 +14,7 @@ public class ElevatorUpCommand extends CommandBase{
       // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      _elevator.setPreccentage(Motors.hook_precentage);
+      _elevator.setPreccentage(Motors.elevator_precentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
