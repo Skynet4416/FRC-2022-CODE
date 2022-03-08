@@ -3,14 +3,14 @@ theme(:dark)
 
 Motor = "FALCON"        # in name
 RPM = 6380              # in RPM
-Diameter = 101.6         # in mm
+Diameter = 101.6        # in mm
 Angle_D = 45            # in degrees
 Gravity = 9.81          # in m/s^2
 Resolution = 0.1        # in ms
-Air_Density = 1.293  # in kg/m^3
+Air_Density = 1.293     # in kg/m^3
 Drag_Coefficient = 0.47 # no units
 Mass = 0.267619498      # in kg
-RPM_Lost = 0.50         # in %
+RPM_Lost = 0.2          # in %
 Optimisation_Angle_Resolution = 1 # in degrees
 optimisation_RPM_Resolution = 100 # in RPM
 
@@ -18,7 +18,7 @@ Ball_Diameter = 0.2413    # in m
 Ball_Threshold = 0.0508   # in m
 
 Hub_Height = 2.64       # in m
-Hub_Distance = 7.5      # in m
+Hub_Distance = 8      # in m
 Hub_Diameter = 1.22     # in m
 
 #--/ CALCULATED /--#
@@ -111,7 +111,7 @@ function fits_in_hub(line)
         pY = line[2][i]
         if pX > Hub_Distance + Hub_Diameter/2
             return false
-        elseif (pX >= Hub_Distance-(Hub_Diameter/2)) && (pX <= Hub_Distance+(Hub_Diameter/2)) && (pY <= Hub_Height) && (lpY >= Hub_Height) && overThresh
+        elseif (pX >= Hub_Distance-(Hub_Diameter/2)+Ball_Diameter) && (pX <= Hub_Distance+(Hub_Diameter/2)-Ball_Diameter) && (pY <= Hub_Height) && (lpY >= Hub_Height) && overThresh
             return true
         elseif !overThresh && (pY <= Hub_Height+Ball_Diameter+Ball_Threshold) && (lpY >= Hub_Height+Ball_Diameter+Ball_Threshold) && pX >= Hub_Distance-Hub_Diameter/2
             overThresh = true
@@ -157,7 +157,6 @@ function optimize()
             plot!(line[1],line[2],label="",linecolor=:blue)
         end
         # ONLY FOR PLOTTING, NOT REQUIRED FOR OPTIMISATION
-
     end
     
     # ONLY FOR PLOTTING, NOT REQUIRED FOR OPTIMISATION
@@ -168,10 +167,11 @@ function optimize()
         plot!(line[1],line[2],label=string(bestRPM," ",bestAngle),linecolor=:red)
     end
     # ONLY FOR PLOTTING, NOT REQUIRED FOR OPTIMISATION
-
+    println(string(bestRPM," >>>>= ",bestAngle))
 end
 
 # plot!(x.(time_points),y.(time_points),label="No Drag",linecolor=:red); # no friction
+println("Started!")
 optimize()
 
 hline!( [Hub_Height+Ball_Diameter+Ball_Threshold],label="Minimum Entry Height",linecolor=:red) # JUST TO CLEAR PLOT
