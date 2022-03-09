@@ -42,6 +42,10 @@ public class ShooterSubsystem extends SubsystemBase {
         _master.config_kI(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kI));
         _master.config_kD(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kD));
         _master.config_kF(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF, Shooter.Physics.PID.kF));
+        // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP, Shooter.Physics.PID.kP));
+        // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kP));
+        // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kP));
+        // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF, Shooter.Physics.PID.kP));
 
         _slave.config_kP(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP, Shooter.Physics.PID.kP));
         _slave.config_kI(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kI));
@@ -59,7 +63,9 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void SetRPM(double RPM) {
+        System.out.println(RPM);
         _master.set(ControlMode.Velocity, RPM);
+        _slave.set(ControlMode.Velocity, RPM);
     }
 
     public TalonFX GetMaster() {
@@ -71,7 +77,6 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void setPercentage(double precentege) {
-
         _master.set(ControlMode.PercentOutput, precentege);
         _slave.set(ControlMode.PercentOutput, precentege);
     }

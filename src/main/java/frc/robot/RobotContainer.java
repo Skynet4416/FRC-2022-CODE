@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.Shooter;
 import frc.robot.Constants.Field.Waypoints;
 import frc.robot.commands.ElevatorByDistance;
 import frc.robot.commands.ElevatorDownCommand;
@@ -30,6 +31,7 @@ import frc.robot.commands.HookUpCommand;
 import frc.robot.commands.IndexCommand;
 import frc.robot.commands.IntakeAndIndexCommandGroup;
 import frc.robot.commands.IntakeSpinUp;
+import frc.robot.commands.ShootBallCommand;
 import frc.robot.commands.ShootBallOnPrecentageCommand;
 import frc.robot.commands.ShooterAngleMoveLeftCommand;
 import frc.robot.commands.ShooterAngleMoveRightCommand;
@@ -84,13 +86,16 @@ public class RobotContainer {
     // configure OI
     OI.A.whileHeld(new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem));
     // OI.left_trigger.whileHeld(new IndexCommand(indexingSubsystem, false));
-    // OI.right_trigger.whileHeld(new ShootBallOnPrecentageCommand(shooterSubsystem));
-    OI.Y.whenHeld(new ShooterMoveToAngleCommand(shooterAngleSubsystem));
-    OI.B.whenHeld(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.5));
-    OI.X.whileHeld(new ParallelCommandGroup(new IndexCommand(indexingSubsystem, true), new IntakeSpinUp(intakeSubsystem,true)));
-    OI.right_trigger.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
-    OI.left_trigger.whileHeld(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
-
+    OI.X.whileHeld(new IndexCommand(indexingSubsystem, false));
+    // OI.X.whileHeld(new ShootBallOnPrecentageCommand(shooterSubsystem));
+    OI.Y.whileHeld(new ShooterMoveToAngleCommand(shooterAngleSubsystem));
+    // OI.B.whenHeld(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.5));
+    // OI.X.whileHeld(new ParallelCommandGroup(new IndexCommand(indexingSubsystem, true), new IntakeSpinUp(intakeSubsystem,true)));
+    // OI.right_trigger.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
+    // OI.right_bumper.whenPressed(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.5));
+    // OI.left_bumper.whenPressed(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
+    // OI.Y.whileHeld(new IntakeSpinUp(intakeSubsystem, true));
+    OI.B.whileHeld(new ShootBallCommand(shooterSubsystem));
 
     // OI.A.whenHeld(new HookDownCommand(hookUpSubsystem));
     // OI.Y.whenHeld(new HookUpCommand(hookUpSubsystem));
@@ -108,7 +113,10 @@ public class RobotContainer {
     SmartDashboard.putNumber(Constants.Chassis.SmartDashboard.TurnAnglePointBy, 0.5);
     SmartDashboard.putNumber(Constants.Chassis.SmartDashboard.TurnAnglePointDy, 0);
     SmartDashboard.putNumber("Right Set Angle", 0);
-  }
+    SmartDashboard.putNumber(Shooter.Physics.SmartDashboard.ShooterKP, Shooter.Physics.PID.kP);
+    SmartDashboard.putNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kI);
+    SmartDashboard.putNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kD);
+    SmartDashboard.putNumber(Shooter.Physics.SmartDashboard.ShooterKF, Shooter.Physics.PID.kF);  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -153,12 +161,12 @@ public class RobotContainer {
   //     // autocommand.addCommands(shoot2);
   //   }
   //   // An ExampleCommand will run in autonomous
-  //   return autocommand;
+  //   return autocommand;3
 
     SequentialCommandGroup autocommand = new SequentialCommandGroup();
-    ParallelDeadlineGroup pdg = new ParallelDeadlineGroup(new WaitCommand(0.5), new DriveByJoy(chassisSubsystem, () -> 0.6));
+    ParallelDeadlineGroup pdg = new ParallelDeadlineGroup(new WaitCommand(1.0), new DriveByJoy(chassisSubsystem, () -> 0.9));
     autocommand.addCommands(pdg);
-    autocommand.addCommands(new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem));
+    // autocommand.addCommands(new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem));
 
     return autocommand;
   

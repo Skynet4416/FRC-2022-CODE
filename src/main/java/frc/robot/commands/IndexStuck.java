@@ -4,10 +4,8 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
 import frc.robot.Constants.Indexing;
 import frc.robot.subsystems.IndexingSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */

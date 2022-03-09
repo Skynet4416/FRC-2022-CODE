@@ -12,6 +12,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.constraint.MaxVelocityConstraint;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -138,9 +139,7 @@ public class ChassisSubsystem extends SubsystemBase {
    */
 
 
-  public void set(double left, double right) {
-    if (Math.abs(left) > 1 || Math.abs(right) > 1) return;
-      
+  public void set(double left, double right) {     
     m_drive.tankDrive(left, right);
   }
 

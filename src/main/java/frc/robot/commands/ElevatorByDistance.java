@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Elevator;
-import frc.robot.Constants.Elevator.Motors;
 import frc.robot.subsystems.ElevatorUpAndDownSubsystem;
 
 /*
@@ -21,7 +20,6 @@ public class ElevatorByDistance extends CommandBase {
     this._elevator = elevator;
     addRequirements(elevator);
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

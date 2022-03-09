@@ -595,6 +595,13 @@
                   "_title": "Solenoid[0,5]/Value",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,6]/Value",
+                  "_title": "LiveWindow/Ungrouped/Solenoid[0,6]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -780,7 +787,7 @@
       }
     },
     {
-      "title": "Tab 4",
+      "title": "Camera",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
@@ -789,7 +796,26 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "0,0": {
+            "size": [
+              10,
+              4
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_title": "Camera Stream",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          }
+        }
       }
     },
     {
@@ -825,7 +851,7 @@
               "_title": "/SmartDashboard/Precentage"
             }
           },
-          "5,2": {
+          "7,2": {
             "size": [
               1,
               1
@@ -856,6 +882,72 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Left Absulute Angle",
               "_title": "SmartDashboard/Left Absulute Angle"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Angle To Set",
+              "_title": "SmartDashboard/Angle To Set"
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter kD",
+              "_title": "/SmartDashboard/Shooter kD"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter kI",
+              "_title": "/SmartDashboard/Shooter kI"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter kF",
+              "_title": "/SmartDashboard/Shooter kF"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter kP",
+              "_title": "/SmartDashboard/Shooter kP"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Master Velocity (RPM)",
+              "_title": "SmartDashboard/Shooter Master Velocity (RPM)"
             }
           }
         }

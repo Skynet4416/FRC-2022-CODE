@@ -182,13 +182,13 @@ public final class Constants {
                 public static final int Kslave = 51;
                 public static final int left_master = 41;
                 public static final int right_slave = 40;
-                public static final double Min = 20;
-                public static final double Max = 70;
+                public static final double Min = 0;
+                public static final double Max = 90;
                 public static final double AngleThreashold = 2.5;
                 public static final double AnglePrecentage = 0.30;
             }
 
-            public static final double left_home = 94; // needs to be adjested
+            public static final double left_home = 166; // needs to be adjested
             public static final double right_home = 220; // needs to be adjested
             public static final boolean left_moving_towords_ = false;
             public static final boolean right_moving_towords_ = false;
@@ -202,10 +202,10 @@ public final class Constants {
 
             public final class PID {
                 // needs to be set to real value
-                public static final double kP = 0;
+                public static final double kP = 0.1;
                 public static final double kI = 0;
                 public static final double kD = 0;
-                public static final double kF = 0;
+                public static final double kF = 0.015673981;
                 public static final double MAX_RPM = 0;
             }
 

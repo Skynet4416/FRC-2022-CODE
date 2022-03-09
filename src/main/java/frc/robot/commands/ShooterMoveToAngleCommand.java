@@ -4,13 +4,11 @@
 
 package frc.robot.commands;
 
-import frc.robot.Globals;
-import frc.robot.Constants.Shooter;
+
 import frc.robot.Constants.Shooter.Physics;
 import frc.robot.Constants.Shooter.Physics.Motors;
 import frc.robot.subsystems.ShooterAngleSubsystem;
 
-import java.time.Instant;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -40,7 +38,6 @@ public class ShooterMoveToAngleCommand extends CommandBase {
     // _angle_moving.SetAngle(0);
     // System.out.println(SmartsDashboard.getNumber(frc.robot.Constants.Shooter.SmartDashboard.AngleToSet,
     // 0));
-    angle = Math.max(Math.min(angle, Motors.Max), Motors.Min);
     if (angle <= Motors.Min || angle >= Motors.Max) {
       end(true);
       return;
@@ -50,7 +47,7 @@ public class ShooterMoveToAngleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.`x
   @Override
   public void execute() {
-    _angle_moving.setPrecnetage(Motors.AnglePrecentage * (_angle_moving.getRightAbsuluteAngle() - Physics.right_home > angle ? -1 : 1));
+    _angle_moving.setPrecnetage(Motors.AnglePrecentage * (_angle_moving.getRightAbsuluteAngle() - Physics.right_home > angle ?- 1 : 1));
     // double percentage = ((_angle_moving.getRightAbsuluteAngle() - Physics.right_home) - angle) / 90;
     // System.out.println(percentage);
     // _angle_moving.setPrecnetage(percentage);

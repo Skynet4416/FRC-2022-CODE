@@ -28,7 +28,7 @@ public class ShootBallCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    _shooter.setPercentage(SmartDashboard.getNumber("Shooter Precnetage", 0));
+    _shooter.SetRPM(SmartDashboard.getNumber("Shooter Precentage", 0));
   }
 
   // Called every time the scheduler runs while the command is scheduled.

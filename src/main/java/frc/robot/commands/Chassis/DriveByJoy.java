@@ -40,7 +40,7 @@ public class DriveByJoy extends CommandBase {
         this.m_left = power;
         this.m_right = power;
         this.m_straight = () -> false;
-        this.m_limit = () -> 1.0;
+        this.m_limit = () -> 0.5;
     }
 
     @Override
