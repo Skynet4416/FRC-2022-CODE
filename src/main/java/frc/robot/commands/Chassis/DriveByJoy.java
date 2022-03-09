@@ -34,6 +34,15 @@ public class DriveByJoy extends CommandBase {
         this.m_limit = limit;
     }
 
+    public DriveByJoy(ChassisSubsystem chassis, DoubleSupplier power) {
+        this.addRequirements(chassis);
+        this.m_chassis = chassis;
+        this.m_left = power;
+        this.m_right = power;
+        this.m_straight = () -> false;
+        this.m_limit = () -> 1.0;
+    }
+
     @Override
     public void initialize() {
     }

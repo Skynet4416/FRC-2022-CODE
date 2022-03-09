@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.Globals;
 import frc.robot.Constants.Shooter;
+import frc.robot.Constants.Shooter.Physics;
 import frc.robot.Constants.Shooter.Physics.Motors;
 import frc.robot.subsystems.ShooterAngleSubsystem;
 
@@ -44,13 +45,15 @@ public class ShooterMoveToAngleCommand extends CommandBase {
       end(true);
       return;
     }
-    _angle_moving.setLeftAngle(angle);
-    _angle_moving.setRightAngle(angle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.`x
   @Override
   public void execute() {
+    _angle_moving.setPrecnetage(Motors.AnglePrecentage * (_angle_moving.getRightAbsuluteAngle() - Physics.right_home > angle ? -1 : 1));
+    // double percentage = ((_angle_moving.getRightAbsuluteAngle() - Physics.right_home) - angle) / 90;
+    // System.out.println(percentage);
+    // _angle_moving.setPrecnetage(percentage);
   }
 
   // System.out.println(_angle_moving.encoder.get());
@@ -64,6 +67,8 @@ public class ShooterMoveToAngleCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return  (_angle_moving.getLeftAngle()== angle) || Math.abs((_angle_moving.getLeftAngle() -angle)) <= Motors.AngleThreashold;
+    return Math.abs((_angle_moving.getRightAbsuluteAngle() - Physics.right_home) - angle) <= Motors.AngleThreashold;
+    // return (_angle_moving.getRightAbsuluteAngle() == angle + Physics.right_home)
+    //     || Math.abs((_angle_moving.getRightAbsuluteAngle() - angle - Physics.right_home)) <= Motors.AngleThreashold;
   }
 }

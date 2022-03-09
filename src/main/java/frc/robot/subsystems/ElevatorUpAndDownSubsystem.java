@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -15,7 +16,9 @@ import frc.robot.Constants.Elevator.UpAndDown.PID;
 
 public class ElevatorUpAndDownSubsystem extends SubsystemBase {
     private CANSparkMax _master = new CANSparkMax(Elevator.Motors.Kmaster,MotorType.kBrushless);
-    private CANSparkMax _slave = new CANSparkMax(Elevator.Motors.Kmaster,MotorType.kBrushless);
+    private RelativeEncoder _master_encoder;
+    private CANSparkMax _slave = new CANSparkMax(Elevator.Motors.Kslave,MotorType.kBrushless);
+    private RelativeEncoder _slave_encoder;
 
     public ElevatorUpAndDownSubsystem()
     {
@@ -23,8 +26,12 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
         _slave.restoreFactoryDefaults();
         _slave.setIdleMode(IdleMode.kBrake);
         _master.setIdleMode(IdleMode.kBrake);
-        _slave.follow(_master);
-        
+        // _slave.follow(_master, true);
+        _slave.setInverted(true);
+
+        _master_encoder = _master.getEncoder();
+        _slave_encoder = _slave.getEncoder();
+
         // _master.kd(0, PID.Kd);
         // _master.config_kF(0, PID.Kf);
         // _master.config_kI(0, PID.Ki);
@@ -42,10 +49,13 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
         // _master.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         // _slave.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
+
     public void setPreccentage(double precentage)
     {
         _master.set(precentage);
+        _slave.set(precentage);
     }
+
     @Override
     public void periodic()
     {
@@ -61,6 +71,14 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
         // _slave.config_kF(0, SmartDashboard.getNumber(Elevator.SmartDashboard.UpAndDown.Kf, PID.Kf));
         // _slave.config_kI(0, SmartDashboard.getNumber(Elevator.SmartDashboard.UpAndDown.Ki, PID.Ki));
         // _slave.config_kP(0, SmartDashboard.getNumber(Elevator.SmartDashboard.UpAndDown.Kp, PID.Kp));     
+    }
+
+    public double getMasterRotations() {
+        return _master_encoder.getPosition();
+    }
+
+    public double getSlaveRotations() {
+        return _slave_encoder.getPosition();
     }
 
     // public void SetPoistion(double position_in_meters)

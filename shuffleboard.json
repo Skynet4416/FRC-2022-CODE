@@ -581,6 +581,20 @@
                   "_title": "DigitalInput[0]/Value",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,4]/Value",
+                  "_title": "Solenoid[0,4]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,5]/Value",
+                  "_title": "Solenoid[0,5]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -820,6 +834,28 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Shooter Precentage",
               "_title": "SmartDashboard/Shooter Precentage"
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right Absulute Angle",
+              "_title": "SmartDashboard/Right Absulute Angle"
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Absulute Angle",
+              "_title": "SmartDashboard/Left Absulute Angle"
             }
           }
         }

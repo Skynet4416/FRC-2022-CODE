@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -13,6 +15,10 @@ import frc.robot.Constants.Shooter.Physics.Motors;
 public class ShooterSubsystem extends SubsystemBase {
     private TalonFX _master = new TalonFX(Motors.Kmaster);
     private TalonFX _slave = new TalonFX(Motors.Kslave);
+
+    private Solenoid _bottomLEDS = new Solenoid(PneumaticsModuleType.CTREPCM, 5);
+    private Solenoid _rightLEDS = new Solenoid(PneumaticsModuleType.CTREPCM, 4);
+    private Solenoid _leftLEDS = new Solenoid(PneumaticsModuleType.CTREPCM, 6);
 
     public ShooterSubsystem() {
         SmartDashboard.putNumber("Shooter Precentage", 0);
@@ -46,6 +52,10 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Master Current", _master.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter Slave Current", _slave.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter Slave Velocity (RPM)", _slave.getSelectedSensorVelocity() * 600 / 2048);
+        
+        _bottomLEDS.set(true);
+        _rightLEDS.set(true);
+        _leftLEDS.set(true);
     }
 
     public void SetRPM(double RPM) {
