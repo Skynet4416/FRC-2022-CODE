@@ -32,11 +32,13 @@ import frc.robot.commands.IndexCommand;
 import frc.robot.commands.IntakeAndIndexCommandGroup;
 import frc.robot.commands.IntakeSpinUp;
 import frc.robot.commands.ShootBallCommand;
+import frc.robot.commands.ShootBallGivenRPMCommand;
 import frc.robot.commands.ShootBallOnPrecentageCommand;
 import frc.robot.commands.ShooterAngleMoveLeftCommand;
 import frc.robot.commands.ShooterAngleMoveRightCommand;
 import frc.robot.commands.ShooterAngleMoveTestCommand;
 import frc.robot.commands.ShooterMoveToAngleCommand;
+import frc.robot.commands.ShooterMoveToGivenAngleCommand;
 import frc.robot.commands.ShootingSequenceCommandGroup;
 import frc.robot.commands.Chassis.DriveByJoy;
 import frc.robot.subsystems.ChassisSubsystem;
@@ -164,8 +166,10 @@ public class RobotContainer {
   //   return autocommand;3
 
     SequentialCommandGroup autocommand = new SequentialCommandGroup();
+    autocommand.addCommands(new ShooterMoveToGivenAngleCommand(shooterAngleSubsystem, 45.0), new ShootBallGivenRPMCommand(shooterSubsystem, 100.0));
     ParallelDeadlineGroup pdg = new ParallelDeadlineGroup(new WaitCommand(1.0), new DriveByJoy(chassisSubsystem, () -> 0.9));
     autocommand.addCommands(pdg);
+    autocommand.addCommands(new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem), new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem));
     // autocommand.addCommands(new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem));
 
     return autocommand;
