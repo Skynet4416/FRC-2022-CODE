@@ -33,6 +33,7 @@ import frc.robot.commands.IntakeAndIndexCommandGroup;
 import frc.robot.commands.IntakeSpinUp;
 import frc.robot.commands.ShootAndIndexWhenRPMIsRead;
 import frc.robot.commands.ShootBallCommand;
+import frc.robot.commands.ShootBallGivenRPMCommand;
 import frc.robot.commands.ShootBallOnPrecentageCommand;
 import frc.robot.commands.ShooterAngleMoveLeftCommand;
 import frc.robot.commands.ShooterAngleMoveRightCommand;
