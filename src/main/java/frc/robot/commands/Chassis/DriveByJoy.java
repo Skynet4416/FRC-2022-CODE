@@ -56,17 +56,15 @@ public class DriveByJoy extends CommandBase {
             double right = this.m_right.getAsDouble();
             right = Math.abs(right) > Constants.Inputs.joysticks.MIN_POWER ? right : 0;
 
-            double limiter = this.m_limit.getAsDouble();
 
-            left *= limiter;
-            right *= limiter;
 
             if(m_straight.getAsBoolean()){
                 double avg = (left + right) / 2;
                 left = avg;
                 right = avg;
             }
-    
+            System.out.println("left:" + left);
+            System.out.println("right:" +right);
             this.m_chassis.set(-left, right);
 
         }

@@ -31,12 +31,14 @@ import frc.robot.commands.HookUpCommand;
 import frc.robot.commands.IndexCommand;
 import frc.robot.commands.IntakeAndIndexCommandGroup;
 import frc.robot.commands.IntakeSpinUp;
+import frc.robot.commands.ShootAndIndexWhenRPMIsRead;
 import frc.robot.commands.ShootBallCommand;
 import frc.robot.commands.ShootBallOnPrecentageCommand;
 import frc.robot.commands.ShooterAngleMoveLeftCommand;
 import frc.robot.commands.ShooterAngleMoveRightCommand;
 import frc.robot.commands.ShooterAngleMoveTestCommand;
 import frc.robot.commands.ShooterMoveToAngleCommand;
+import frc.robot.commands.ShooterMoveToConstantAngle;
 import frc.robot.commands.ShootingSequenceCommandGroup;
 import frc.robot.commands.Chassis.DriveByJoy;
 import frc.robot.subsystems.ChassisSubsystem;
@@ -81,21 +83,22 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     BooleanSupplier triggeror = () -> OI.leftJoy.getTrigger() || OI.rightJoy.getTrigger();
-    DoubleSupplier throttle = () -> OI.rightJoy.getThrottle();
+    DoubleSupplier throttle = () -> 0.8;
     chassisSubsystem.setDefaultCommand(new DriveByJoy(chassisSubsystem, OI.leftJoy::getY, OI.rightJoy::getY, triggeror, throttle));
     // configure OI
     OI.A.whileHeld(new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem));
     // OI.left_trigger.whileHeld(new IndexCommand(indexingSubsystem, false));
-    OI.X.whileHeld(new IndexCommand(indexingSubsystem, false));
+    OI.B.whileHeld(new IndexCommand(indexingSubsystem, false));
     // OI.X.whileHeld(new ShootBallOnPrecentageCommand(shooterSubsystem));
-    OI.Y.whileHeld(new ShooterMoveToAngleCommand(shooterAngleSubsystem));
-    // OI.B.whenHeld(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.5));
+    OI.Y.whileHeld(new IndexCommand(indexingSubsystem,true));
+// OI.B.whenHeld(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.5));
     // OI.X.whileHeld(new ParallelCommandGroup(new IndexCommand(indexingSubsystem, true), new IntakeSpinUp(intakeSubsystem,true)));
     // OI.right_trigger.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
     // OI.right_bumper.whenPressed(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.5));
     // OI.left_bumper.whenPressed(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
     // OI.Y.whileHeld(new IntakeSpinUp(intakeSubsystem, true));
-    OI.B.whileHeld(new ShootBallCommand(shooterSubsystem));
+    OI.X.whileHeld(new ShootAndIndexWhenRPMIsRead(shooterSubsystem,indexingSubsystem));
+    OI.X.whenReleased(new SequentialCommandGroup(new ShooterMoveToConstantAngle(shooterAngleSubsystem,10),new ShooterMoveToConstantAngle(shooterAngleSubsystem, 37)));
 
     // OI.A.whenHeld(new HookDownCommand(hookUpSubsystem));
     // OI.Y.whenHeld(new HookUpCommand(hookUpSubsystem));
@@ -163,12 +166,9 @@ public class RobotContainer {
   //   // An ExampleCommand will run in autonomous
   //   return autocommand;3
 
-    SequentialCommandGroup autocommand = new SequentialCommandGroup();
-    ParallelDeadlineGroup pdg = new ParallelDeadlineGroup(new WaitCommand(1.0), new DriveByJoy(chassisSubsystem, () -> 0.9));
-    autocommand.addCommands(pdg);
-    // autocommand.addCommands(new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem));
-
-    return autocommand;
+  SequentialCommandGroup shooterMoveToAngleSequence = new SequentialCommandGroup(new ShooterMoveToConstantAngle(shooterAngleSubsystem,10),new ShooterMoveToConstantAngle(shooterAngleSubsystem, 37));
+  SequentialCommandGroup autocommand = new SequentialCommandGroup(shooterMoveToAngleSequence,new ParallelCommandGroup(new SequentialCommandGroup(new WaitCommand(1),new IndexCommand(indexingSubsystem, false)),new ShootBallCommand(shooterSubsystem)));
+  return new ParallelDeadlineGroup(autocommand,new WaitCommand(15),new SequentialCommandGroup(new WaitCommand(10),new DriveByJoy(chassisSubsystem, ()->0.6)));
   
   }
 

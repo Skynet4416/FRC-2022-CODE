@@ -945,9 +945,16 @@
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/Shooter Master Velocity (RPM)",
-              "_title": "SmartDashboard/Shooter Master Velocity (RPM)"
+              "_title": "SmartDashboard/Shooter Master Velocity (RPM)",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Shooter Master Velocity (RPM)": true
             }
           }
         }
