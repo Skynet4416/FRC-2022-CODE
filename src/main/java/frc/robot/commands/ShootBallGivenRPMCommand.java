@@ -4,14 +4,13 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants.Shooter.Physics;
-import frc.robot.subsystems.IndexingSubsystem;
+import frc.robot.Constants.Shooter;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ShootBallCommand extends CommandBase {
+public class ShootBallGivenRPMCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private ShooterSubsystem _shooter;
   private double RPM;
@@ -21,8 +20,9 @@ public class ShootBallCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShootBallCommand(ShooterSubsystem shooter) {
+  public ShootBallGivenRPMCommand(ShooterSubsystem shooter, double RPM) {
     _shooter = shooter;
+    this.RPM = RPM;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
   }
@@ -30,22 +30,12 @@ public class ShootBallCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // _shooter.SetRPM(SmartDashboard.getNumber("Shooter Precentage", 0));
-    _shooter.SetRPM(1725);
-    _shooter._leftLEDS.set(false);
-    _shooter._rightLEDS.set(false);
+    _shooter.SetRPM(RPM);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048 - 1725)<= Physics.ShooterThreshold )
-    {
-      _shooter._leftLEDS.set(true);
-      _shooter._rightLEDS.set(true);
-    
-    }
-    System.out.println(_shooter.GetMaster().getSelectedSensorPosition());
   }
 
   // Called once the command ends or is interrupted.

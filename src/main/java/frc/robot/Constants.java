@@ -159,7 +159,7 @@ public final class Constants {
             public static final int MAX_RPM = 6380;
             public static final double hub_diameter = 1.22; // in meter
             public static final double ball_diamater = 0.2413;
-
+            public static final double ShooterThreshold = 150;
             public static final double diamater = 101.6; // in mm
             public static final double gravitational_acceleration_near_earth = 9.81; // in m/s^2
             public static final double ball_mass = 0.267619498; // in kg
@@ -202,10 +202,10 @@ public final class Constants {
 
             public final class PID {
                 // needs to be set to real value
-                public static final double kP = 0.1;
+                public static final double kP =0.005;
                 public static final double kI = 0;
-                public static final double kD = 0;
-                public static final double kF = 0.015673981;
+                public static final double kD = 10;
+                public static final double kF = 0.18;
                 public static final double MAX_RPM = 0;
             }
 
