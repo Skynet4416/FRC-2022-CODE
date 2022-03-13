@@ -2,23 +2,26 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Intake;
 
-import frc.robot.Constants.Indexing;
-import frc.robot.subsystems.IndexingSubsystem;
+import frc.robot.Constants;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class IndexStuck extends CommandBase {
-  private final IndexingSubsystem m_subsystem;
+public class IntakeSpinUp extends CommandBase {
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  private final IntakeSubsystem m_subsystem;
+  private boolean reversed;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IndexStuck(IndexingSubsystem subsystem) {
+  public IntakeSpinUp(IntakeSubsystem subsystem,boolean reversed) {
     m_subsystem = subsystem;
+    this.reversed = reversed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -26,7 +29,7 @@ public class IndexStuck extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_subsystem.setPercentageSame(Indexing.kIndexingPercent);
+      m_subsystem.setIntake(reversed?-Constants.Intake.Motors.PowerPercentage:Constants.Intake.Motors.PowerPercentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,7 +40,7 @@ public class IndexStuck extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.setPercentageSame(0);
+    m_subsystem.setIntake(0);
   }
 
   // Returns true when the command should end.

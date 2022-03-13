@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.Chassis;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;

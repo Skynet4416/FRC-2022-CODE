@@ -1,21 +1,19 @@
-package frc.robot.commands;
+package frc.robot.commands.ShooterAngle;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterAngleSubsystem;
 
-
-
-public class ShooterAngleMoveLeftCommand extends CommandBase {
+public class ShooterAngleMoveTestCommand extends CommandBase {
     private ShooterAngleSubsystem angle_moving;
-    public ShooterAngleMoveLeftCommand(ShooterAngleSubsystem angle_moving)
+    public ShooterAngleMoveTestCommand(ShooterAngleSubsystem angle_moving)
     {
         this.angle_moving = angle_moving;
     }
     @Override
     public void initialize()
     {
-        angle_moving.setLeft(SmartDashboard.getNumber("Precentage", 0));
+        angle_moving.setPrecnetage(SmartDashboard.getNumber("Precentage", 0));
     }
 
     @Override
@@ -33,5 +31,3 @@ public class ShooterAngleMoveLeftCommand extends CommandBase {
 return false;
     }
 }
-
-

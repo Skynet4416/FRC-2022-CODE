@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.ShooterAngle;
 
 
 import frc.robot.Constants.Shooter.Physics;
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ShooterMoveToAngleCommand extends CommandBase {
+public class ShooterMoveToConstantAngle extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private ShooterAngleSubsystem _angle_moving;
   private double angle;
@@ -24,17 +24,17 @@ public class ShooterMoveToAngleCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShooterMoveToAngleCommand(ShooterAngleSubsystem angle_moving) {
+  public ShooterMoveToConstantAngle(ShooterAngleSubsystem angle_moving,double angle) {
     _angle_moving = angle_moving;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(angle_moving);
+    this.angle = angle;
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    angle = (SmartDashboard.getNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.AngleToSet, 0));
     // _angle_moving.SetAngle(0);
     // System.out.println(SmartsDashboard.getNumber(frc.robot.Constants.Shooter.SmartDashboard.AngleToSet,
     // 0));

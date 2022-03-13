@@ -1,20 +1,20 @@
-package frc.robot.commands;
+package frc.robot.commands.ElevatorAngle;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Elevator.Motors;
-import frc.robot.subsystems.HookUpAndDownSubsystem;
+import frc.robot.subsystems.ElevatorAngleSubsystem;
 
-public class HookDownCommand extends CommandBase{
-    private HookUpAndDownSubsystem _hook;
-    public HookDownCommand(HookUpAndDownSubsystem hook)
+public class ElevatorAngleBackwardCommand extends CommandBase{
+    private ElevatorAngleSubsystem _elevator;
+    public ElevatorAngleBackwardCommand(ElevatorAngleSubsystem elevator)
     {
-        this._hook = hook;
-        addRequirements(hook);
+        this._elevator = elevator;
+        addRequirements(elevator);
     }
       // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    _hook.set(Motors.hook_precentage,true);
+      _elevator.setManual(Motors.angle_move_precentage,true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -24,12 +24,14 @@ public class HookDownCommand extends CommandBase{
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    _hook.set(0,false);
+      _elevator.setManual(0,true);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return _hook.IsClosed();
+    return false;
   }
+
+    
 }
