@@ -39,7 +39,7 @@ public class TurnToAngle extends CommandBase{
 
     @Override
     public void initialize(){
-        
+        System.out.print("TurnToAngle Initiliazed");
         // this.ahrs_angle = Math.abs(ahrs.getAngle()%360);
         this.ahrs_angle = ahrs.getAngle();
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
@@ -69,6 +69,7 @@ public class TurnToAngle extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
+        System.out.print("TurnToAngle Finished");
         this.chassis.set(0, 0);
     }
     

@@ -42,6 +42,7 @@ public class ShooterMoveToConstantAngle extends CommandBase {
       end(true);
       return;
     }
+    System.out.println("Initialized Shooter Constant Angle");
   }
 
   // Called every time the scheduler runs while the command is scheduled.`x
@@ -57,8 +58,10 @@ public class ShooterMoveToConstantAngle extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("Command Ended");
+    // System.out.println("Command Ended");
     _angle_moving.setPrecnetage(0);
+    System.out.println("Finished Shooter Constant Angle");
+
   }
 
   // Returns true when the command should end.

@@ -65,7 +65,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void SetRPM(double RPM) {
-        System.out.println(RPM);
+        // System.out.println(RPM);
         _master.set(ControlMode.Velocity, RPM);
         _slave.set(ControlMode.Velocity, RPM);
     }

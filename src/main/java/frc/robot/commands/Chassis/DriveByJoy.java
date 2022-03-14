@@ -63,8 +63,7 @@ public class DriveByJoy extends CommandBase {
                 left = avg;
                 right = avg;
             }
-            System.out.println("left:" + left);
-            System.out.println("right:" +right);
+
             this.m_chassis.set(-left, right);
 
         }

@@ -27,6 +27,7 @@ public class IndexStuck extends CommandBase {
   @Override
   public void initialize() {
       m_subsystem.setPercentageSame(Indexing.kIndexingPercent);
+      System.out.println("Index Stuck Initialize");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,6 +39,7 @@ public class IndexStuck extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.setPercentageSame(0);
+    System.out.println("Finished Index Stuck");
   }
 
   // Returns true when the command should end.

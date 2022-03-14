@@ -57,7 +57,7 @@ public class ShooterMoveToGivenAngleCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("Command Ended");
+    // System.out.println("Command Ended");
     _angle_moving.setPrecnetage(0);
   }
 

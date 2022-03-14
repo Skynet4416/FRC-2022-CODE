@@ -27,6 +27,7 @@ public class IndexCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("Index Initialized");
       m_subsystem.setPercentage(reversed? -Indexing.kIndexingPercent: Indexing.kIndexingPercent);
   }
 
@@ -39,6 +40,7 @@ public class IndexCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.setPercentage(0);
+    System.out.println("Index finished");
   }
 
   // Returns true when the command should end.

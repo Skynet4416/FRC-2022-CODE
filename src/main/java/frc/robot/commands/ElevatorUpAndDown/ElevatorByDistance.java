@@ -23,6 +23,7 @@ public class ElevatorByDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.print("ElevatorByDistance Initialize");
     this._masterStartingPos = _elevator.getMasterRotations();
     _elevator.setPreccentage(0.5);
   }
@@ -35,6 +36,8 @@ public class ElevatorByDistance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.print("ElevatorByDistance Finished");
+
     _elevator.setPreccentage(0);
   }
 

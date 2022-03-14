@@ -31,6 +31,7 @@ public class ShootBallGivenRPMCommand extends CommandBase {
   @Override
   public void initialize() {
     _shooter.SetRPM(RPM);
+    System.out.println("Shooter RPM Initialized");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,6 +43,7 @@ public class ShootBallGivenRPMCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     _shooter.setPercentage(0);
+    System.out.println("Finished Shoot RPM");
   }
 
   // Returns true when the command should end.

@@ -30,6 +30,7 @@ public class IntakeSpinUp extends CommandBase {
   @Override
   public void initialize() {
       m_subsystem.setIntake(reversed?-Constants.Intake.Motors.PowerPercentage:Constants.Intake.Motors.PowerPercentage);
+      System.out.println("Intake initialized");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,6 +42,7 @@ public class IntakeSpinUp extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.setIntake(0);
+    System.out.println("Intake Finished");
   }
 
   // Returns true when the command should end.
