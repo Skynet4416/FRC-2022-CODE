@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.Shooter;
 import frc.robot.Constants.Field.Waypoints;
 import frc.robot.commands.ShootAndIndexWhenRPMIsRead;
+import frc.robot.commands.Autonomous.IntakeWithDeadLine;
+import frc.robot.commands.Autonomous.ShootBall;
 import frc.robot.commands.Chassis.DriveByJoy;
 import frc.robot.commands.ElevatorUpAndDown.ElevatorByDistance;
 import frc.robot.commands.ElevatorUpAndDown.ElevatorDownCommand;
@@ -128,48 +130,44 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-  //   SequentialCommandGroup autocommand = new SequentialCommandGroup();
-  //   Command wait1sec = new WaitCommand(1);
-  //   IntakeAndIndexCommandGroup intake_index = new IntakeAndIndexCommandGroup(intakeSubsystem,indexingSubsystem);
-  //   ParallelDeadlineGroup intake_with_deadline = new ParallelDeadlineGroup(new WaitCommand(2),new SequentialCommandGroup(wait1sec,intake_index));
-  //   ParallelDeadlineGroup shoot = new ParallelDeadlineGroup(wait1sec,new ShootingSequenceCommandGroup(chassisSubsystem,indexingSubsystem , shooterAngleSubsystem, shooterSubsystem));
-  //   ParallelDeadlineGroup shoot2 = new ParallelDeadlineGroup(new WaitCommand(2),new ShootingSequenceCommandGroup(chassisSubsystem,indexingSubsystem , shooterAngleSubsystem, shooterSubsystem));
+    SequentialCommandGroup autocommand = new SequentialCommandGroup();
 
-  //   // autocommand.addCommands(shoot);
-  //   if (DriverStation.Alliance.Blue == DriverStation.getAlliance())
-  //   {
-  //     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(Globals.startPos,Waypoints.BlueAllince.Balls.blue_wall), chassisSubsystem.GetConfig());
-  //     RamseteCommand start_to_wall = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
-  //     autocommand.addCommands(new ParallelCommandGroup(start_to_wall,new SequentialCommandGroup(wait1sec,intake_index)));
-  //     trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(chassisSubsystem.getPosition(),Waypoints.BlueAllince.Balls.blue_terminal), chassisSubsystem.GetConfig());
-  //     RamseteCommand wall_to_facing_terminal = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
-  //     autocommand.addCommands(new ParallelCommandGroup(wall_to_facing_terminal,intake_with_deadline));
-  //     // autocommand.addCommands(shoot2);
-  //     trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(chassisSubsystem.getPosition(),Waypoints.BlueAllince.Balls.blue_on_terminal), chassisSubsystem.GetConfig());
-  //     RamseteCommand facing_terminal_to_on_terminal = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
-  //     autocommand.addCommands(new ParallelCommandGroup(facing_terminal_to_on_terminal,intake_with_deadline));
-  //     // autocommand.addCommands(shoot2);
-  //   }
-  //   if (DriverStation.Alliance.Red == DriverStation.getAlliance())
-  //   {
-  //     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(Globals.startPos,Waypoints.RedAllince.Balls.red_wall), chassisSubsystem.GetConfig());
-  //     RamseteCommand start_to_wall = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
-  //     autocommand.addCommands(new ParallelCommandGroup(start_to_wall,new SequentialCommandGroup(wait1sec,intake_index)));
-  //     trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(chassisSubsystem.getPosition(),Waypoints.RedAllince.Balls.red_terminal), chassisSubsystem.GetConfig());
-  //     RamseteCommand wall_to_facing_terminal = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
-  //     autocommand.addCommands(new ParallelCommandGroup(wall_to_facing_terminal,intake_with_deadline));
-  //     // autocommand.addCommands(shoot2);
-  //     trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(chassisSubsystem.getPosition(),Waypoints.RedAllince.Balls.red_on_terminal), chassisSubsystem.GetConfig());
-  //     RamseteCommand facing_terminal_to_on_terminal = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
-  //     autocommand.addCommands(new ParallelCommandGroup(facing_terminal_to_on_terminal,intake_with_deadline));
-  //     // autocommand.addCommands(shoot2);
-  //   }
-  //   // An ExampleCommand will run in autonomous
-  //   return autocommand;3
 
-  SequentialCommandGroup shooterMoveToAngleSequence = new SequentialCommandGroup(new ShooterMoveToConstantAngle(shooterAngleSubsystem,10),new ShooterMoveToConstantAngle(shooterAngleSubsystem, 37));
-  SequentialCommandGroup autocommand = new SequentialCommandGroup(shooterMoveToAngleSequence,new ParallelCommandGroup(new SequentialCommandGroup(new WaitCommand(1),new IndexCommand(indexingSubsystem, false)),new ShootBallCommand(shooterSubsystem)));
-  return new ParallelDeadlineGroup(autocommand,new WaitCommand(15),new SequentialCommandGroup(new WaitCommand(10),new DriveByJoy(chassisSubsystem, ()->0.6)));
+    autocommand.addCommands(new ShootBall(1,chassisSubsystem,indexingSubsystem,shooterAngleSubsystem,shooterSubsystem));
+    if (DriverStation.Alliance.Blue == DriverStation.getAlliance())
+    {
+      Trajectory trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(Globals.startPos,Waypoints.BlueAllince.Balls.blue_wall), chassisSubsystem.GetConfig());
+      RamseteCommand start_to_wall = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
+      autocommand.addCommands(new ParallelCommandGroup(start_to_wall,new IntakeWithDeadLine(1, 1, intakeSubsystem, indexingSubsystem)));
+      trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(Waypoints.BlueAllince.Balls.blue_wall,Waypoints.BlueAllince.Balls.blue_terminal), chassisSubsystem.GetConfig());
+      RamseteCommand wall_to_facing_terminal = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
+      autocommand.addCommands(new ParallelCommandGroup(wall_to_facing_terminal,new IntakeWithDeadLine(2,1, intakeSubsystem, indexingSubsystem)));
+      autocommand.addCommands(new ShootBall(1.5,chassisSubsystem,indexingSubsystem,shooterAngleSubsystem,shooterSubsystem));
+      trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(Waypoints.BlueAllince.Balls.blue_terminal,Waypoints.BlueAllince.Balls.blue_on_terminal), chassisSubsystem.GetConfig());
+      RamseteCommand facing_terminal_to_on_terminal = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
+      autocommand.addCommands(new ParallelCommandGroup(facing_terminal_to_on_terminal,new IntakeWithDeadLine(1,1,intakeSubsystem,indexingSubsystem)));
+      autocommand.addCommands(new ShootBall(1.5,chassisSubsystem,indexingSubsystem,shooterAngleSubsystem,shooterSubsystem));
+    }
+    if (DriverStation.Alliance.Red == DriverStation.getAlliance())
+    {
+      Trajectory trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(Globals.startPos,Waypoints.RedAllince.Balls.red_wall), chassisSubsystem.GetConfig());
+      RamseteCommand start_to_wall = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
+      autocommand.addCommands(new ParallelCommandGroup(start_to_wall,new IntakeWithDeadLine(1,1, intakeSubsystem, indexingSubsystem)));
+      trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(chassisSubsystem.getPosition(),Waypoints.RedAllince.Balls.red_terminal), chassisSubsystem.GetConfig());
+      RamseteCommand wall_to_facing_terminal = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
+      autocommand.addCommands(new ParallelCommandGroup(wall_to_facing_terminal,new IntakeWithDeadLine(1, 1, intakeSubsystem, indexingSubsystem)));
+      autocommand.addCommands(new ShootBall(1.5,chassisSubsystem,indexingSubsystem,shooterAngleSubsystem,shooterSubsystem));
+      trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(chassisSubsystem.getPosition(),Waypoints.RedAllince.Balls.red_on_terminal), chassisSubsystem.GetConfig());
+      RamseteCommand facing_terminal_to_on_terminal = new RamseteCommand(trajectory, chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
+      autocommand.addCommands(new ParallelCommandGroup(facing_terminal_to_on_terminal,new IntakeWithDeadLine(1, 1, intakeSubsystem, indexingSubsystem)));
+      autocommand.addCommands(new ShootBall(1.5,chassisSubsystem,indexingSubsystem,shooterAngleSubsystem,shooterSubsystem));
+    }
+    // An ExampleCommand will run in autonomous
+    return autocommand;
+
+  // SequentialCommandGroup shooterMoveToAngleSequence = new SequentialCommandGroup(new ShooterMoveToConstantAngle(shooterAngleSubsystem,10),new ShooterMoveToConstantAngle(shooterAngleSubsystem, 37));
+  // SequentialCommandGroup autocommand = new SequentialCommandGroup(shooterMoveToAngleSequence,new ParallelCommandGroup(new SequentialCommandGroup(new WaitCommand(1),new IndexCommand(indexingSubsystem, false)),new ShootBallCommand(shooterSubsystem)));
+  // return new ParallelDeadlineGroup(autocommand,new WaitCommand(15),new SequentialCommandGroup(new WaitCommand(10),new DriveByJoy(chassisSubsystem, ()->0.6)));
   
   }
 
