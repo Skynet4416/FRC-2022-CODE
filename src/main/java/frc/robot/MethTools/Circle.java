@@ -1,16 +1,30 @@
 package frc.robot.MethTools;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+
 public class Circle{
     // An OOP implementation of a circle as an object
     
     final static int PRECISION = 5;  // Decimal point precision
 
     double xpos, ypos, radius;
-
+    public Circle(Point center, double radius)
+    {
+        this.xpos = center.x;
+        this.ypos = center.y;
+        this.radius =radius;
+    }
     public Circle(double xposition, double yposition, double radius){
         this.xpos = xposition;
         this.ypos = yposition;
         this.radius = radius;
+    }
+    public Circle(Pose2d pose,double radius)
+    {
+        this.radius = radius;
+        this.xpos = pose.getX();
+        this.ypos = pose.getY();
     }
 
     private double round_perc(double value){
@@ -55,5 +69,12 @@ public class Circle{
             if (dist1_sq < dist2_sq) return I1;
             else return I2;
         }
+    }
+    public static Pose2d pos_from_distance_and_angle(double distance,double angle,Pose2d seen_ball,Pose2d not_seen_pos)
+    {
+        double distance_from_balls = Math.sqrt(Math.pow(seen_ball.getX() - not_seen_pos.getX(), 2) + Math.pow(seen_ball.getY()-not_seen_pos.getY(),2));
+        double distance_from_not_seen_ball = Math.sqrt(Math.pow(distance, 2)+Math.pow(distance_from_balls, 2) - 2 *distance * distance_from_balls * Math.sin(Math.toRadians(angle)));
+        double[] cords = new Circle(seen_ball, distance).circle_intersect(new Circle(not_seen_pos, distance_from_not_seen_ball));
+        return new Pose2d(cords[0],cords[1],new Rotation2d(0));
     }
 }

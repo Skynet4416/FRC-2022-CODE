@@ -6,5 +6,8 @@ public class AutonimusMeth {
         Circle C2 = new Circle(-25.91, -150.79, 67.797);
 
         double[] res = C1.circle_intersect(C2);
+        System.out.println(res[0]);
+        System.out.println(res[1]);
+
     }
 }

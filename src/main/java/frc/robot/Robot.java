@@ -5,10 +5,17 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.util.net.PortForwarder;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.Field.Waypoints.BlueAllince;
+import frc.robot.Constants.Field.Waypoints.RedAllince;
+import frc.robot.MethTools.Circle;
+import frc.robot.MethTools.VisionMeth;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -76,7 +83,8 @@ public class Robot extends TimedRobot {
    * {@link RobotContainer} class.
    */
   @Override
-  public void autonomousInit() {
+  public void autonomousInit(){ 
+    Globals.startPos = Circle.pos_from_distance_and_angle(VisionMeth.DistanceFromBall(m_robotContainer.getFrontCamera()), VisionMeth.angle_from_ball(m_robotContainer.getFrontCamera()), DriverStation.getAlliance() == Alliance.Red? RedAllince.Balls.red_wall:BlueAllince.Balls.blue_wall, DriverStation.getAlliance() == Alliance.Red? RedAllince.Balls.blue_wall:BlueAllince.Balls.red_wall);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)

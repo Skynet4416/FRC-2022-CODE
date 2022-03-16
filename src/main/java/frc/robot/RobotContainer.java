@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import org.photonvision.PhotonCamera;
+
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
@@ -69,9 +71,12 @@ public class RobotContainer {
   // private HookUpAndDownSubsystem hookUpSubsystem = new HookUpAndDownSubsystem();
   private ElevatorUpAndDownSubsystem elevatorUpAndDownSubsystem = new ElevatorUpAndDownSubsystem();
   // private ElevatorAngleSubsystem elevatorAngleSubsystem = new ElevatorAngleSubsystem();
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  private PhotonCamera front_camera = new PhotonCamera("front");
+  private PhotonCamera back_camera = new PhotonCamera("back");
+    /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
+    front_camera = new PhotonCamera("front");
+    back_camera = new PhotonCamera("back");
     chassisSubsystem.resetEncoders();
     configureSmartDashboard();
     // Configure the button bindings
@@ -132,7 +137,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     SequentialCommandGroup autocommand = new SequentialCommandGroup();
 
-
+    
     autocommand.addCommands(new ShootBall(1,chassisSubsystem,indexingSubsystem,shooterAngleSubsystem,shooterSubsystem));
     if (DriverStation.Alliance.Blue == DriverStation.getAlliance())
     {
@@ -169,6 +174,14 @@ public class RobotContainer {
   // SequentialCommandGroup autocommand = new SequentialCommandGroup(shooterMoveToAngleSequence,new ParallelCommandGroup(new SequentialCommandGroup(new WaitCommand(1),new IndexCommand(indexingSubsystem, false)),new ShootBallCommand(shooterSubsystem)));
   // return new ParallelDeadlineGroup(autocommand,new WaitCommand(15),new SequentialCommandGroup(new WaitCommand(10),new DriveByJoy(chassisSubsystem, ()->0.6)));
   
+  }
+  public PhotonCamera getFrontCamera()
+  {
+    return front_camera;
+  }
+  public PhotonCamera getBackCamera()
+  {
+    return back_camera;
   }
 
 }

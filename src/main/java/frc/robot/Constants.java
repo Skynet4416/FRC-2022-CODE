@@ -32,6 +32,15 @@ public final class Constants {
         }
 
     }
+    public static class Vision
+    {
+        public static class Target{
+            public static final double target_size_at_one_meter = 0;
+        }
+        public static class Ball{
+            public static final double ball_size_at_one_meter = 0;
+        }
+    }
 
     public static class Field {
         public static class Waypoints {
