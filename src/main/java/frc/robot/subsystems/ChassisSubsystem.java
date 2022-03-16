@@ -105,7 +105,7 @@ public class ChassisSubsystem extends SubsystemBase {
 
 
   private double getLeftDistance(){
-    return _leftEncoder.getPosition() * Odometry.DISTANCE_OF_ENCODER_COUNT;
+    return _leftEncoder.getPosition()/Physical.ratio * 2 * Units.inchesToMeters(Physical.wheel_radius) * Math.PI ;
   }
 
 
@@ -113,7 +113,7 @@ public class ChassisSubsystem extends SubsystemBase {
 
 
   private double getRightDistance(){
-    return _rightEncoder.getPosition() * Odometry.DISTANCE_OF_ENCODER_COUNT;
+    return _rightEncoder.getPosition() /Physical.ratio * 2 * Units.inchesToMeters(Physical.wheel_radius) * Math.PI;
   }
 
   public void zeroHeading() {

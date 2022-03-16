@@ -135,9 +135,6 @@ public final class Constants {
             public static final double START_ANGLE = 0;
             public static final double max_velocity = 0; // m/s
             public static final double max_acceleration = 0; // m/s^2
-            public static final double DISTANCE_OF_ENCODER_COUNT = 0.1524 / 42; // wheel rad / number of encoder counts
-                                                                                // in a rev
-                                                                                // (https://www.revrobotics.com/rev-21-1650/)
         }
 
         public class Physical {
