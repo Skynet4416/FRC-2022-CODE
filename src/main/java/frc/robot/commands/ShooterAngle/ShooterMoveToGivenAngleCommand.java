@@ -39,7 +39,7 @@ public class ShooterMoveToGivenAngleCommand extends CommandBase {
     // System.out.println(SmartsDashboard.getNumber(frc.robot.Constants.Shooter.SmartDashboard.AngleToSet,
     // 0));
     if (angle <= Motors.Min || angle >= Motors.Max) {
-      end(true);
+      cancel();
       return;
     }
   }
