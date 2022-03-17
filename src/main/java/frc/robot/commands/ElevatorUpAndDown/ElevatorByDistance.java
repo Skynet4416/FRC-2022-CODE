@@ -20,12 +20,13 @@ public class ElevatorByDistance extends CommandBase {
     this._elevator = elevator;
     addRequirements(elevator);
   }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     System.out.println("Elevator By Distance Initialize");
     this._masterStartingPos = _elevator.getMasterRotations();
-    _elevator.setPreccentage(_masterStartingPos < _rotationCount?0.5:-0.5);
+    _elevator.setPreccentage(_rotationCount > 0 ? 0.5 : -0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,7 +45,7 @@ public class ElevatorByDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(_elevator.getMasterRotations() - this._masterStartingPos) > this._rotationCount - Elevator.rotation_threshold;
+    return Math.abs((this._masterStartingPos + _rotationCount) - _elevator.getMasterRotations()) < Elevator.rotation_threshold;
   }
 
 }
