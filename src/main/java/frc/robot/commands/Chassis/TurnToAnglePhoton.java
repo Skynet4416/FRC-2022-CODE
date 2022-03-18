@@ -22,8 +22,19 @@ public class TurnToAnglePhoton extends CommandBase{
     }
     @Override
     public void execute()
-    {   
-        double degrees = VisionMeth.angle_from_target(new PhotonCamera("Front"));
+    {   double degrees = 0;
+        try{
+         degrees = VisionMeth.angle_from_target(new PhotonCamera("Front"));
+        }
+        catch(Exception e){
+            try{
+                degrees = VisionMeth.angle_from_target(new PhotonCamera("Back"));
+            }
+            catch(Exception i_dont_give_a_shit)
+            {
+                degrees = 0;
+            }
+        }
         chassis.setArcadeDrive(0,Math.signum(chassis.getRotatPidController().calculate(-degrees,0))*Math.min(0.225,Math.abs(chassis.getRotatPidController().calculate(-degrees,0))));
     }
     public boolean isFinished(){

@@ -15,7 +15,6 @@ public class ShootAndIndexWhenRPMIsRead extends CommandBase{
 
         this._indexing = indexing;
         this._shooter = shooterSubsystem;
-        this.RPM = ShooterMeth.optimize()[0];
     }
     
     @Override
@@ -29,7 +28,7 @@ public class ShootAndIndexWhenRPMIsRead extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-      if (Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048 - Globals.RPM)<= Physics.ShooterThreshold )
+      if (Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048 - Globals.RPM)<= Physics.ShooterThreshold)
       {
         _shooter._leftLEDS.set(true);
         _shooter._rightLEDS.set(true);

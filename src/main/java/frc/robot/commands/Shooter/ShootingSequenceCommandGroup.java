@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ShootAndIndexWhenRPMIsRead;
 import frc.robot.commands.Chassis.TurnToAngle;
+import frc.robot.commands.Chassis.TurnToAnglePhoton;
 import frc.robot.commands.Indexing.IndexCommand;
 import frc.robot.commands.ShooterAngle.ShooterMoveToAngleCommand;
 import frc.robot.commands.ShooterAngle.ShooterMoveToGivenAngleCommand;
@@ -17,6 +18,6 @@ public class ShootingSequenceCommandGroup extends SequentialCommandGroup{
     {
         // addCommands(new TurnToAngle(chassis, chassis.ahrs),new ShooterMoveToAngleCommand(shooter_angle),new ParallelCommandGroup(new IndexCommand(indexing, false),new ShootBallCommand(shooter)));
         // addCommands(new ParallelCommandGroup(new IndexCommand(indexing,false),new ShootBallCommand(shooter,indexing,false)));
-        addCommands(new CalcCommand(),new ShooterMoveToGivenAngleCommand(shooter_angle),new ShootAndIndexWhenRPMIsRead(shooter, indexing));
+        addCommands(new TurnToAnglePhoton(chassis),new CalcCommand(),new ShooterMoveToGivenAngleCommand(shooter_angle),new ShootAndIndexWhenRPMIsRead(shooter, indexing));
     }
 }

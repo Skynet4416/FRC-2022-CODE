@@ -39,8 +39,9 @@ public class ShooterSubsystem extends SubsystemBase {
         _slave.config_kF(0, Shooter.Physics.PID.kF);
         _slave.follow(_master);
         _slave.setInverted(InvertType.FollowMaster);
-        _rightLEDS.set(true);
-        _leftLEDS.set(true);
+        _rightLEDS.set(false);
+        _leftLEDS.set(false);
+        _bottomLEDS.set(true);
     }
 
     @Override
@@ -65,11 +66,27 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Slave Velocity (RPM)", _slave.getSelectedSensorVelocity() * 600 / 2048);
         // SmartDashboard.putNumber("Distance", Math.sqrt(Math.pow(VisionMeth.distanceFromTarget(new PhotonCamera("Front")),2) - Math.pow(Physics.hub_height + Physics.shooter_height,2)));
         // SmartDashboard.putNumber("Distance", );
-        _bottomLEDS.set(true);
         Physics.ShooterThreshold = SmartDashboard.getNumber("Shooter Threashold", 0);
         Physics.RPM_presentange_loss = SmartDashboard.getNumber("RPM Precentage Loss", 0);
         Physics.threashold_y = SmartDashboard.getNumber("Threashold Y", 0);
-        
+        try{
+            new PhotonCamera("Front").getLatestResult().getBestTarget().getArea();
+            _rightLEDS.set(true);
+            _leftLEDS.set(true);
+        }
+        catch (Exception e)
+        {
+            try{
+            new PhotonCamera("Back").getLatestResult().getBestTarget().getArea();
+            _rightLEDS.set(true);
+            _leftLEDS.set(true);
+            }
+            catch (Exception i_dont_give_a_shit)
+            {
+                _rightLEDS.set(false);
+                _leftLEDS.set(false);
+            }
+        }
 
         // _rightLEDS.set(true);
         // _leftLEDS.set(true);
