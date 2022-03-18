@@ -31,7 +31,7 @@ public class ShootBallCommand extends CommandBase {
   @Override
   public void initialize() {
     // _shooter.SetRPM(SmartDashboard.getNumber("Shooter Precentage", 0));
-    _shooter.SetRPM(1725);
+    _shooter.SetRPM(RPM);
     _shooter._leftLEDS.set(false);
     _shooter._rightLEDS.set(false);
   }
@@ -39,7 +39,7 @@ public class ShootBallCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048 - 1725)<= Physics.ShooterThreshold )
+    if (Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048 - RPM)<= Physics.ShooterThreshold )
     {
       _shooter._leftLEDS.set(true);
       _shooter._rightLEDS.set(true);

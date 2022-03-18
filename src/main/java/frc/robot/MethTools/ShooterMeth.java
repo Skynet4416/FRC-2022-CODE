@@ -118,6 +118,9 @@ public class ShooterMeth {
     }
 
     public static double[] optimize() {
+        System.out.println("A " + Globals.hub_distance);
+        Globals.hub_distance = Math.sqrt(Math.pow(Globals.hub_distance,2) - Math.pow(Physics.hub_height - Physics.shooter_height, 2));
+        System.out.println("B " + Globals.hub_distance);
         double rpm = Physics.MAX_RPM * Physics.precentage;
         double best_rpm = rpm;
         double best_angle = 45;
@@ -143,10 +146,9 @@ public class ShooterMeth {
     }
 
     public static void main(String[] args) {
-        Globals.hub_distance = 1; // TODO: WAS 7
+        Globals.hub_distance = 4.23; // TODO: WAS 7
         long startTime = System.currentTimeMillis();
-        // Run some code;
-
+        // Run some code
         double[] a = optimize();
         long stopTime = System.currentTimeMillis();
         System.out.println("Elapsed time was " + (stopTime - startTime) + " miliseconds.");

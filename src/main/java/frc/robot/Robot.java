@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit(){ 
-    Globals.startPos = Circle.pos_from_distance_and_angle(VisionMeth.DistanceFromBall(m_robotContainer.getFrontCamera()), VisionMeth.angle_from_ball(m_robotContainer.getFrontCamera()), DriverStation.getAlliance() == Alliance.Red? RedAllince.Balls.red_wall:BlueAllince.Balls.blue_wall, DriverStation.getAlliance() == Alliance.Red? RedAllince.Balls.blue_wall:BlueAllince.Balls.red_wall);
+    // Globals.startPos = Circle.pos_from_distance_and_angle(VisionMeth.DistanceFromBall(m_robotContainer.getFrontCamera()), VisionMeth.angle_from_ball(m_robotContainer.getFrontCamera()), DriverStation.getAlliance() == Alliance.Red? RedAllince.Balls.red_wall:BlueAllince.Balls.blue_wall, DriverStation.getAlliance() == Alliance.Red? RedAllince.Balls.blue_wall:BlueAllince.Balls.red_wall);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)

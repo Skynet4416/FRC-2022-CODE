@@ -24,7 +24,7 @@ public class ShooterAngleMoveRightCommand extends CommandBase {
     @Override
     public void end(boolean inter)
     {
-        angle_moving.setPrecnetage(0);
+        angle_moving.setRight(0);
     }
     @Override
     public boolean isFinished()

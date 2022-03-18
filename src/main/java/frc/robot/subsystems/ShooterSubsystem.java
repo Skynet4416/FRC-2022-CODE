@@ -6,11 +6,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import org.photonvision.PhotonCamera;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 
+import frc.robot.Globals;
 import frc.robot.Constants.Shooter;
+import frc.robot.Constants.Shooter.Physics;
 import frc.robot.Constants.Shooter.Physics.Motors;
+import frc.robot.MethTools.VisionMeth;
 
 public class ShooterSubsystem extends SubsystemBase {
     private TalonFX _master = new TalonFX(Motors.Kmaster);
@@ -58,8 +63,14 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Master Current", _master.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter Slave Current", _slave.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter Slave Velocity (RPM)", _slave.getSelectedSensorVelocity() * 600 / 2048);
-        
+        // SmartDashboard.putNumber("Distance", Math.sqrt(Math.pow(VisionMeth.distanceFromTarget(new PhotonCamera("Front")),2) - Math.pow(Physics.hub_height + Physics.shooter_height,2)));
+        // SmartDashboard.putNumber("Distance", );
         _bottomLEDS.set(true);
+        Physics.ShooterThreshold = SmartDashboard.getNumber("Shooter Threashold", 0);
+        Physics.RPM_presentange_loss = SmartDashboard.getNumber("RPM Precentage Loss", 0);
+        Physics.threashold_y = SmartDashboard.getNumber("Threashold Y", 0);
+        
+
         // _rightLEDS.set(true);
         // _leftLEDS.set(true);
     }

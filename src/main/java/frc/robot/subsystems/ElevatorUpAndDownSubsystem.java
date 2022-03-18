@@ -27,7 +27,6 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
         _slave.setIdleMode(IdleMode.kBrake);
         _master.setIdleMode(IdleMode.kBrake);
         // _slave.follow(_master, true);
-        _slave.setInverted(true);
 
         _master_encoder = _master.getEncoder();
         _slave_encoder = _slave.getEncoder();

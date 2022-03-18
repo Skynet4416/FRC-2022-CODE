@@ -30,10 +30,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Globals;
+import frc.robot.Constants.Chassis;
 import frc.robot.Constants.Chassis.FeedForward;
 import frc.robot.Constants.Chassis.Odometry;
 import frc.robot.Constants.Chassis.PID;
 import frc.robot.Constants.Chassis.Physical;
+import frc.robot.Constants.Chassis.TurnToAngleConstants;
 import frc.robot.sensors.NavxGyro;
 
 public class ChassisSubsystem extends SubsystemBase {
@@ -61,7 +63,7 @@ public class ChassisSubsystem extends SubsystemBase {
   private PIDController _left_controller = new PIDController(PID.kP, PID.kI, PID.kD);
   private PIDController _right_controller = new PIDController(PID.kP, PID.kI, PID.kD);
   private TrajectoryConfig _config = new TrajectoryConfig(Odometry.max_velocity,Odometry.max_acceleration);
-
+  private PIDController turn_Controller;
   public ChassisSubsystem () {
     SmartDashboard.putData("Field", m_field);
     _config.setKinematics(_kinematics);
@@ -79,15 +81,23 @@ public class ChassisSubsystem extends SubsystemBase {
 
 
     m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
-  
+    m_right.setInverted(true);
     m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
     m_drive = new DifferentialDrive(m_left, m_right);
     ahrs = m_gyro.ahrs;
+    turn_Controller = new PIDController(TurnToAngleConstants.kP,TurnToAngleConstants.kI,TurnToAngleConstants.kD);
 
 
   
   }
-
+  public void setCervetureDrive(double idk1,double idk2)
+  {
+    m_drive.curvatureDrive(idk1, idk2, true);
+  }
+  public PIDController getRotatPidController()
+  {
+    return turn_Controller;
+  }
 
   public Rotation2d getHeading()
   {
@@ -103,9 +113,13 @@ public class ChassisSubsystem extends SubsystemBase {
 
 
 
-
+  public void setArcadeDrive(double forward_speed, double rotation_speed)
+  {
+    m_drive.arcadeDrive(forward_speed, rotation_speed);
+  }
   private double getLeftDistance(){
-    return _leftEncoder.getPosition()/Physical.ratio * 2 * Units.inchesToMeters(Physical.wheel_radius) * Math.PI ;
+
+    return _leftEncoder.getPosition()*Chassis.x;
   }
 
 
@@ -154,6 +168,9 @@ public class ChassisSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Y Position", m_odometry.getPoseMeters().getY());
     SmartDashboard.putNumber("Rotation 2D", getHeading().getDegrees());
     m_field.setRobotPose(m_odometry.getPoseMeters());
+    SmartDashboard.putNumber("Left Encoder", getLeftDistance());
+    SmartDashboard.putNumber("Right Encoder", getRightDistance());
+    turn_Controller.setP(SmartDashboard.getNumber("Turn To Angle KP", 0));
     
 
   }

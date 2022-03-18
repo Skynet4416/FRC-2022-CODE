@@ -3,7 +3,7 @@ package frc.robot.commands.Autonomous;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.Intake.IntakeAndIndexCommandGroup;
+import frc.robot.commands.Chassis.IntakeAndIndexCommandGroup;
 import frc.robot.subsystems.IndexingSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
