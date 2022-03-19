@@ -16,7 +16,7 @@ public class ElevatorByDistance extends CommandBase {
   private double _masterStartingPos;
 
   public ElevatorByDistance(ElevatorUpAndDownSubsystem elevator, double meterDistance) {
-    this._rotationCount = meterDistance * 25 / Elevator.meter_circumference;
+    this._rotationCount = meterDistance * 40*2.33 / Elevator.meter_circumference;
     this._elevator = elevator;
     addRequirements(elevator);
   }
