@@ -33,11 +33,11 @@ public class ShootAndIndexWhenRPMIsRead extends CommandBase{
       {
         _shooter._leftLEDS.set(true);
         _shooter._rightLEDS.set(true);
-        _indexing.setPercentage(0.6);
+        _indexing.setPercentage(0.5);
       
       }else{
-        _shooter._leftLEDS.set(false);
-        _shooter._rightLEDS.set(false);
+        // _shooter._leftLEDS.set(false);
+        // _shooter._rightLEDS.set(false);
         _indexing.setPercentage(-0.1);
       
       }

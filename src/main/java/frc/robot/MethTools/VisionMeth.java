@@ -15,7 +15,7 @@ public class VisionMeth {
     public static double quarticDistance(PhotonCamera camera) throws NullPointerException
     {
         double pitch = camera.getLatestResult().getBestTarget().getPitch();
-        return 0.00352092 * Math.pow(pitch, 2) -0.140462 * pitch + 4.32269;
+        return 0.00400843 * Math.pow(pitch, 2) -0.159914 * pitch + 4.21172 + (Physics.hub_diameter / 5);
     }
     public static double  angle_from_target(PhotonCamera camera) throws NullPointerException
     {

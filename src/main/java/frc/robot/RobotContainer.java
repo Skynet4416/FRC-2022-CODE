@@ -11,6 +11,8 @@ import java.util.function.DoubleSupplier;
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -105,12 +107,15 @@ public class RobotContainer {
     // OI.right_bumper.whileHeld(new ShooterAngleMoveRightCommand(shooterAngleSubsystem));
     // OI.B.whenPressed(new ShooterMoveToConstantAngle(shooterAngleSubsystem, 62-45));
     OI.X.whileHeld(new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem));
-      // OI.right_bumper.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
-      // OI.left_bumper.whileHeld(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
+      OI.right_bumper.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
+      OI.left_bumper.whileHeld(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
     // OI.Y.whenHeld(new HookUpCommand(hookUpSubsystem));
     // OI.X.whenPressed(new ShooterMoveToConstantAngle(shooterAngleSubsystem, 45));
-    // OI.right_bumper.whenPressed(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.1
+    // OI.right_bumper.whenPressed(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.7));
+    // OI.left_bumper.whenPressed(new ElevatorByDistance(elevatorUpAndDownSubsystem, -0.30));
+
     // ));
+
     OI.B.whileHeld(new IntakeSpinUp(intakeSubsystem, true));
     // OI.A.whileHeld(new IntakeSpinUp(intakeSubsystem, false));
   }
@@ -176,7 +181,9 @@ public class RobotContainer {
     // }
     // // An ExampleCommand will run in autonomous
     // return autocommand;
-      return null;
+      // return null;
+  Trajectory trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(Globals.startPos,new Pose2d(0,0,new Rotation2d(0))), chassisSubsystem.GetConfig());
+  return new RamseteCommand(trajectory,chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
   // SequentialCommandGroup shooterMoveToAngleSequence = new SequentialCommandGroup(new ShooterMoveToConstantAngle(shooterAngleSubsystem,10),new ShooterMoveToConstantAngle(shooterAngleSubsystem, 37));
   // SequentialCommandGroup autocommand = new SequentialCommandGroup(shooterMoveToAngleSequence,new ParallelCommandGroup(new SequentialCommandGroup(new WaitCommand(1),new IndexCommand(indexingSubsystem, false)),new ShootBallCommand(shooterSubsystem)));
   // return new ParallelDeadlineGroup(autocommand,new WaitCommand(15),new SequentialCommandGroup(new WaitCommand(10),new DriveByJoy(chassisSubsystem, ()->0.6)));

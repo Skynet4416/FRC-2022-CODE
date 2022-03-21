@@ -130,14 +130,14 @@ public final class Constants {
         }
 
         public class FeedForward {
-            public static final double kS = 0;
-            public static final double kv = 0;
-            public static final double ka = 0;
+            public static final double kS = 0.24595;
+            public static final double kv = 2.8504;
+            public static final double ka = 0.58577;
 
         }
 
         public class PID {
-            public static final double kP = 0.2;
+            public static final double kP = 2.3794;
             public static final double kI = 0;
             public static final double kD = 0;
         }
@@ -162,7 +162,7 @@ public final class Constants {
     public class Intake {
         public class Motors {
             public static final int kIntake = 20;
-            public static final double PowerPercentage = 0.7;
+            public static final double PowerPercentage = 0.4;
         }
     }
 
@@ -185,7 +185,7 @@ public final class Constants {
             public static final double resolution = 0.1;// in s
             public static final double shooter_height = 0.85; // in meter
             public static double threashold_x = 0.0508;// in meter
-            public static  double threashold_y = -0.2;// in meter
+            public static  double threashold_y = -0.0;// in meter
             public static final double hub_height = 2.64; // in meter
             public static final double precentage = 1 - RPM_presentange_loss;
 
