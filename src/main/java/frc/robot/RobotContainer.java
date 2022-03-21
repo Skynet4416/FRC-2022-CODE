@@ -35,6 +35,7 @@ import frc.robot.commands.ElevatorUpAndDown.ElevatorByDistance;
 import frc.robot.commands.ElevatorUpAndDown.ElevatorDownCommand;
 import frc.robot.commands.ElevatorUpAndDown.ElevatorUpCommand;
 import frc.robot.commands.Indexing.IndexCommand;
+import frc.robot.commands.Intake.IntakeSpinUp;
 import frc.robot.commands.Shooter.ShootingSequenceCommandGroup;
 import frc.robot.commands.ShooterAngle.ShooterAngleMoveLeftCommand;
 import frc.robot.commands.ShooterAngle.ShooterAngleMoveRightCommand;
@@ -90,7 +91,7 @@ public class RobotContainer {
     OI.A.whileHeld(new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem));
     // // OI.left_trigger.whileHeld(new IndexCommand(indexingSubsystem, false));
     // OI.B.whileHeld(new IndexCommand(indexingSubsystem, false));
-    // // OI.X.whileHeld(new ShootBallOnPrecentageCommand(shooterSubsystem));
+    // OI.X.whileHeld(new ShootBallOnPrecentageCommand(shooterSubsystem));
     // OI.Y.whileHeld(new IndexCommand(indexingSubsystem,true));
 // OI.B.whenHeld(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.5));
     // OI.X.whileHeld(new ParallelCommandGroup(new IndexCommand(indexingSubsystem, true), new IntakeSpinUp(intakeSubsystem,true)));
@@ -104,10 +105,14 @@ public class RobotContainer {
     // OI.right_bumper.whileHeld(new ShooterAngleMoveRightCommand(shooterAngleSubsystem));
     // OI.B.whenPressed(new ShooterMoveToConstantAngle(shooterAngleSubsystem, 62-45));
     OI.X.whileHeld(new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem));
-      OI.right_bumper.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
-      OI.left_bumper.whileHeld(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
+      // OI.right_bumper.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
+      // OI.left_bumper.whileHeld(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
     // OI.Y.whenHeld(new HookUpCommand(hookUpSubsystem));
     // OI.X.whenPressed(new ShooterMoveToConstantAngle(shooterAngleSubsystem, 45));
+    // OI.right_bumper.whenPressed(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.1
+    // ));
+    OI.B.whileHeld(new IntakeSpinUp(intakeSubsystem, true));
+    // OI.A.whileHeld(new IntakeSpinUp(intakeSubsystem, false));
   }
   private void configureSmartDashboard()
   {

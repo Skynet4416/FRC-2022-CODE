@@ -114,7 +114,7 @@ public final class Constants {
 
         public static class TurnToAngleConstants {
 
-            public static final double kP = 0.1;
+            public static final double kP = 0.2;
             public static final double kPmin = 0;
             public static final double kPmax = 0;
             public static final double kD = 0;
@@ -137,7 +137,7 @@ public final class Constants {
         }
 
         public class PID {
-            public static final double kP = 0;
+            public static final double kP = 0.2;
             public static final double kI = 0;
             public static final double kD = 0;
         }
@@ -177,7 +177,7 @@ public final class Constants {
             public static final double ball_mass = 0.267619498; // in kg
             public static final double density_of_air = 1.293;// in kg/m^3
             public static final double drag_coefficient = 0.47; // no units
-            public static  double RPM_presentange_loss = 0.0;
+            public static  double RPM_presentange_loss = 0.2;
             public static final double optimisation_RPM_Resolution = 100; // in RPM
             public static double circumference = (ball_diamater / 1000) * Math.PI;
             public static double cross_area = Math.PI * Math.pow((ball_diamater / 2) / 1000, 2); // m^2
@@ -185,7 +185,7 @@ public final class Constants {
             public static final double resolution = 0.1;// in s
             public static final double shooter_height = 0.85; // in meter
             public static double threashold_x = 0.0508;// in meter
-            public static  double threashold_y = 0.2;// in meter
+            public static  double threashold_y = -0.2;// in meter
             public static final double hub_height = 2.64; // in meter
             public static final double precentage = 1 - RPM_presentange_loss;
 
@@ -206,7 +206,7 @@ public final class Constants {
             public static final boolean right_moving_towords_ = false;
 
             public final class PIDAngle {
-                public static final double kP = 0;
+                public static final double kP = 0.2;
                 public static final double kI = 0;
                 public static final double kD = 0;
                 public static final double kF = 0;

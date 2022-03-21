@@ -21,6 +21,7 @@ public class ShootAndIndexWhenRPMIsRead extends CommandBase{
     public void initialize() {
       // _shooter.SetRPM(SmartDashboard.getNumber("Shooter Precentage", 0));
       _shooter.SetRPM(Globals.RPM);
+      System.out.println("Shooter RPM: " + Globals.RPM);
       _shooter._leftLEDS.set(false);
       _shooter._rightLEDS.set(false);
     }
@@ -32,9 +33,15 @@ public class ShootAndIndexWhenRPMIsRead extends CommandBase{
       {
         _shooter._leftLEDS.set(true);
         _shooter._rightLEDS.set(true);
-        _indexing.setPercentage(0.5);
+        _indexing.setPercentage(0.6);
+      
+      }else{
+        _shooter._leftLEDS.set(false);
+        _shooter._rightLEDS.set(false);
+        _indexing.setPercentage(-0.1);
       
       }
+
     }
   
     // Called once the command ends or is interrupted.

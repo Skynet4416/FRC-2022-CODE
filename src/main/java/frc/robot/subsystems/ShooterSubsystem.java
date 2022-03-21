@@ -66,13 +66,16 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Slave Velocity (RPM)", _slave.getSelectedSensorVelocity() * 600 / 2048);
         // SmartDashboard.putNumber("Distance", Math.sqrt(Math.pow(VisionMeth.distanceFromTarget(new PhotonCamera("Front")),2) - Math.pow(Physics.hub_height + Physics.shooter_height,2)));
         // SmartDashboard.putNumber("Distance", );
-        Physics.ShooterThreshold = SmartDashboard.getNumber("Shooter Threashold", 0);
-        Physics.RPM_presentange_loss = SmartDashboard.getNumber("RPM Precentage Loss", 0);
-        Physics.threashold_y = SmartDashboard.getNumber("Threashold Y", 0);
+        // Physics.ShooterThreshold = SmartDashboard.getNumber("Shooter Threashold", 0);
+        // Physics.RPM_presentange_loss = SmartDashboard.getNumber("RPM Precentage Loss", 0);
+        // Physics.threashold_y = SmartDashboard.getNumber("Threashold Y", 0);
         try{
             new PhotonCamera("Front").getLatestResult().getBestTarget().getArea();
             _rightLEDS.set(true);
             _leftLEDS.set(true);
+            // SmartDashboard.putNumber("Distance From Target", VisionMeth.distanceFromTarget(new PhotonCamera("Front")));
+            SmartDashboard.putNumber("Distance From Target", VisionMeth.quarticDistance(new PhotonCamera("Front")));
+
         }
         catch (Exception e)
         {
@@ -80,14 +83,17 @@ public class ShooterSubsystem extends SubsystemBase {
             new PhotonCamera("Back").getLatestResult().getBestTarget().getArea();
             _rightLEDS.set(true);
             _leftLEDS.set(true);
+            // SmartDashboard.putNumber("Distance From Target", VisionMeth.distanceFromTarget(new PhotonCamera("Back")));
+            SmartDashboard.putNumber("Distance From Target", VisionMeth.quarticDistance(new PhotonCamera("Back")));
+
             }
             catch (Exception i_dont_give_a_shit)
             {
                 _rightLEDS.set(false);
                 _leftLEDS.set(false);
+                // _bottomLEDS.set(false);
             }
         }
-
         // _rightLEDS.set(true);
         // _leftLEDS.set(true);
     }

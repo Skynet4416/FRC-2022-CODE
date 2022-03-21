@@ -18,7 +18,8 @@ public class TurnToAnglePhoton extends CommandBase{
     @Override
     public void initialize()
     {
-       
+       Globals.joyControlEnbaled =false;
+       Globals.joysticksControlEnbaled = false;
     }
     @Override
     public void execute()
@@ -35,13 +36,15 @@ public class TurnToAnglePhoton extends CommandBase{
                 degrees = 0;
             }
         }
-        chassis.setArcadeDrive(0,Math.signum(chassis.getRotatPidController().calculate(-degrees,0))*Math.min(0.225,Math.abs(chassis.getRotatPidController().calculate(-degrees,0))));
+        chassis.setArcadeDrive(0,Math.signum(chassis.getRotatPidController().calculate(-degrees,0))*Math.min(0.3,Math.abs(chassis.getRotatPidController().calculate(-degrees,0))));
     }
     public boolean isFinished(){
         return Math.abs(VisionMeth.angle_from_target(new PhotonCamera("Front"))) <=  Chassis.turn_to_angle_threashold;
     }
     public void end(boolean interrupted)
     {
+        Globals.joyControlEnbaled =true;
+        Globals.joysticksControlEnbaled = true;
         chassis.setArcadeDrive(0,0);
     }
 }

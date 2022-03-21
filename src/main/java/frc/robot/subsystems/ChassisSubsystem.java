@@ -36,6 +36,7 @@ import frc.robot.Constants.Chassis.Odometry;
 import frc.robot.Constants.Chassis.PID;
 import frc.robot.Constants.Chassis.Physical;
 import frc.robot.Constants.Chassis.TurnToAngleConstants;
+import frc.robot.commands.Chassis.TurnToAngle;
 import frc.robot.sensors.NavxGyro;
 
 public class ChassisSubsystem extends SubsystemBase {
@@ -170,7 +171,7 @@ public class ChassisSubsystem extends SubsystemBase {
     m_field.setRobotPose(m_odometry.getPoseMeters());
     SmartDashboard.putNumber("Left Encoder", getLeftDistance());
     SmartDashboard.putNumber("Right Encoder", getRightDistance());
-    turn_Controller.setP(SmartDashboard.getNumber("Turn To Angle KP", 0));
+    turn_Controller.setP(TurnToAngleConstants.kP);
     
 
   }

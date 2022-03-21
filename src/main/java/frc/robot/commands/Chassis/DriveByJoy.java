@@ -50,10 +50,10 @@ public class DriveByJoy extends CommandBase {
     @Override
     public void execute() {
         if (Globals.joyControlEnbaled){
-            double left = this.m_left.getAsDouble();
+            double left = -this.m_left.getAsDouble();
             left = Math.abs(left) > Constants.Inputs.joysticks.MIN_POWER ? left : 0;
             
-            double right = this.m_right.getAsDouble();
+            double right = -this.m_right.getAsDouble();
             right = Math.abs(right) > Constants.Inputs.joysticks.MIN_POWER ? right : 0;
 
 
@@ -64,7 +64,7 @@ public class DriveByJoy extends CommandBase {
                 right = avg;
             }
 
-            this.m_chassis.set(-left, right);
+            this.m_chassis.set(left, right);
 
         }
 

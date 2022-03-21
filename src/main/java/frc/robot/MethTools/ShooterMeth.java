@@ -118,9 +118,6 @@ public class ShooterMeth {
     }
 
     public static double[] optimize() {
-        System.out.println("A " + Globals.hub_distance);
-        Globals.hub_distance = Math.sqrt(Math.pow(Globals.hub_distance,2) - Math.pow(Physics.hub_height - Physics.shooter_height, 2));
-        System.out.println("B " + Globals.hub_distance);
         double rpm = Physics.MAX_RPM * Physics.precentage;
         double best_rpm = rpm;
         double best_angle = 45;

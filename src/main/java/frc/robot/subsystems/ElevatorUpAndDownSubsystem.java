@@ -27,8 +27,8 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
         _slave.setIdleMode(IdleMode.kBrake);
         _master.setIdleMode(IdleMode.kBrake);
         // _slave.follow(_master, true);
-
         _master_encoder = _master.getEncoder();
+
         _slave_encoder = _slave.getEncoder();
 
         // _master.kd(0, PID.Kd);
@@ -73,7 +73,7 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
     }
 
     public double getMasterRotations() {
-        return _master_encoder.getPosition();
+        return -1*_master_encoder.getPosition();
     }
 
     public double getSlaveRotations() {
