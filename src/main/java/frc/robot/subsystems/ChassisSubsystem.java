@@ -56,7 +56,7 @@ public class ChassisSubsystem extends SubsystemBase {
   private DifferentialDrive m_drive; 
 
   private NavxGyro m_gyro = new NavxGyro(Port.kMXP);
-  public AHRS ahrs;
+  // public AHRS ahrs;
   private DifferentialDriveKinematics _kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Physical.Robot_Width));
   private DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_gyro.getHeading(),_pose);
   private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(FeedForward.kS, FeedForward.kv,FeedForward.ka);
@@ -74,10 +74,7 @@ public class ChassisSubsystem extends SubsystemBase {
     _rightSlave.restoreFactoryDefaults();
 
 
-    _leftMaster.setIdleMode(IdleMode.kCoast);
-    _leftSlave.setIdleMode(IdleMode.kCoast);
-    _rightMaster.setIdleMode(IdleMode.kCoast);
-    _rightSlave.setIdleMode(IdleMode.kCoast);
+
 
 
 
@@ -85,7 +82,7 @@ public class ChassisSubsystem extends SubsystemBase {
     m_right.setInverted(true);
     m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
     m_drive = new DifferentialDrive(m_left, m_right);
-    ahrs = m_gyro.ahrs;
+    // ahrs = m_gyro.ahrs;
     turn_Controller = new PIDController(TurnToAngleConstants.kP,TurnToAngleConstants.kI,TurnToAngleConstants.kD);
 
 
@@ -112,7 +109,13 @@ public class ChassisSubsystem extends SubsystemBase {
     ,_rightMaster.getEncoder().getVelocity()/ Physical.ratio * 2 * Math.PI * Units.inchesToMeters(Physical.wheel_radius));
   }
 
-
+  public void setBreak()
+  {
+    _leftMaster.setIdleMode(IdleMode.kBrake);
+    _leftSlave.setIdleMode(IdleMode.kBrake);
+    _rightMaster.setIdleMode(IdleMode.kBrake);
+    _rightSlave.setIdleMode(IdleMode.kBrake);
+  }
 
   public void setArcadeDrive(double forward_speed, double rotation_speed)
   {

@@ -83,10 +83,11 @@ public class Robot extends TimedRobot {
    * {@link RobotContainer} class.
    */
   @Override
-  public void autonomousInit(){ 
+  public void autonomousInit(){
+     
     // Globals.startPos = Circle.pos_from_distance_and_angle(VisionMeth.DistanceFromBall(m_robotContainer.getFrontCamera()), VisionMeth.angle_from_ball(m_robotContainer.getFrontCamera()), DriverStation.getAlliance() == Alliance.Red? RedAllince.Balls.red_wall:BlueAllince.Balls.blue_wall, DriverStation.getAlliance() == Alliance.Red? RedAllince.Balls.blue_wall:BlueAllince.Balls.red_wall);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+    m_robotContainer.chassisSubsystem.setBreak();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

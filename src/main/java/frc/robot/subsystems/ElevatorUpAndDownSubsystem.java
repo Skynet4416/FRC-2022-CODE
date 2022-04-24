@@ -27,9 +27,7 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
         _slave.setIdleMode(IdleMode.kBrake);
         _master.setIdleMode(IdleMode.kBrake);
         // _slave.follow(_master, true);
-        _master_encoder = _master.getEncoder();
 
-        _slave_encoder = _slave.getEncoder();
 
         // _master.kd(0, PID.Kd);
         // _master.config_kF(0, PID.Kf);
@@ -52,7 +50,7 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
     public void setPreccentage(double precentage)
     {
         _master.set(precentage);
-        _slave.set(precentage);
+        _slave.set(-precentage);
     }
 
     @Override
@@ -73,12 +71,12 @@ public class ElevatorUpAndDownSubsystem extends SubsystemBase {
     }
 
     public double getMasterRotations() {
-        return -1*_master_encoder.getPosition();
+        return 0;
+    }
+    public double getSlaveRotations() {
+        return 0;
     }
 
-    public double getSlaveRotations() {
-        return _slave_encoder.getPosition();
-    }
 
     // public void SetPoistion(double position_in_meters)
     // {

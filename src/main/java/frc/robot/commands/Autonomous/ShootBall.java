@@ -9,7 +9,7 @@ import frc.robot.subsystems.ShooterAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootBall extends ParallelDeadlineGroup{
-    public ShootBall(double time_to_shoot,ChassisSubsystem chassis,IndexingSubsystem indexing,ShooterAngleSubsystem shooterAngleSubsystem,ShooterSubsystem shooterSubsystem)
+    public ShootBall(double time_to_shoot,ChassisSubsystem chassis,IndexingSubsystem indexing,ShooterAngleSubsystem shooterAngleSubsystem,ShooterSubsystem shooterSubsystem,boolean vision)
     {
         super(new WaitCommand(time_to_shoot), new ShootingSequenceCommandGroup(chassis, indexing, shooterAngleSubsystem, shooterSubsystem));
     }

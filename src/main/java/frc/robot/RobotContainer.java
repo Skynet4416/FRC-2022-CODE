@@ -21,8 +21,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-  import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.Shooter;
 import frc.robot.Constants.Chassis.TurnToAngleConstants;
 import frc.robot.Constants.Field.Waypoints;
@@ -58,7 +60,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  private ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
+  public ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
   private IndexingSubsystem indexingSubsystem = new IndexingSubsystem();
   private ShooterAngleSubsystem shooterAngleSubsystem = new ShooterAngleSubsystem();
   private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
@@ -109,7 +111,7 @@ public class RobotContainer {
     OI.X.whileHeld(new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem));
       OI.right_bumper.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
       OI.left_bumper.whileHeld(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
-    // OI.Y.whenHeld(new HookUpCommand(hookUpSubsystem));
+    // OI.Y.whenHeld(new HookUpCommand(hookUpSubsystem))`;
     // OI.X.whenPressed(new ShooterMoveToConstantAngle(shooterAngleSubsystem, 45));
     // OI.right_bumper.whenPressed(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.7));
     // OI.left_bumper.whenPressed(new ElevatorByDistance(elevatorUpAndDownSubsystem, -0.30));
@@ -121,6 +123,7 @@ public class RobotContainer {
   }
   private void configureSmartDashboard()
   {
+    SmartDashboard.putNumber("Camera Offset", Constants.CAMERA_OFFSET);
     SmartDashboard.putNumber("Precentage", 0);
     SmartDashboard.putNumber(Constants.Chassis.SmartDashboard.TurnAnglePointAx, 0);
     SmartDashboard.putNumber(Constants.Chassis.SmartDashboard.TurnAnglePointBx, 0.3333333);
@@ -182,21 +185,15 @@ public class RobotContainer {
     // // An ExampleCommand will run in autonomous
     // return autocommand;
       // return null;
-  Trajectory trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(Globals.startPos,new Pose2d(0,0,new Rotation2d(0))), chassisSubsystem.GetConfig());
-  return new RamseteCommand(trajectory,chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
+  // Trajectory trajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(Globals.startPos,new Pose2d(0,0,new Rotation2d(0))), chassisSubsystem.GetConfig());
+  // return new RamseteCommand(trajectory,chassisSubsystem::getPosition, new RamseteController(2.0,0.7),  chassisSubsystem.getFeedforward(), chassisSubsystem.getDifferentialDriveKinematics(),chassisSubsystem::getSpeeds, chassisSubsystem.getLeftController(), chassisSubsystem.getRightController(), chassisSubsystem::setVoltage, chassisSubsystem);
   // SequentialCommandGroup shooterMoveToAngleSequence = new SequentialCommandGroup(new ShooterMoveToConstantAngle(shooterAngleSubsystem,10),new ShooterMoveToConstantAngle(shooterAngleSubsystem, 37));
   // SequentialCommandGroup autocommand = new SequentialCommandGroup(shooterMoveToAngleSequence,new ParallelCommandGroup(new SequentialCommandGroup(new WaitCommand(1),new IndexCommand(indexingSubsystem, false)),new ShootBallCommand(shooterSubsystem)));
+  // return new SequentialCommandGroup(new ParallelDeadlineGroup(new WaitCommand(5),new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem,false)),new ParallelDeadlineGroup(new WaitCommand(1.75),new DriveByJoy(chassisSubsystem, ()->-0.7),new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem)),new ParallelDeadlineGroup(new WaitCommand(1.75),new DriveByJoy(chassisSubsystem, ()->0.7)), new ParallelDeadlineGroup(new WaitCommand(5), new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem,false)));
   // return new ParallelDeadlineGroup(autocommand,new WaitCommand(15),new SequentialCommandGroup(new WaitCommand(10),new DriveByJoy(chassisSubsystem, ()->0.6)));
-  
+  return new SequentialCommandGroup(new ParallelDeadlineGroup(new WaitCommand(2),new DriveByJoy(chassisSubsystem, ()->-0.7),new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem)),new ParallelDeadlineGroup(new WaitCommand(7), new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem,shooterSubsystem)));
   }
-  public PhotonCamera getFrontCamera()
-  {
-    return front_camera;
-  }
-  public PhotonCamera getBackCamera()
-  {
-    return back_camera;
-  }
+
 
 }
 

@@ -18,33 +18,43 @@ public class TurnToAnglePhoton extends CommandBase{
     @Override
     public void initialize()
     {
+    System.out.println(
+    "WAAAAAAAAAAAAAAAAAAAa");
+
        Globals.joyControlEnbaled =false;
        Globals.joysticksControlEnbaled = false;
     }
     @Override
     public void execute()
-    {   double degrees = 0;
-        try{
-         degrees = VisionMeth.angle_from_target(new PhotonCamera("Front"));
+    {
+        System.out.println("Finished AngleTurn!");
+        double degrees = 0;
+        PhotonCamera camera = new PhotonCamera("Front");
+        if(camera.getLatestResult().hasTargets()){
+            degrees = VisionMeth.angle_from_target(new PhotonCamera("Front"));
+            chassis.setArcadeDrive(0,Math.signum(chassis.getRotatPidController().calculate(-degrees,0))*Math.min(0.3,Math.abs(chassis.getRotatPidController().calculate(-degrees,0))));
         }
-        catch(Exception e){
-            try{
-                degrees = VisionMeth.angle_from_target(new PhotonCamera("Back"));
-            }
-            catch(Exception i_dont_give_a_shit)
-            {
-                degrees = 0;
-            }
-        }
-        chassis.setArcadeDrive(0,Math.signum(chassis.getRotatPidController().calculate(-degrees,0))*Math.min(0.3,Math.abs(chassis.getRotatPidController().calculate(-degrees,0))));
     }
     public boolean isFinished(){
-        return Math.abs(VisionMeth.angle_from_target(new PhotonCamera("Front"))) <=  Chassis.turn_to_angle_threashold;
+        double degrees = 0;
+        System.out.println("WWWWWWWWWWWWWW");
+        PhotonCamera camera = new PhotonCamera("Front");
+        if(camera.getLatestResult().hasTargets()){
+            System.out.println("AAAAAAAA");
+            degrees = VisionMeth.angle_from_target(new PhotonCamera("Front"));
+            System.out.println("BBBBBBBBBBBB");
+            return Math.abs(degrees) <=  Chassis.turn_to_angle_threashold;
+        }
+        else{
+            return true;
+        }
+        
     }
     public void end(boolean interrupted)
     {
         Globals.joyControlEnbaled =true;
         Globals.joysticksControlEnbaled = true;
         chassis.setArcadeDrive(0,0);
+        System.out.println("Finished AngleTurn!");
     }
 }

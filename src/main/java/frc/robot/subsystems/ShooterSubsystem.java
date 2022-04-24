@@ -11,6 +11,7 @@ import org.photonvision.PhotonCamera;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 
+import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.Constants.Shooter;
 import frc.robot.Constants.Shooter.Physics;
@@ -46,6 +47,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        PhotonCamera camera = new PhotonCamera("Front");
         // _master.config_kP(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP, Shooter.Physics.PID.kP));
         // _master.config_kI(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kI));
         // _master.config_kD(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kD));
@@ -59,11 +61,12 @@ public class ShooterSubsystem extends SubsystemBase {
         // _slave.config_kI(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kI));
         // _slave.config_kD(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kD));
         // _slave.config_kF(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF, Shooter.Physics.PID.kF));
-
+        // Constants.CAMERA_OFFSET = SmartDashboard.getNumber("Camera Offset", Constants.CAMERA_OFFSET);
         SmartDashboard.putNumber("Shooter Master Velocity (RPM)", _master.getSelectedSensorVelocity() * 600 / 2048);
         SmartDashboard.putNumber("Shooter Master Current", _master.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter Slave Current", _slave.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter Slave Velocity (RPM)", _slave.getSelectedSensorVelocity() * 600 / 2048);
+        SmartDashboard.putNumber("Angle From Target", VisionMeth.angle_from_target(camera));
         // SmartDashboard.putNumber("Distance", Math.sqrt(Math.pow(VisionMeth.distanceFromTarget(new PhotonCamera("Front")),2) - Math.pow(Physics.hub_height + Physics.shooter_height,2)));
         // SmartDashboard.putNumber("Distance", );
         // Physics.ShooterThreshold = SmartDashboard.getNumber("Shooter Threashold", 0);

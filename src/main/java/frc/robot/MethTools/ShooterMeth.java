@@ -143,7 +143,7 @@ public class ShooterMeth {
     }
 
     public static void main(String[] args) {
-        Globals.hub_distance = 4.23; // TODO: WAS 7
+        Globals.hub_distance = 0.87; // TODO: WAS 7
         long startTime = System.currentTimeMillis();
         // Run some code
         double[] a = optimize();

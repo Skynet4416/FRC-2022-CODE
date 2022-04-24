@@ -162,7 +162,7 @@ public final class Constants {
     public class Intake {
         public class Motors {
             public static final int kIntake = 20;
-            public static final double PowerPercentage = 0.4;
+            public static final double PowerPercentage = 0.8;
         }
     }
 
@@ -252,7 +252,7 @@ public final class Constants {
 
             public static final int Kmaster = 5;
             public static final int Kslave = 4;
-            public static final double elevator_precentage = 0.2;
+            public static final double elevator_precentage = 0.8;
             public static final int KangleMotor = 6;
             public static final double angle_move_precentage = 1;
             public static final int Khook = 7;
@@ -294,4 +294,6 @@ public final class Constants {
             public static final String CurrentAngle = "Climbing Current Angle";
         }
     }
+
+    public static double CAMERA_OFFSET = 13.3;
 }
