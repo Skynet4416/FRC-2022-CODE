@@ -34,16 +34,20 @@ import frc.robot.commands.Autonomous.ShootBall;
 import frc.robot.commands.Chassis.CurvetureDrive;
 import frc.robot.commands.Chassis.DriveByJoy;
 import frc.robot.commands.Chassis.IntakeAndIndexCommandGroup;
-import frc.robot.commands.Chassis.TurnToAnglePhoton;
-import frc.robot.commands.ElevatorUpAndDown.ElevatorByDistance;
+
 import frc.robot.commands.ElevatorUpAndDown.ElevatorDownCommand;
 import frc.robot.commands.ElevatorUpAndDown.ElevatorUpCommand;
 import frc.robot.commands.Indexing.IndexCommand;
 import frc.robot.commands.Intake.IntakeSpinUp;
+import frc.robot.commands.Shooter.CalcCommand;
+import frc.robot.commands.Shooter.ConstantCalc;
 import frc.robot.commands.Shooter.ShootingSequenceCommandGroup;
+import frc.robot.commands.Shooter.SpeedShooter;
+import frc.robot.commands.ShooterAngle.ConstantAngleMove;
 import frc.robot.commands.ShooterAngle.ShooterAngleMoveLeftCommand;
 import frc.robot.commands.ShooterAngle.ShooterAngleMoveRightCommand;
 import frc.robot.commands.ShooterAngle.ShooterMoveToConstantAngle;
+import frc.robot.commands.ShooterAngle.ShooterMoveToGivenAngleCommand;
 import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.ElevatorUpAndDownSubsystem;
 import frc.robot.subsystems.IndexingSubsystem;
@@ -91,6 +95,8 @@ public class RobotContainer {
     BooleanSupplier triggeror = () -> OI.leftJoy.getTrigger() || OI.rightJoy.getTrigger();
     DoubleSupplier throttle = () -> 0.8;
     chassisSubsystem.setDefaultCommand(new DriveByJoy(chassisSubsystem, OI.leftJoy::getY, OI.rightJoy::getY, triggeror, throttle));
+    shooterAngleSubsystem.setDefaultCommand(new ParallelCommandGroup(new ConstantCalc(),new ConstantAngleMove(shooterAngleSubsystem)));
+    shooterSubsystem.setDefaultCommand(new SpeedShooter(shooterSubsystem));
     // configure OI
     OI.A.whileHeld(new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem));
     // // OI.left_trigger.whileHeld(new IndexCommand(indexingSubsystem, false));
