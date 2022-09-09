@@ -32,12 +32,13 @@ public final class Constants {
         }
 
     }
-    public static class Vision
-    {
-        public static class Target{
+
+    public static class Vision {
+        public static class Target {
             public static final double target_size_at_one_meter = 3.3;
         }
-        public static class Ball{
+
+        public static class Ball {
             public static final double ball_size_at_one_meter = 0;
         }
     }
@@ -97,7 +98,8 @@ public final class Constants {
     }
 
     public static class Chassis {
-        public static final double x = 1/Physical.ratio * 2 * Units.inchesToMeters(Physical.wheel_radius) * Math.PI ;
+        public static final double x = 1 / Physical.ratio * 2 * Units.inchesToMeters(Physical.wheel_radius) * Math.PI;
+
         public static final class SmartDashboard {
 
             public final static String TurnAnglePointAx = "Turn Angle Point Ax";
@@ -170,14 +172,15 @@ public final class Constants {
         public static class Physics {
             public static final int MAX_RPM = 6380;
             public static final double hub_diameter = 1.22; // in meter
-            public static final double ball_diamater = 0.2413;
-            public static  double ShooterThreshold = 50;
+            public static final double ball_diamater = 9.5; // inches
+            public static final double ball_radius = Units.inchesToMeters(ball_diamater / 2); // meters
+            public static double ShooterThreshold = 50;
             public static final double diamater = 101.6; // in mm
             public static final double gravitational_acceleration_near_earth = 9.83; // in m/s^2
             public static final double ball_mass = 0.267619498; // in kg
             public static final double density_of_air = 1.293;// in kg/m^3
             public static final double drag_coefficient = 0.47; // no units
-            public static  double RPM_presentange_loss = 0.2;
+            public static double RPM_presentange_loss = 0.2;
             public static final double optimisation_RPM_Resolution = 100; // in RPM
             public static double circumference = (ball_diamater / 1000) * Math.PI;
             public static double cross_area = Math.PI * Math.pow((ball_diamater / 2) / 1000, 2); // m^2
@@ -185,7 +188,7 @@ public final class Constants {
             public static final double resolution = 0.1;// in s
             public static final double shooter_height = 0.85; // in meter
             public static double threashold_x = 0.0508;// in meter
-            public static  double threashold_y = -0.0;// in meter
+            public static double threashold_y = -0.0;// in meter
             public static final double hub_height = 2.64; // in meter
             public static final double precentage = 1 - RPM_presentange_loss;
 
@@ -200,8 +203,8 @@ public final class Constants {
                 public static final double AnglePrecentage = 0.30;
             }
 
-            public static  double left_home = 166; // needs to be adjested
-            public static  double right_home = 55.546875; // needs to be adjested
+            public static double left_home = 166; // needs to be adjested
+            public static double right_home = 55.546875; // needs to be adjested
             public static final boolean left_moving_towords_ = false;
             public static final boolean right_moving_towords_ = false;
 
@@ -214,7 +217,7 @@ public final class Constants {
 
             public final class PID {
                 // needs to be set to real value
-                public static final double kP =0.005;
+                public static final double kP = 0.005;
                 public static final double kI = 0;
                 public static final double kD = 10;
                 public static final double kF = 0.18;

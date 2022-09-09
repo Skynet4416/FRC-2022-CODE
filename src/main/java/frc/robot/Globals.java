@@ -11,7 +11,8 @@ public class Globals {
     public static boolean joysticksControlEnbaled = true;
     public static double hub_distance;
     public static double angle;
-    public static double RPM;
+    public static double top_rpm;
+    public static double bottom_rpm;
     public static PhotonCamera front;
     public static PhotonCamera back;
 }

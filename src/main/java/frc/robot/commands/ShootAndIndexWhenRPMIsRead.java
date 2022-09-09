@@ -10,7 +10,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShootAndIndexWhenRPMIsRead extends CommandBase{
     private ShooterSubsystem _shooter;
     private IndexingSubsystem _indexing;
-    double RPM;
     public ShootAndIndexWhenRPMIsRead(ShooterSubsystem shooterSubsystem, IndexingSubsystem indexing){
 
         this._indexing = indexing;
@@ -20,8 +19,9 @@ public class ShootAndIndexWhenRPMIsRead extends CommandBase{
     @Override
     public void initialize() {
       // _shooter.SetRPM(SmartDashboard.getNumber("Shooter Precentage", 0));
-      _shooter.SetRPM(Globals.RPM);
-      System.out.println("Shooter RPM: " + Globals.RPM);
+      _shooter.SetRPM(Globals.top_rpm,Globals.bottom_rpm);
+      System.out.println("Shooter top_rpm: " + Globals.top_rpm);
+      System.out.println("Shooter bottom_rpm: " + Globals.bottom_rpm);
       _shooter._leftLEDS.set(false);
       _shooter._rightLEDS.set(false);
     }
@@ -29,7 +29,7 @@ public class ShootAndIndexWhenRPMIsRead extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-      if (Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048 - Globals.RPM)<= Physics.ShooterThreshold)
+      if (Math.abs(Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048) - Globals.top_rpm)<= Physics.ShooterThreshold && Math.abs(Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048) - Globals.bottom_rpm)<= Physics.ShooterThreshold)
       {
         _shooter._leftLEDS.set(true);
         _shooter._rightLEDS.set(true);

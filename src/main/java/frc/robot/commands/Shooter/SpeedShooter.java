@@ -13,7 +13,7 @@ public class SpeedShooter extends CommandBase{
     @Override
     public void execute()
     {
-        this.shooter.SetRPM(Globals.RPM/4);
+        this.shooter.SetRPM(Globals.top_rpm/4, Globals.bottom_rpm/4);
     }
     public void end(boolean interapted)
     {

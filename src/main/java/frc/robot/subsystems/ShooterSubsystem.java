@@ -38,8 +38,7 @@ public class ShooterSubsystem extends SubsystemBase {
         _slave.config_kP(0, Shooter.Physics.PID.kP);
         _slave.config_kI(0, Shooter.Physics.PID.kI, 0);
         _slave.config_kF(0, Shooter.Physics.PID.kF);
-        _slave.follow(_master);
-        _slave.setInverted(InvertType.FollowMaster);
+        _slave.setInverted(InvertType.InvertMotorOutput);
         _rightLEDS.set(false);
         _leftLEDS.set(false);
         _bottomLEDS.set(true);
@@ -48,50 +47,77 @@ public class ShooterSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         PhotonCamera camera = new PhotonCamera("Front");
-        // _master.config_kP(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP, Shooter.Physics.PID.kP));
-        // _master.config_kI(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kI));
-        // _master.config_kD(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kD));
-        // _master.config_kF(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF, Shooter.Physics.PID.kF));
-        // // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP, Shooter.Physics.PID.kP));
-        // // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kP));
-        // // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kP));
-        // // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF, Shooter.Physics.PID.kP));
+        // _master.config_kP(0,
+        // SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP,
+        // Shooter.Physics.PID.kP));
+        // _master.config_kI(0,
+        // SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI,
+        // Shooter.Physics.PID.kI));
+        // _master.config_kD(0,
+        // SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD,
+        // Shooter.Physics.PID.kD));
+        // _master.config_kF(0,
+        // SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF,
+        // Shooter.Physics.PID.kF));
+        // //
+        // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP,
+        // Shooter.Physics.PID.kP));
+        // //
+        // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD,
+        // Shooter.Physics.PID.kP));
+        // //
+        // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI,
+        // Shooter.Physics.PID.kP));
+        // //
+        // System.out.println(SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF,
+        // Shooter.Physics.PID.kP));
 
-        // _slave.config_kP(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP, Shooter.Physics.PID.kP));
-        // _slave.config_kI(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI, Shooter.Physics.PID.kI));
-        // _slave.config_kD(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD, Shooter.Physics.PID.kD));
-        // _slave.config_kF(0, SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF, Shooter.Physics.PID.kF));
-        // Constants.CAMERA_OFFSET = SmartDashboard.getNumber("Camera Offset", Constants.CAMERA_OFFSET);
+        // _slave.config_kP(0,
+        // SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP,
+        // Shooter.Physics.PID.kP));
+        // _slave.config_kI(0,
+        // SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKI,
+        // Shooter.Physics.PID.kI));
+        // _slave.config_kD(0,
+        // SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKD,
+        // Shooter.Physics.PID.kD));
+        // _slave.config_kF(0,
+        // SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKF,
+        // Shooter.Physics.PID.kF));
+        // Constants.CAMERA_OFFSET = SmartDashboard.getNumber("Camera Offset",
+        // Constants.CAMERA_OFFSET);
         SmartDashboard.putNumber("Shooter Master Velocity (RPM)", _master.getSelectedSensorVelocity() * 600 / 2048);
         SmartDashboard.putNumber("Shooter Master Current", _master.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter Slave Current", _slave.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter Slave Velocity (RPM)", _slave.getSelectedSensorVelocity() * 600 / 2048);
         SmartDashboard.putNumber("Angle From Target", VisionMeth.angle_from_target(camera));
-        // SmartDashboard.putNumber("Distance", Math.sqrt(Math.pow(VisionMeth.distanceFromTarget(new PhotonCamera("Front")),2) - Math.pow(Physics.hub_height + Physics.shooter_height,2)));
+        // SmartDashboard.putNumber("Distance",
+        // Math.sqrt(Math.pow(VisionMeth.distanceFromTarget(new
+        // PhotonCamera("Front")),2) - Math.pow(Physics.hub_height +
+        // Physics.shooter_height,2)));
         // SmartDashboard.putNumber("Distance", );
         // Physics.ShooterThreshold = SmartDashboard.getNumber("Shooter Threashold", 0);
-        // Physics.RPM_presentange_loss = SmartDashboard.getNumber("RPM Precentage Loss", 0);
+        // Physics.RPM_presentange_loss = SmartDashboard.getNumber("RPM Precentage
+        // Loss", 0);
         // Physics.threashold_y = SmartDashboard.getNumber("Threashold Y", 0);
-        try{
+        try {
             new PhotonCamera("Front").getLatestResult().getBestTarget().getArea();
             _rightLEDS.set(true);
             _leftLEDS.set(true);
-            // SmartDashboard.putNumber("Distance From Target", VisionMeth.distanceFromTarget(new PhotonCamera("Front")));
+            // SmartDashboard.putNumber("Distance From Target",
+            // VisionMeth.distanceFromTarget(new PhotonCamera("Front")));
             SmartDashboard.putNumber("Distance From Target", VisionMeth.quarticDistance(new PhotonCamera("Front")));
 
-        }
-        catch (Exception e)
-        {
-            try{
-            new PhotonCamera("Back").getLatestResult().getBestTarget().getArea();
-            _rightLEDS.set(true);
-            _leftLEDS.set(true);
-            // SmartDashboard.putNumber("Distance From Target", VisionMeth.distanceFromTarget(new PhotonCamera("Back")));
-            SmartDashboard.putNumber("Distance From Target", VisionMeth.quarticDistance(new PhotonCamera("Back")));
+        } catch (Exception e) {
+            try {
+                new PhotonCamera("Back").getLatestResult().getBestTarget().getArea();
+                _rightLEDS.set(true);
+                _leftLEDS.set(true);
+                // SmartDashboard.putNumber("Distance From Target",
+                // VisionMeth.distanceFromTarget(new PhotonCamera("Back")));
+                SmartDashboard.putNumber("Distance From Target", VisionMeth.quarticDistance(new PhotonCamera("Back")));
 
-            }
-            catch (Exception i_dont_give_a_shit)
-            {
+            } catch (Exception i_dont_give_a_shit) {
                 _rightLEDS.set(false);
                 _leftLEDS.set(false);
                 // _bottomLEDS.set(false);
@@ -101,10 +127,10 @@ public class ShooterSubsystem extends SubsystemBase {
         // _leftLEDS.set(true);
     }
 
-    public void SetRPM(double RPM) {
+    public void SetRPM(double top_rpm, double botom_rpm) {
         // System.out.println(RPM);
-        _master.set(ControlMode.Velocity, RPM);
-        _slave.set(ControlMode.Velocity, RPM);
+        _master.set(ControlMode.Velocity, top_rpm);
+        _slave.set(ControlMode.Velocity, botom_rpm);
     }
 
     public TalonFX GetMaster() {

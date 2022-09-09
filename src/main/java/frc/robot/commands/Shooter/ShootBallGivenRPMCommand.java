@@ -13,16 +13,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ShootBallGivenRPMCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private ShooterSubsystem _shooter;
-  private double RPM;
+  private double top_rpm;
+  private double bottom_rpm;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShootBallGivenRPMCommand(ShooterSubsystem shooter, double RPM) {
+  public ShootBallGivenRPMCommand(ShooterSubsystem shooter, double top_rpm ,double bottom_rpm) {
     _shooter = shooter;
-    this.RPM = RPM;
+    this.top_rpm = top_rpm;
+    this.bottom_rpm = bottom_rpm;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
   }
@@ -30,7 +33,7 @@ public class ShootBallGivenRPMCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    _shooter.SetRPM(RPM);
+    _shooter.SetRPM(top_rpm,bottom_rpm);
     System.out.println("Shooter RPM Initialized");
   }
 
