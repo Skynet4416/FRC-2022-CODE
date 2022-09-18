@@ -19,6 +19,6 @@ public class ShootingSequenceCommandGroup extends SequentialCommandGroup{
     {
         // addCommands(new TurnToAngle(chassis, chassis.ahrs),new ShooterMoveToAngleCommand(shooter_angle),new ParallelCommandGroup(new IndexCommand(indexing, false),new ShootBallCommand(shooter)));
         // addCommands(new ParallelCommandGroup(new IndexCommand(indexing,false),new ShootBallCommand(shooter,indexing,false)));
-        addCommands(new TurnToAnglePhoton(chassis),new ConstantCalc(ball), new ShooterMoveToGivenAngleCommand(shooter_angle),new ShootAndIndexWhenRPMIsRead(shooter, indexing));
+        addCommands(new TurnToAnglePhoton(chassis),new ConstantCalc(ball,shooter,true), new ShooterMoveToGivenAngleCommand(shooter_angle),new ShootAndIndexWhenRPMIsRead(shooter, indexing));
     }
 }

@@ -33,6 +33,7 @@ public class ShooterMoveToGivenAngleCommand extends CommandBase {
     @Override
     public void initialize() {
       this.angle = Globals.angle;
+      System.out.println("Initialized Shooter Constant Angle");
       // _angle_moving.SetAngle(0);
       // System.out.println(SmartsDashboard.getNumber(frc.robot.Constants.Shooter.SmartDashboard.AngleToSet,
       // 0));
@@ -40,7 +41,6 @@ public class ShooterMoveToGivenAngleCommand extends CommandBase {
         end(true);
         return;
       }
-      System.out.println("Initialized Shooter Constant Angle");
     }
   
     // Called every time the scheduler runs while the command is scheduled.`x

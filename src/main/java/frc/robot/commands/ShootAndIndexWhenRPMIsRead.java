@@ -29,7 +29,7 @@ public class ShootAndIndexWhenRPMIsRead extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-      if (Math.abs(Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048) - Globals.top_rpm)<= Physics.ShooterThreshold && Math.abs(Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048) - Globals.bottom_rpm)<= Physics.ShooterThreshold)
+      if (Math.abs(Math.abs(_shooter.Gettop().getSelectedSensorVelocity()*600/2048) - Globals.top_rpm)<= Physics.ShooterThreshold && Math.abs(Math.abs(_shooter.Getbottom().getSelectedSensorVelocity()*600/2048) - Globals.bottom_rpm)<= Physics.ShooterThreshold)
       {
         _shooter._leftLEDS.set(true);
         _shooter._rightLEDS.set(true);

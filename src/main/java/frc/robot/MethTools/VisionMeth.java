@@ -20,10 +20,15 @@ public class VisionMeth {
     {
         if (camera.getLatestResult().hasTargets())
         {
-            double pitch = camera.getLatestResult().getBestTarget().getPitch();
+            double pitch = Math.abs(camera.getLatestResult().getBestTarget().getYaw());
             SmartDashboard.putNumber("Camera Pitch", pitch);
             // return 0.00400843 * Math.pow(pitch, 2) -0.159914 * pitch + 4.21172 + (Physics.hub_diameter / 5);
-            return (2.64 - 0.72) / Math.tan(Math.toRadians(pitch + 20 + Constants.CAMERA_OFFSET)) - (Physics.hub_diameter / 2);
+
+            double real_height = 2.3;
+            double distance = (real_height - 0.72) / Math.tan(Math.toRadians(20-pitch)); 
+            SmartDashboard.putNumber("Target Distance", distance);
+            return distance;
+            // return (2.3 - 0.72) / Math.tan(Math.toRadians(pitch + 20 + Constants.CAMERA_OFFSET)) - (Physics.hub_diameter / 2);
         }
         return 0;
     }
@@ -31,15 +36,18 @@ public class VisionMeth {
     {
         double sum=0;
         double avg =0;
+        double result = 0;
         if (camera.getLatestResult().hasTargets())
         {
             for(PhotonTrackedTarget target: camera.getLatestResult().targets)
             {
-                sum += target.getYaw();
-                avg +=Math.abs(target.getYaw());
+                sum += target.getPitch();
+                avg +=Math.abs(target.getPitch());
+                result = target.getPitch();
             }
-            System.out.print(avg/camera.getLatestResult().targets.size());
-            return Math.signum(sum)*avg/camera.getLatestResult().targets.size() +15;
+            System.out.println(avg/camera.getLatestResult().targets.size());
+            // return Math.signum(sum)*avg/camera.getLatestResult().targets.size() +15;
+            return result;
             // return camera.getLatestResult().getBestTarget().getYaw();
         }
         return 0;

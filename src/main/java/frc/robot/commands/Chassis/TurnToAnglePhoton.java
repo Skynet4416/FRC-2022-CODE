@@ -24,25 +24,23 @@ public class TurnToAnglePhoton extends CommandBase{
        Globals.joyControlEnbaled =false;
        Globals.joysticksControlEnbaled = false;
     }
+    double degrees = 0;
+
     @Override
     public void execute()
     {
-        System.out.println("Finished AngleTurn!");
-        double degrees = 0;
-        PhotonCamera camera = new PhotonCamera("Front");
+        PhotonCamera camera = new PhotonCamera("Back");
         if(camera.getLatestResult().hasTargets()){
-            degrees = VisionMeth.angle_from_target(new PhotonCamera("Front"));
+            degrees = VisionMeth.angle_from_target(new PhotonCamera("Back"));
             chassis.setArcadeDrive(0,Math.signum(chassis.getRotatPidController().calculate(-degrees,0))*Math.min(0.3,Math.abs(chassis.getRotatPidController().calculate(-degrees,0))));
         }
     }
-    public boolean isFinished(){
-        double degrees = 0;
-        System.out.println("WWWWWWWWWWWWWW");
-        PhotonCamera camera = new PhotonCamera("Front");
+    public boolean isFinished(){        System.out.println("WWWWWWWWWWWWWW");
+        PhotonCamera camera = new PhotonCamera("Back");
         if(camera.getLatestResult().hasTargets()){
-            System.out.println("AAAAAAAA");
-            degrees = VisionMeth.angle_from_target(new PhotonCamera("Front"));
-            System.out.println("BBBBBBBBBBBB");
+            // degrees = VisionMeth.angle_from_target(new PhotonCamera("back"));
+            System.out.println("DEGREES " + degrees);
+            chassis.setArcadeDrive(0,Math.signum(chassis.getRotatPidController().calculate(-degrees,0))*Math.min(0.3,Math.abs(chassis.getRotatPidController().calculate(-degrees,0))));
             return Math.abs(degrees) <=  Chassis.turn_to_angle_threashold;
         }
         else{

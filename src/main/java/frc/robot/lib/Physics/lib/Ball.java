@@ -112,10 +112,10 @@ public class Ball extends PhysicalObjectBase {
         // .multiply(cross_section_area_of_ball).multiply(Math.pow(state.velocity.getMagnitude(),
         // 2)));
         Vector axis_of_rotation = state.rotational_velocity.divide(state.rotational_velocity.getMagnitude());
-        System.out.println(velocity_direction.crossProduct3D(axis_of_rotation)
-                .multiply(5.33333333 * Math.PI * Math.PI * Math.pow(radius.getMagnitude(), 3)
-                        * state.rotational_velocity.getMagnitude() * Constants.density_of_air.getMagnitude()
-                        * state.velocity.getMagnitude()));
+        // System.out.println(velocity_direction.crossProduct3D(axis_of_rotation)
+        //         .multiply(5.33333333 * Math.PI * Math.PI * Math.pow(radius.getMagnitude(), 3)
+        //                 * state.rotational_velocity.getMagnitude() * Constants.density_of_air.getMagnitude()
+        //                 * state.velocity.getMagnitude()));
 
         add_force(velocity_direction.crossProduct3D(axis_of_rotation)
                 .multiply(5.33333333 * Math.PI * Math.PI * Math.pow(radius.getMagnitude(), 3)
@@ -180,10 +180,10 @@ public class Ball extends PhysicalObjectBase {
         }
 
         if (print) {
-            System.out.print("\n\n\nx_array = ");
-            System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
-            System.out.print("\n\n\ny_array = ");
-            System.out.println(Arrays.deepToString(pos_array.get(1).toArray()));
+            // System.out.print("\n\n\nx_array = ");
+            // System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
+            // System.out.print("\n\n\ny_array = ");
+            // System.out.println(Arrays.deepToString(pos_array.get(1).toArray()));
         }
 
         return states_array;
@@ -209,10 +209,10 @@ public class Ball extends PhysicalObjectBase {
             states_array.add(new State(this.state));
         }
         if (print) {
-            System.out.print("\n\n\nx_array_runge_kutta = ");
-            System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
-            System.out.print("\n\n\ny_array_runge_kutta  = ");
-            System.out.println(Arrays.deepToString(pos_array.get(1).toArray()));
+            // System.out.print("\n\n\nx_array_runge_kutta = ");
+            // System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
+            // System.out.print("\n\n\ny_array_runge_kutta  = ");
+            // System.out.println(Arrays.deepToString(pos_array.get(1).toArray()));
         }
         return states_array;
     }
@@ -249,10 +249,10 @@ public class Ball extends PhysicalObjectBase {
             states_array.add(new State(ball.state));
             i++;
         }
-        System.out.print("\n\n\nx_array = ");
-        System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
-        System.out.print("\n\n\ny_array = ");
-        System.out.println(Arrays.deepToString(pos_array.get(1).toArray()));
+        // System.out.print("\n\n\nx_array = ");
+        // System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
+        // System.out.print("\n\n\ny_array = ");
+        // System.out.println(Arrays.deepToString(pos_array.get(1).toArray()));
 
     }
 
@@ -432,16 +432,16 @@ public class Ball extends PhysicalObjectBase {
             pos_array.get(1).add(ball.state.position.getComponent(1));
             i++;
         }
-        System.out.print("\n\n\nx_array_nasa_lift_recursion = ");
-        System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
-        System.out.print("\n\n\ny_array_nasa_lift_recursion = ");
-        System.out.println(Arrays.deepToString(pos_array.get(1).toArray()));
+        // System.out.print("\n\n\nx_array_nasa_lift_recursion = ");
+        // System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
+        // System.out.print("\n\n\ny_array_nasa_lift_recursion = ");
+        // System.out.println(Arrays.deepToString(pos_array.get(1).toArray()));
     }
 
     public static void write_csv(Ball projectile, Target target, Double MaxAngle, Double MinAngle, Double MaxRPM,
             Double MinRPM, Boolean Magnus, Double Resolution) {
 
-        System.out.println("STARTED!");
+        // System.out.println("STARTED!");
         try {
             double TopinDiameter = 4;
             double TopmDiameter = Units.inchesToMeters(TopinDiameter);

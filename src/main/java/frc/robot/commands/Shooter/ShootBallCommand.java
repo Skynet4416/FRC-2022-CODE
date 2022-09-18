@@ -40,13 +40,12 @@ public class ShootBallCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(_shooter.GetMaster().getSelectedSensorVelocity()*600/2048 - top_rpm)<= Physics.ShooterThreshold && Math.abs(_shooter.GetSlave().getSelectedSensorVelocity()*600/2048 - bottom_rpm)<= Physics.ShooterThreshold)
+    if (Math.abs(_shooter.Gettop().getSelectedSensorVelocity()*600/2048 - top_rpm)<= Physics.ShooterThreshold && Math.abs(_shooter.Getbottom().getSelectedSensorVelocity()*600/2048 - bottom_rpm)<= Physics.ShooterThreshold)
     {
       _shooter._leftLEDS.set(true);
       _shooter._rightLEDS.set(true);
     
     }
-    System.out.println(_shooter.GetMaster().getSelectedSensorPosition());
   }
 
   // Called once the command ends or is interrupted.

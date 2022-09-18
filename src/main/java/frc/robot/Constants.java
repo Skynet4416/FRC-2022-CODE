@@ -193,8 +193,8 @@ public final class Constants {
             public static final double precentage = 1 - RPM_presentange_loss;
 
             public final class Motors {
-                public static final int Kmaster = 50;
-                public static final int Kslave = 51;
+                public static final int Kbottom = 50;
+                public static final int Ktop = 51;
                 public static final int left_master = 41;
                 public static final int right_slave = 40;
                 public static final double Min = 0;
@@ -298,5 +298,5 @@ public final class Constants {
         }
     }
 
-    public static double CAMERA_OFFSET = 13.3;
+    public static double CAMERA_OFFSET = 0;
 }

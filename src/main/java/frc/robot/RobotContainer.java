@@ -41,6 +41,9 @@ import frc.robot.commands.ElevatorUpAndDown.ElevatorUpCommand;
 import frc.robot.commands.Indexing.IndexCommand;
 import frc.robot.commands.Intake.IntakeSpinUp;
 import frc.robot.commands.Shooter.ConstantCalc;
+import frc.robot.commands.Shooter.DefaulCommand;
+import frc.robot.commands.Shooter.ShootBallGivenRPMCommand;
+import frc.robot.commands.Shooter.ShootBallOnPrecentageCommand;
 import frc.robot.commands.Shooter.ShootingSequenceCommandGroup;
 import frc.robot.commands.Shooter.SpeedShooter;
 import frc.robot.commands.ShooterAngle.ConstantAngleMove;
@@ -107,13 +110,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     BooleanSupplier triggeror = () -> OI.leftJoy.getTrigger() || OI.rightJoy.getTrigger();
     DoubleSupplier throttle = () -> 0.8;
-    chassisSubsystem
-        .setDefaultCommand(new DriveByJoy(chassisSubsystem, OI.leftJoy::getY, OI.rightJoy::getY, triggeror, throttle));
-    shooterSubsystem.setDefaultCommand(new SequentialCommandGroup(new ConstantCalc(ball), new ParallelDeadlineGroup(new WaitCommand(0.3), new ShooterMoveToGivenAngleCommand(shooterAngleSubsystem),new SpeedShooter(shooterSubsystem))));
-    // shooterAngleSubsystem.setDefaultCommand(new ParallelCommandGroup(new
+    chassisSubsystem.setDefaultCommand(new DriveByJoy(chassisSubsystem, OI.leftJoy::getY, OI.rightJoy::getY, triggeror, throttle));
+   // shooterAngleSubsystem.setDefaultCommand(new ParallelCommandGroup(new
     // ConstantCalc(),new ConstantAngleMove(shooterAngleSubsystem)));
     // shooterSubsystem.setDefaultCommand(new SpeedShooter(shooterSubsystem));
     // configure OI
+    shooterSubsystem.setDefaultCommand(new ConstantCalc(ball,shooterSubsystem,false));
     OI.A.whileHeld(new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem));
     // // OI.left_trigger.whileHeld(new IndexCommand(indexingSubsystem, false));
     // OI.B.whileHeld(new IndexCommand(indexingSubsystem, false));
@@ -142,6 +144,7 @@ public class RobotContainer {
     // 62-45));
     OI.X.whileHeld(
         new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem,ball));
+    // OI.X.whileHeld(new ShootBallGivenRPMCommand(shooterSubsystem,1500.0,1500.0));
     OI.right_bumper.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
     OI.left_bumper.whileHeld(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
     // OI.Y.whenHeld(new HookUpCommand(hookUpSubsystem))`;

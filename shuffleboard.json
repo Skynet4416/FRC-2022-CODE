@@ -908,80 +908,6 @@
       }
     },
     {
-      "title": "Tab 6",
-      "autoPopulate": false,
-      "autoPopulatePrefix": "",
-      "widgetPane": {
-        "gridSize": 128.0,
-        "showGrid": true,
-        "hgap": 16.0,
-        "vgap": 16.0,
-        "titleType": 0,
-        "tiles": {
-          "4,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Shooter Threashold",
-              "_title": "/SmartDashboard/Shooter Threashold"
-            }
-          },
-          "5,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/RPM Precentage Loss",
-              "_title": "/SmartDashboard/RPM Precentage Loss"
-            }
-          },
-          "3,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Threashold Y",
-              "_title": "/SmartDashboard/Threashold Y"
-            }
-          },
-          "6,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Turn To Angle KP",
-              "_title": "SmartDashboard/Turn To Angle KP"
-            }
-          },
-          "3,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Number Bar",
-              "_source0": "network_table:///SmartDashboard/Distance From Target",
-              "_title": "SmartDashboard/Distance From Target",
-              "Range/Min": 0.0,
-              "Range/Max": 10.0,
-              "Range/Center": 0.0,
-              "Visuals/Num tick marks": 5,
-              "Visuals/Show text": true
-            }
-          }
-        }
-      }
-    },
-    {
       "title": "Driver Camera",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
@@ -1005,7 +931,7 @@
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
-              "compression": -1.0,
+              "compression": 100.0,
               "fps": -1,
               "imageWidth": -1,
               "imageHeight": -1
@@ -1091,6 +1017,42 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Camera Offset",
               "_title": "/SmartDashboard/Camera Offset"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab 6",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Set RPM",
+              "_title": "/SmartDashboard/Set RPM"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Set Angle",
+              "_title": "/SmartDashboard/Set Angle"
             }
           }
         }

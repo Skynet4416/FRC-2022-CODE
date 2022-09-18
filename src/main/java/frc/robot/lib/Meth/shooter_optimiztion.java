@@ -358,7 +358,7 @@ public final class shooter_optimiztion {
 
         System.out.println("TRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM +
                 "\nANGLE " + (90.0 - BestAngle));
-        System.out.println(Duration.between(starts, Instant.now()).getNano() / 1000000000.0);
+        // System.out.println(Duration.between(starts, Instant.now()).getNano() / 1000000000.0);
 
         return new Vector(BestTopRPM, BestBottomRPM, (BestAngle));
     }
@@ -526,7 +526,7 @@ public final class shooter_optimiztion {
         }
 
         System.out.println("\nTRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM + "\nANGLE " + (90.0 - BestAngle));
-        System.out.println(Duration.between(starts, Instant.now()).getNano() / 1000000000.0);
+        // System.out.println(Duration.between(starts, Instant.now()).getNano() / 1000000000.0);
 
         return new Vector(BestTopRPM, BestBottomRPM, (BestAngle));
     }
@@ -694,7 +694,7 @@ public final class shooter_optimiztion {
         }
 
         System.out.println("\nTRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM + "\nANGLE " + (90.0 - BestAngle));
-        System.out.println(Duration.between(starts, Instant.now()).getNano() / 1000000000.0);
+        // System.out.println(Duration.between(starts, Instant.now()).getNano() / 1000000000.0);
 
         return new Vector(BestTopRPM, BestBottomRPM, (BestAngle));
     }
