@@ -117,9 +117,10 @@ public class RobotContainer {
     // configure OI
     shooterSubsystem.setDefaultCommand(new ConstantCalc(ball,shooterSubsystem,false));
     OI.A.whileHeld(new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem));
-    // // OI.left_trigger.whileHeld(new IndexCommand(indexingSubsystem, false));
+    OI.left_bumper.whileHeld(new SequentialCommandGroup(new ShooterMoveToConstantAngle(shooterAngleSubsystem),new ShootBallOnPrecentageCommand(shooterSubsystem)));
+
+    OI.right_bumper.whileHeld(new IndexCommand(indexingSubsystem, false));
     // OI.B.whileHeld(new IndexCommand(indexingSubsystem, false));
-    // OI.X.whileHeld(new ShootBallOnPrecentageCommand(shooterSubsystem));
     // OI.Y.whileHeld(new IndexCommand(indexingSubsystem,true));
     // OI.B.whenHeld(new ElevatorByDistance(elevatorUpAndDownSubsystem, 0.5));
     // OI.X.whileHeld(new ParallelCommandGroup(new IndexCommand(indexingSubsystem,
@@ -145,8 +146,8 @@ public class RobotContainer {
     OI.X.whileHeld(
         new ShootingSequenceCommandGroup(chassisSubsystem, indexingSubsystem, shooterAngleSubsystem, shooterSubsystem,ball));
     // OI.X.whileHeld(new ShootBallGivenRPMCommand(shooterSubsystem,1500.0,1500.0));
-    OI.right_bumper.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
-    OI.left_bumper.whileHeld(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
+    // OI.right_bumper.whileHeld(new ElevatorUpCommand(elevatorUpAndDownSubsystem));
+    // OI.left_bumper.whileHeld(new ElevatorDownCommand(elevatorUpAndDownSubsystem));
     // OI.Y.whenHeld(new HookUpCommand(hookUpSubsystem))`;
     // OI.X.whenPressed(new ShooterMoveToConstantAngle(shooterAngleSubsystem, 45));
     // OI.right_bumper.whenPressed(new
@@ -161,6 +162,7 @@ public class RobotContainer {
   }
 
   private void configureSmartDashboard() {
+    SmartDashboard.putNumber("Shooter Angle To Set",0);
     SmartDashboard.putNumber("Camera Offset", Constants.CAMERA_OFFSET);
     SmartDashboard.putNumber("Precentage", 0);
     SmartDashboard.putNumber(Constants.Chassis.SmartDashboard.TurnAnglePointAx, 0);

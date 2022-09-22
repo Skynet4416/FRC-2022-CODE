@@ -71,18 +71,21 @@ public class ConstantCalc extends CommandBase {
         if (!end)
         {
             boolean front = true;
-        try {
-            // Globals.hub_distance = VisionMeth.distanceFromTarget(new
-            // PhotonCamera("Front"));
-            Globals.hub_distance = VisionMeth.quarticDistance(new PhotonCamera("Front"));
-        } catch (Exception e) {
+        }
+        // try {
+        //     // Globals.hub_distance = VisionMeth.distanceFromTarget(new
+        //     // PhotonCamera("Front"));
+        //     Globals.hub_distance = VisionMeth.quarticDistance(new PhotonCamera("Front"));
+        // } catch (Exception e) {
             // Globals.hub_distance = VisionMeth.distanceFromTarget(new
             // PhotonCamera("Back"));
             Globals.hub_distance = VisionMeth.quarticDistance(new PhotonCamera("Back"));
 
-            front = false;
-        }
+            boolean front = false;
+        // }
+        System.out.println(Globals.hub_distance);
         if (Globals.hub_distance > 0 && Globals.hub_distance < 10) {
+            System.out.println(true);
             target.x_pos = Globals.hub_distance;
             Vector results = shooter_optimiztion.binary_smart_optimize_runge_kutta(ball, target, 45.0,
             0.0, 5000.0, 1500.0, 12.0);
@@ -103,7 +106,7 @@ public class ConstantCalc extends CommandBase {
             // Globals.bottom_rpm = 5000;
             // Globals.angle = 90;
         }
-        }
+        
         
 
     }

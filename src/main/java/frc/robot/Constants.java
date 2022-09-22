@@ -200,7 +200,7 @@ public final class Constants {
                 public static final double Min = 0;
                 public static final double Max = 90;
                 public static final double AngleThreashold = 2.5;
-                public static final double AnglePrecentage = 0.30;
+                public static final double AnglePrecentage = 0.5;
             }
 
             public static double left_home = 166; // needs to be adjested

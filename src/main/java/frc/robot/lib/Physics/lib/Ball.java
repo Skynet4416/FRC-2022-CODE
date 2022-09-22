@@ -86,9 +86,12 @@ public class Ball extends PhysicalObjectBase {
         if (Math.abs(state.rotational_velocity.getMagnitude()) > 0) {
             Vector axis_of_rotation = state.rotational_velocity.divide(state.rotational_velocity.getMagnitude());
 
+
+
             add_force(velocity_direction.crossProduct3D(axis_of_rotation).multiply(0.5).multiply(lift_coeficent)
                     .multiply(Constants.density_of_air).multiply(cross_section_area_of_ball)
-                    .multiply(Math.pow(state.velocity.getMagnitude(), 2))); // magnus = 1/2 cl * p * A * v^2 *
+                    .multiply(Math.pow(state.velocity.getMagnitude(), 2))); 
+                    // magnus = 1/2 cl * p * A * v^2 *
                                                                             // (v(vector)/abd(v) X
                                                                             // rotational_velocity(vector)/abs(rotational_velocity))
             // System.out.println(velocity_direction.crossProduct3D(axis_of_rotation).multiply(0.5).multiply(lift_coeficent)
@@ -198,7 +201,8 @@ public class Ball extends PhysicalObjectBase {
 
         while (this.state.position.getComponent(1) > 0) {
             State before_state = new State(this.state);
-            
+            lift_coeficent = radius.multiply(state.rotational_velocity.getMagnitude())
+            .divide(state.velocity.getMagnitude());
             this.calc_magnus_forces();
             this.calc();
             this.runge_kutta_aproxemation(before_state);

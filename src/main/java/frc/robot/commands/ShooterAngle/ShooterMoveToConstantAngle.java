@@ -24,17 +24,17 @@ public class ShooterMoveToConstantAngle extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShooterMoveToConstantAngle(ShooterAngleSubsystem angle_moving,double angle) {
+  public ShooterMoveToConstantAngle(ShooterAngleSubsystem angle_moving) {
     _angle_moving = angle_moving;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(angle_moving);
-    this.angle = angle;
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    this.angle  = SmartDashboard.getNumber("Shooter Angle To Set", 0);
     // _angle_moving.SetAngle(0);
     // System.out.println(SmartsDashboard.getNumber(frc.robot.Constants.Shooter.SmartDashboard.AngleToSet,
     // 0));
