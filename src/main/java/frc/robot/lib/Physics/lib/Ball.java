@@ -192,10 +192,12 @@ public class Ball extends PhysicalObjectBase {
         return states_array;
     }
     public ArrayList<State> simulate_ball_runge_kutta(Boolean print) {
+        this.before_before_state = new State(this.state);
         ArrayList<ArrayList<Double>> pos_array = new ArrayList<ArrayList<Double>>();
         pos_array.add(0, new ArrayList<Double>());
         pos_array.add(1, new ArrayList<Double>());
-
+        lift_coeficent = radius.multiply(state.rotational_velocity.getMagnitude())
+                .divide(state.velocity.getMagnitude());
         ArrayList<State> states_array = new ArrayList<State>();
         states_array.add(new State(this.state));
 
