@@ -115,7 +115,7 @@ public class RobotContainer {
     // ConstantCalc(),new ConstantAngleMove(shooterAngleSubsystem)));
     // shooterSubsystem.setDefaultCommand(new SpeedShooter(shooterSubsystem));
     // configure OI
-    shooterSubsystem.setDefaultCommand(new ConstantCalc(ball,shooterSubsystem,false));
+    // shooterSubsystem.setDefaultCommand(new ConstantCalc(ball,shooterSubsystem,false));
     OI.A.whileHeld(new IntakeAndIndexCommandGroup(intakeSubsystem, indexingSubsystem));
     OI.left_bumper.whileHeld(new SequentialCommandGroup(new ShooterMoveToConstantAngle(shooterAngleSubsystem),new ShootBallOnPrecentageCommand(shooterSubsystem)));
 

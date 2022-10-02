@@ -170,7 +170,10 @@ public final class Constants {
 
     public static class Shooter {
         public static class Physics {
-            public static final int MAX_RPM = 6380;
+            public static final double MIN_ANGLE = 0;
+            public static final double MAX_ANGLE = 45;
+            public static final double MIN_RPM = 1500;
+            public static final int MAX_RPM = 5000;
             public static final double hub_diameter = 1.22; // in meter
             public static final double ball_diamater = 9.5; // inches
             public static final double ball_radius = Units.inchesToMeters(ball_diamater / 2); // meters
