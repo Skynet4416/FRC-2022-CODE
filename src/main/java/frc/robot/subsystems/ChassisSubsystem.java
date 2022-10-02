@@ -53,7 +53,7 @@ public class ChassisSubsystem extends SubsystemBase {
   private RelativeEncoder _rightEncoder = _rightMaster.getEncoder();
   private RelativeEncoder _leftEncoder = _leftMaster.getEncoder();
   private Pose2d _pose = Globals.startPos;
-  // private DifferentialDrive m_drive;
+  private DifferentialDrive m_drive;
 
   private NavxGyro m_gyro = new NavxGyro(Port.kMXP);
   // public AHRS ahrs;
@@ -79,16 +79,16 @@ public class ChassisSubsystem extends SubsystemBase {
     m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
     m_right.setInverted(true);
     m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
-    // m_drive = new DifferentialDrive(m_left, m_right);
-    // m_drive.setExpiration(0.3);
+    m_drive = new DifferentialDrive(m_left, m_right);
+    m_drive.setExpiration(0.3);
     // ahrs = m_gyro.ahrs;
     turn_Controller = new PIDController(TurnToAngleConstants.kP, TurnToAngleConstants.kI, TurnToAngleConstants.kD);
 
   }
 
-  // public void setCervetureDrive(double idk1, double idk2) {
-  //   m_drive.curvatureDrive(idk1, idk2, true);
-  // }
+  public void setCervetureDrive(double idk1, double idk2) {
+    m_drive.curvatureDrive(idk1, idk2, true);
+  }
 
   public PIDController getRotatPidController() {
     return turn_Controller;
@@ -114,8 +114,7 @@ public class ChassisSubsystem extends SubsystemBase {
   }
 
   public void setArcadeDrive(double forward_speed, double rotation_speed) {
-    m_left.set(forward_speed + rotation_speed);
-    m_right.set(forward_speed - rotation_speed);
+    m_drive.arcadeDrive(forward_speed, rotation_speed);
   }
 
   private double getLeftDistance() {
@@ -148,8 +147,7 @@ public class ChassisSubsystem extends SubsystemBase {
    */
 
   public void set(double left, double right) {
-    this.m_left.set(left);
-    this.m_right.set(right);
+    m_drive.tankDrive(left, right);
   }
 
   @Override

@@ -58,7 +58,7 @@ public class TurnToAnglePhoton extends CommandBase{
     {
         Globals.joyControlEnbaled =true;
         Globals.joysticksControlEnbaled = true;
-        chassis.setVoltage(0,0);
+        chassis.setArcadeDrive(0,0);
         System.out.println("Finished AngleTurn!");
     }
 }
