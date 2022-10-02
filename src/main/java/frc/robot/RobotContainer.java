@@ -82,17 +82,14 @@ public class RobotContainer {
   private ElevatorUpAndDownSubsystem elevatorUpAndDownSubsystem = new ElevatorUpAndDownSubsystem();
   // private ElevatorAngleSubsystem elevatorAngleSubsystem = new
   // ElevatorAngleSubsystem();
-  private PhotonCamera front_camera = new PhotonCamera("front");
-  private PhotonCamera back_camera = new PhotonCamera("back");
+
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    front_camera = new PhotonCamera("front");
-    Globals.front = front_camera;
-    back_camera = new PhotonCamera("back");
-    Globals.back = back_camera;
+    // Globals.front = new PhotonCamera("Front");
+    // Globals.back = new PhotonCamera("Back");
     chassisSubsystem.resetEncoders();
     configureSmartDashboard();
     // Configure the button bindings

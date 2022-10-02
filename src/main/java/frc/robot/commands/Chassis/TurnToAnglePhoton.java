@@ -11,6 +11,7 @@ import frc.robot.subsystems.ChassisSubsystem;
 
 public class TurnToAnglePhoton extends CommandBase{
     private ChassisSubsystem chassis;
+    PhotonCamera camera;
     public TurnToAnglePhoton(ChassisSubsystem chassis)
     {
         this.chassis = chassis;
@@ -18,9 +19,17 @@ public class TurnToAnglePhoton extends CommandBase{
     @Override
     public void initialize()
     {
-    System.out.println(
-    "WAAAAAAAAAAAAAAAAAAAa");
-
+        if (Globals.front != null && Globals.front.getLatestResult().hasTargets())
+        {
+             camera = Globals.front;
+        } 
+        else if (Globals.back != null && Globals.back.getLatestResult().hasTargets())
+        {
+            camera = Globals.back;
+        } 
+        else{
+            end(true);
+        }
        Globals.joyControlEnbaled =false;
        Globals.joysticksControlEnbaled = false;
     }
@@ -29,17 +38,14 @@ public class TurnToAnglePhoton extends CommandBase{
     @Override
     public void execute()
     {
-        PhotonCamera camera = new PhotonCamera("Back");
+
         if(camera.getLatestResult().hasTargets()){
-            degrees = VisionMeth.angle_from_target(new PhotonCamera("Back"));
+            degrees = VisionMeth.angle_from_target(camera);
             chassis.setArcadeDrive(0,Math.signum(chassis.getRotatPidController().calculate(-degrees,0))*Math.min(0.3,Math.abs(chassis.getRotatPidController().calculate(-degrees,0))));
         }
     }
-    public boolean isFinished(){        System.out.println("WWWWWWWWWWWWWW");
-        PhotonCamera camera = new PhotonCamera("Back");
+    public boolean isFinished(){
         if(camera.getLatestResult().hasTargets()){
-            // degrees = VisionMeth.angle_from_target(new PhotonCamera("back"));
-            System.out.println("DEGREES " + degrees);
             chassis.setArcadeDrive(0,Math.signum(chassis.getRotatPidController().calculate(-degrees,0))*Math.min(0.3,Math.abs(chassis.getRotatPidController().calculate(-degrees,0))));
             return Math.abs(degrees) <=  Chassis.turn_to_angle_threashold;
         }

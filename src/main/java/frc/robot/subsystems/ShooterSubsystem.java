@@ -48,7 +48,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        PhotonCamera camera = new PhotonCamera("Front");
+        PhotonCamera camera;
         // _bottom.config_kP(0,
         // SmartDashboard.getNumber(Shooter.Physics.SmartDashboard.ShooterKP,
         // Shooter.Physics.PID.kP));
@@ -88,11 +88,7 @@ public class ShooterSubsystem extends SubsystemBase {
         // Shooter.Physics.PID.kF));
         // Constants.CAMERA_OFFSET = SmartDashboard.getNumber("Camera Offset",
         // Constants.CAMERA_OFFSET);
-        SmartDashboard.putNumber("Shooter bottom Velocity (RPM)", _bottom.getSelectedSensorVelocity() * 600 / 2048);
-        SmartDashboard.putNumber("Shooter bottom Current", _bottom.getMotorOutputPercent());
-        SmartDashboard.putNumber("Shooter Top Current", _top.getMotorOutputPercent());
-        SmartDashboard.putNumber("Shooter Top Velocity (RPM)", _top.getSelectedSensorVelocity() * 600 / 2048);
-        SmartDashboard.putNumber("Angle From Target", VisionMeth.angle_from_target(camera));
+
         // SmartDashboard.putNumber("Distance",
         // Math.sqrt(Math.pow(VisionMeth.distanceFromTarget(new
         // PhotonCamera("Front")),2) - Math.pow(Physics.hub_height +
@@ -102,31 +98,29 @@ public class ShooterSubsystem extends SubsystemBase {
         // Physics.RPM_presentange_loss = SmartDashboard.getNumber("RPM Precentage
         // Loss", 0);
         // Physics.threashold_y = SmartDashboard.getNumber("Threashold Y", 0);
-        try {
-            new PhotonCamera("Front").getLatestResult().getBestTarget().getArea();
+        if (Globals.front != null && Globals.front.getLatestResult().hasTargets()) {
+            camera = Globals.front;
             _rightLEDS.set(true);
             _leftLEDS.set(true);
-            // SmartDashboard.putNumber("Distance From Target",
-            // VisionMeth.distanceFromTarget(new PhotonCamera("Front")));
-            SmartDashboard.putNumber("Distance From Target", VisionMeth.quarticDistance(new PhotonCamera("Front")));
+            SmartDashboard.putNumber("Angle From Target", VisionMeth.angle_from_target(camera));
+            SmartDashboard.putNumber("Distance From Target", VisionMeth.angle_from_target(camera));
 
-        } catch (Exception e) {
-            try {
-                new PhotonCamera("Back").getLatestResult().getBestTarget().getArea();
-                _rightLEDS.set(true);
-                _leftLEDS.set(true);
-                // SmartDashboard.putNumber("Distance From Target",
-                // VisionMeth.distanceFromTarget(new PhotonCamera("Back")));
-                SmartDashboard.putNumber("Distance From Target", VisionMeth.quarticDistance(new PhotonCamera("Back")));
-
-            } catch (Exception i_dont_give_a_shit) {
-                _rightLEDS.set(false);
-                _leftLEDS.set(false);
-                // _bottomLEDS.set(false);
-            }
+        } else if (Globals.back != null && Globals.back.getLatestResult().hasTargets()) {
+            camera = Globals.back;
+            _rightLEDS.set(true);
+            _leftLEDS.set(true);
+            SmartDashboard.putNumber("Angle From Target", VisionMeth.angle_from_target(camera));
+            SmartDashboard.putNumber("Distance From Target", VisionMeth.angle_from_target(camera));
         }
-        // _rightLEDS.set(true);
-        // _leftLEDS.set(true);
+        else{
+            _rightLEDS.set(false);
+            _leftLEDS.set(false);
+        }
+        SmartDashboard.putNumber("Shooter bottom Velocity (RPM)", _bottom.getSelectedSensorVelocity() * 600 / 2048);
+        SmartDashboard.putNumber("Shooter bottom Current", _bottom.getMotorOutputPercent());
+        SmartDashboard.putNumber("Shooter Top Current", _top.getMotorOutputPercent());
+        SmartDashboard.putNumber("Shooter Top Velocity (RPM)", _top.getSelectedSensorVelocity() * 600 / 2048);
+
     }
 
     public void SetRPM(double top_rpm, double botom_rpm) {
