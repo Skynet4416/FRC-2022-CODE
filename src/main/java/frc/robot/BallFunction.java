@@ -18,7 +18,6 @@ public class BallFunction {
     public static void calculate(){
         if (Globals.hub_distance > 2)
         {
-            System.out.println("calculating");
             target.y_pos = Globals.hub_distance;
             Vector results = shooter_optimiztion.binary_smart_optimize_runge_kutta(ball, target, Physics.MAX_ANGLE,
             Physics.MIN_ANGLE, Physics.MAX_RPM, Physics.MIN_RPM, 12.0);
