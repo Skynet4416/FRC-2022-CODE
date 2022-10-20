@@ -31,10 +31,10 @@ public final class shooter_optimiztion {
             y.add(state.position.getComponent(1));
 
         }
-        System.out.print("\n\n\nx_array = ");
-        System.out.print(Arrays.deepToString(x.toArray()));
-        System.out.print("\n\n\ny_array = ");
-        System.out.println(Arrays.deepToString(y.toArray()));
+        // System.out.print("\n\n\nx_array = ");
+        // System.out.print(Arrays.deepToString(x.toArray()));
+        // System.out.print("\n\n\ny_array = ");
+        // System.out.println(Arrays.deepToString(y.toArray()));
 
     }
 
@@ -193,8 +193,8 @@ public final class shooter_optimiztion {
             Failures++;
         }
 
-        System.out.println("TRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM +
-                "\nANGLE " + (90.0 - BestAngle));
+        // System.out.println("TRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM +
+        //         "\nANGLE " + (90.0 - BestAngle));
 
         return new Vector(BestTopRPM, BestBottomRPM, (90.0 - BestAngle));
     }
@@ -356,8 +356,8 @@ public final class shooter_optimiztion {
             Current_Angle += Angle_Increment;
         }
 
-        System.out.println("TRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM +
-                "\nANGLE " + (90.0 - BestAngle));
+        // System.out.println("TRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM +
+        //         "\nANGLE " + (90.0 - BestAngle));
         // System.out.println(Duration.between(starts, Instant.now()).getNano() / 1000000000.0);
 
         return new Vector(BestTopRPM, BestBottomRPM, (BestAngle));
@@ -525,7 +525,7 @@ public final class shooter_optimiztion {
 
         }
 
-        System.out.println("\nTRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM + "\nANGLE " + (90.0 - BestAngle));
+        // System.out.println("\nTRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM + "\nANGLE " + (90.0 - BestAngle));
         // System.out.println(Duration.between(starts, Instant.now()).getNano() / 1000000000.0);
 
         return new Vector(BestTopRPM, BestBottomRPM, (BestAngle));
@@ -643,6 +643,8 @@ public final class shooter_optimiztion {
             };
         };
 
+        
+
         if (max_hub_distance > 0)
             Current_Rotation_Ratio = Math.min(target.x_pos / max_hub_distance, 1.0) * -1.0;
 
@@ -664,6 +666,8 @@ public final class shooter_optimiztion {
             angles[counter] = i;
             counter++;
         }
+
+        
         while (angles.length > 1) {
 
             if (Current_RPM <= Min_RPM)
@@ -680,20 +684,18 @@ public final class shooter_optimiztion {
 
                 BestTopRPM = (Current_Rotation_Ratio > 0.0 ? BestRPM * (Current_Rotation_Ratio - 1) : BestRPM);
                 BestBottomRPM = Current_Rotation_Ratio < 0.0 ? BestRPM * (1 - Current_Rotation_Ratio) : BestRPM;
-            } else {
-                if (full_distance_check.run(Current_Angle, Current_RPM, Current_Rotation_Ratio) > 0.0) {
-                    angles = Arrays.copyOfRange(angles, angles.length / 2, angles.length);
-
-                } else {
-                    angles = Arrays.copyOfRange(angles, 0, angles.length / 2);
-
-                }
-                Current_Angle = angles[angles.length / 2];
             }
+            if (full_distance_check.run(Current_Angle, Current_RPM, Current_Rotation_Ratio) > 0.0) {
+                angles = Arrays.copyOfRange(angles, angles.length / 2, angles.length);
+
+            } else {
+                angles = Arrays.copyOfRange(angles, 0, angles.length / 2);
+
+            }
+            Current_Angle = angles[angles.length / 2];
 
         }
-
-        System.out.println("\nTRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM + "\nANGLE " + (90.0 - BestAngle));
+        // System.out.println("\nTRPM " + BestTopRPM + "\nBRPM " + BestBottomRPM + "\nANGLE " + (90.0 - BestAngle));
         // System.out.println(Duration.between(starts, Instant.now()).getNano() / 1000000000.0);
 
         return new Vector(BestTopRPM, BestBottomRPM, (BestAngle));

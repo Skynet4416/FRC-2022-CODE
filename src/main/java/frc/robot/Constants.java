@@ -116,7 +116,7 @@ public final class Constants {
 
         public static class TurnToAngleConstants {
 
-            public static final double kP = 0.2;
+            public static final double kP = 0.008;
             public static final double kPmin = 0;
             public static final double kPmax = 0;
             public static final double kD = 0;
@@ -177,7 +177,7 @@ public final class Constants {
             public static final double hub_diameter = 1.22; // in meter
             public static final double ball_diamater = 9.5; // inches
             public static final double ball_radius = Units.inchesToMeters(ball_diamater / 2); // meters
-            public static double ShooterThreshold = 50;
+            public static double ShooterThreshold = 100;
             public static final double diamater = 101.6; // in mm
             public static final double gravitational_acceleration_near_earth = 9.83; // in m/s^2
             public static final double ball_mass = 0.267619498; // in kg
@@ -192,7 +192,7 @@ public final class Constants {
             public static final double shooter_height = 0.85; // in meter
             public static double threashold_x = 0.0508;// in meter
             public static double threashold_y = -0.0;// in meter
-            public static final double hub_height = 2.64; // in meter
+            public static final double hub_height = 2.22; // in meter
             public static final double precentage = 1 - RPM_presentange_loss;
 
             public final class Motors {

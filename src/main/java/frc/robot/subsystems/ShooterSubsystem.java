@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -98,21 +99,32 @@ public class ShooterSubsystem extends SubsystemBase {
         // Physics.RPM_presentange_loss = SmartDashboard.getNumber("RPM Precentage
         // Loss", 0);
         // Physics.threashold_y = SmartDashboard.getNumber("Threashold Y", 0);
-        if (Globals.front != null && Globals.front.getLatestResult().hasTargets()) {
-            camera = Globals.front;
-            _rightLEDS.set(true);
-            _leftLEDS.set(true);
-            SmartDashboard.putNumber("Angle From Target", VisionMeth.angle_from_target(camera));
-            SmartDashboard.putNumber("Distance From Target", VisionMeth.angle_from_target(camera));
 
-        } else if (Globals.back != null && Globals.back.getLatestResult().hasTargets()) {
-            camera = Globals.back;
-            _rightLEDS.set(true);
-            _leftLEDS.set(true);
-            SmartDashboard.putNumber("Angle From Target", VisionMeth.angle_from_target(camera));
-            SmartDashboard.putNumber("Distance From Target", VisionMeth.angle_from_target(camera));
-        }
-        else{
+        if (Globals.front != null) {
+            PhotonPipelineResult fornt_pipeline = Globals.front.getLatestResult();
+            if (fornt_pipeline.hasTargets()) {
+                camera = Globals.front;
+                Double angle = VisionMeth.angle_from_target(fornt_pipeline);
+                Double distance = VisionMeth.quarticDistance(fornt_pipeline);
+                _rightLEDS.set(true);
+                _leftLEDS.set(true);
+                SmartDashboard.putNumber("Angle From Target", angle);
+                SmartDashboard.putNumber("Distance From Target", distance);
+                Globals.hub_distance = distance;
+            }
+
+        } else if (Globals.back != null) {
+            PhotonPipelineResult pipelineResult = Globals.back.getLatestResult();
+            if (pipelineResult.hasTargets()) {
+                Double angle = VisionMeth.angle_from_target(pipelineResult);
+                Double distance = VisionMeth.quarticDistance(pipelineResult);
+                Globals.hub_distance = distance;
+                _rightLEDS.set(true);
+                _leftLEDS.set(true);
+                SmartDashboard.putNumber("Angle From Target", angle);
+                SmartDashboard.putNumber("Distance From Target", Globals.hub_distance);
+            }
+        } else {
             _rightLEDS.set(false);
             _leftLEDS.set(false);
         }

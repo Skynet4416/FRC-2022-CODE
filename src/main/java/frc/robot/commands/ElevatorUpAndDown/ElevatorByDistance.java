@@ -24,7 +24,7 @@ public class ElevatorByDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Elevator By Distance Initialize");
+    // System.out.println("Elevator By Distance Initialize");
     this._masterStartingPos = _elevator.getMasterRotations();
     _elevator.setPreccentage(_rotationCount > 0 ? -0.5 : 0.5);
   }
@@ -32,14 +32,14 @@ public class ElevatorByDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(_elevator.getMasterRotations());
+    // System.out.println(_elevator.getMasterRotations());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     _elevator.setPreccentage(0);
-    System.out.println("Elevator By Distance Finished");
+    // System.out.println("Elevator By Distance Finished");
 
   }
 

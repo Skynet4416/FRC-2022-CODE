@@ -287,10 +287,10 @@ public class Ball extends PhysicalObjectBase {
             pos_array.get(1).add(ball.state.position.getComponent(1));
             i++;
         }
-        System.out.print("\n\n\nx_array_drag_recursion = ");
-        System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
-        System.out.print("\n\n\ny_array_drag_recursion = ");
-        System.out.print(Arrays.deepToString(pos_array.get(1).toArray()));
+        // System.out.print("\n\n\nx_array_drag_recursion = ");
+        // System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
+        // System.out.print("\n\n\ny_array_drag_recursion = ");
+        // System.out.print(Arrays.deepToString(pos_array.get(1).toArray()));
     }
 
     public static void test_drag_no_recursion() {
@@ -407,10 +407,10 @@ public class Ball extends PhysicalObjectBase {
             pos_array.get(1).add(ball.state.position.getComponent(1));
             i++;
         }
-        System.out.print("\n\n\nx_array_changing_lift_recursion = ");
-        System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
-        System.out.print("\n\n\ny_array_changing_lift_recursion = ");
-        System.out.print(Arrays.deepToString(pos_array.get(1).toArray()));
+        // System.out.print("\n\n\nx_array_changing_lift_recursion = ");
+        // System.out.print(Arrays.deepToString(pos_array.get(0).toArray()));
+        // System.out.print("\n\n\ny_array_changing_lift_recursion = ");
+        // System.out.print(Arrays.deepToString(pos_array.get(1).toArray()));
     }
 
     public static void test_magnus_recursion_nasa() {
@@ -499,8 +499,8 @@ public class Ball extends PhysicalObjectBase {
                             Boolean result = target.check(states);
 
                             if (result && TopRPM > MinRPM && BottomRPM > MinRPM) {
-                                System.out.println(TopRPM + " " + BottomRPM + " " + (90.0 - angle) + " " +
-                                        distance + " " + Duration.between(start, Instant.now()).getSeconds());
+                                // System.out.println(TopRPM + " " + BottomRPM + " " + (90.0 - angle) + " " +
+                                //         distance + " " + Duration.between(start, Instant.now()).getSeconds());
                                 writer.write(String.valueOf(shooter_optimiztion.formatter.format(distance)));
                                 writer.write(",");
                                 writer.write(String.valueOf(shooter_optimiztion.formatter.format(90.0 -
@@ -519,9 +519,9 @@ public class Ball extends PhysicalObjectBase {
                 }
             }
             writer.close();
-            System.out.println("Successfully wrote to the file.");
+            // System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            // System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
@@ -595,7 +595,7 @@ public class Ball extends PhysicalObjectBase {
         Ball ball = new Ball(0.26932047, 0.12065, 0.47, 0.1);
         ball.state.kinematics_varuibales.add(new Vector(0.0, 0.0, 0.0));
 
-        Target hub = new Target(new Vector(4.0, 2.7178, 0.0), new Vector(1.22 -
+        Target hub = new Target(new Vector(0.8382 + 0.97/2, 2.7178, 0.0), new Vector(1.22 -
         ball.get_target_threshold(), 0.05,
         1.0), 90, 45, 999, -999);
 
@@ -609,6 +609,9 @@ public class Ball extends PhysicalObjectBase {
 
         results = shooter_optimiztion.binary_smart_optimize_runge_kutta(ball, hub, 45.0,
         0.0, 5000.0, 1500.0, 12.0);
+
+        System.out.println(results);
+        
 
         simulte_from_rpm_and_angle_runge_kutta(ball, results.getComponent(0),
         results.getComponent(1), results.getComponent(2));

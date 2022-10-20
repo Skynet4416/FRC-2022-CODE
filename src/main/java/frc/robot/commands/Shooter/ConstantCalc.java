@@ -45,15 +45,15 @@ public class ConstantCalc extends CommandBase {
             Globals.top_rpm = results.getComponent(0);
             Globals.bottom_rpm = results.getComponent(1);
             Globals.angle = !front ? results.getComponent(2) - 45 : results.getComponent(2);
-            System.out.println("calc finished");
+            // System.out.println("calc finished");
 
         } else {
             Globals.top_rpm = 1704;
             Globals.bottom_rpm = 1704;
             Globals.angle = 60;
         }
-        System.out.println("TOP RPM " + Globals.top_rpm);
-        System.out.println("Bottom RPM " + Globals.bottom_rpm);
+        // System.out.println("TOP RPM " + Globals.top_rpm);
+        // System.out.println("Bottom RPM " + Globals.bottom_rpm);
     }
 
     @Override
@@ -67,14 +67,13 @@ public class ConstantCalc extends CommandBase {
             front = false;
         }
         if (Globals.hub_distance > 0 && Globals.hub_distance < 10) {
-            System.out.println(true);
             target.x_pos = Globals.hub_distance;
             Vector results = shooter_optimiztion.binary_smart_optimize_runge_kutta(ball, target, 45.0,
                     0.0, 5000.0, 1500.0, 12.0);
             Globals.top_rpm = results.getComponent(0);
             Globals.bottom_rpm = results.getComponent(1);
             Globals.angle = !front ? results.getComponent(2) - 45 : results.getComponent(2);
-            System.out.println("calc finished");
+            // System.out.println("calc finished");
 
         } else {
             Globals.top_rpm = 1704;

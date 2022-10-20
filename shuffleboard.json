@@ -695,6 +695,18 @@
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[3]",
                   "_title": "PIDController[3]"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/MotorControllerGroup[2]",
+                  "_title": "MotorControllerGroup[2]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/MotorControllerGroup[1]",
+                  "_title": "MotorControllerGroup[1]",
+                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -889,8 +901,7 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul",
-              "Visible data/SmartDashboard/Shooter Master Velocity (RPM)": true
+              "Y-axis/Unit": "ul"
             }
           },
           "5,2": {
@@ -1046,13 +1057,90 @@
           },
           "5,1": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Set Angle",
               "_title": "/SmartDashboard/Set Angle"
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Distance From Target",
+              "_title": "/SmartDashboard/Distance From Target"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Top Velocity (RPM)",
+              "_title": "SmartDashboard/Shooter Top Velocity (RPM)"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Wanted ANGLE",
+              "_title": "/SmartDashboard/Wanted ANGLE"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Wanted BOTTOMRPM",
+              "_title": "/SmartDashboard/Wanted BOTTOMRPM"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Wanted TOPRPM",
+              "_title": "/SmartDashboard/Wanted TOPRPM"
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Angle To Set",
+              "_title": "SmartDashboard/Shooter Angle To Set"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Precentage",
+              "_title": "SmartDashboard/Shooter Precentage"
             }
           }
         }
