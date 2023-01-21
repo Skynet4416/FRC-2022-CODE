@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,6 +21,7 @@ import frc.robot.Constants.Shooter.Physics.PIDAngle;
 public class ShooterAngleSubsystem extends SubsystemBase {
     private TalonSRX left_master = new TalonSRX(Motors.left_master);
     private TalonSRX right_slave = new TalonSRX(Motors.right_slave);
+
     public Instant start_time;
     private final boolean kDiscontinuityPresent = false;
     // private double time_to_finish = 1000; // in milliseconds
@@ -81,11 +83,11 @@ public class ShooterAngleSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SetAbs();
         SmartDashboard.putNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.LeftAbsuluteAngle, getLeftAbsuluteAngle());
         SmartDashboard.putNumber(frc.robot.Constants.Shooter.Physics.SmartDashboard.RighAbsulureAngle, getRightAbsuluteAngle());
         SmartDashboard.putNumber(Physics.SmartDashboard.LeftAngle, getLeftAngle());
         SmartDashboard.putNumber(Physics.SmartDashboard.RightAngle, getRightAngle());
-        SetAbs();
     }
     private void initQuadrature(TalonSRX talonSRX)
     {

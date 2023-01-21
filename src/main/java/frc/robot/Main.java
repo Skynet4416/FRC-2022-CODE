@@ -24,6 +24,10 @@ public final class Main {
    * If you change your main robot class, change the parameter type.
    */
   public static void main(String... args) {
-    RobotBase.startRobot(Robot::new);
+    
+    Thread robot_code = new Thread(()-> {RobotBase.startRobot(Robot::new);},"robot code");
+    BallFunction ballFunction = new BallFunction();
+    robot_code.start();
+    ballFunction.start();
   }
 }

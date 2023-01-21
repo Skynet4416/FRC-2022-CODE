@@ -33,6 +33,16 @@ public final class Constants {
 
     }
 
+    public static class Vision {
+        public static class Target {
+            public static final double target_size_at_one_meter = 3.3;
+        }
+
+        public static class Ball {
+            public static final double ball_size_at_one_meter = 0;
+        }
+    }
+
     public static class Field {
         public static class Waypoints {
             public static class BlueAllince {
@@ -88,6 +98,8 @@ public final class Constants {
     }
 
     public static class Chassis {
+        public static final double x = 1 / Physical.ratio * 2 * Units.inchesToMeters(Physical.wheel_radius) * Math.PI;
+
         public static final class SmartDashboard {
 
             public final static String TurnAnglePointAx = "Turn Angle Point Ax";
@@ -104,9 +116,12 @@ public final class Constants {
 
         public static class TurnToAngleConstants {
 
-            public static final double kP = 0;
+            public static final double kP = 0.008;
             public static final double kPmin = 0;
             public static final double kPmax = 0;
+            public static final double kD = 0;
+            public static final double kI = 0;
+
         }
 
         public class Motors {
@@ -117,14 +132,14 @@ public final class Constants {
         }
 
         public class FeedForward {
-            public static final double kS = 0;
-            public static final double kv = 0;
-            public static final double ka = 0;
+            public static final double kS = 0.24595;
+            public static final double kv = 2.8504;
+            public static final double ka = 0.58577;
 
         }
 
         public class PID {
-            public static final double kP = 0;
+            public static final double kP = 2.3794;
             public static final double kI = 0;
             public static final double kD = 0;
         }
@@ -135,9 +150,6 @@ public final class Constants {
             public static final double START_ANGLE = 0;
             public static final double max_velocity = 0; // m/s
             public static final double max_acceleration = 0; // m/s^2
-            public static final double DISTANCE_OF_ENCODER_COUNT = 0.1524 / 42; // wheel rad / number of encoder counts
-                                                                                // in a rev
-                                                                                // (https://www.revrobotics.com/rev-21-1650/)
         }
 
         public class Physical {
@@ -145,56 +157,62 @@ public final class Constants {
             public static final double ratio = 10.75;
             public static final double wheel_radius = 3; // inches
         }
+
+        public static double turn_to_angle_threashold = 1;
     }
 
     public class Intake {
         public class Motors {
             public static final int kIntake = 20;
-            public static final double PowerPercentage = 0.7;
+            public static final double PowerPercentage = 0.8;
         }
     }
 
     public static class Shooter {
         public static class Physics {
-            public static final int MAX_RPM = 6380;
+            public static final double MIN_ANGLE = 0;
+            public static final double MAX_ANGLE = 45;
+            public static final double MIN_RPM = 1500;
+            public static final int MAX_RPM = 5000;
             public static final double hub_diameter = 1.22; // in meter
-            public static final double ball_diamater = 0.2413;
-            public static final double ShooterThreshold = 150;
+            public static final double ball_diamater = 9.5; // inches
+            public static final double ball_radius = Units.inchesToMeters(ball_diamater / 2); // meters
+            public static double ShooterThreshold = 100;
             public static final double diamater = 101.6; // in mm
-            public static final double gravitational_acceleration_near_earth = 9.81; // in m/s^2
+            public static final double gravitational_acceleration_near_earth = 9.83; // in m/s^2
             public static final double ball_mass = 0.267619498; // in kg
             public static final double density_of_air = 1.293;// in kg/m^3
             public static final double drag_coefficient = 0.47; // no units
-            public static final double RPM_presentange_loss = 0.2;
+            public static double RPM_presentange_loss = 0.2;
             public static final double optimisation_RPM_Resolution = 100; // in RPM
             public static double circumference = (ball_diamater / 1000) * Math.PI;
             public static double cross_area = Math.PI * Math.pow((ball_diamater / 2) / 1000, 2); // m^2
             public static final double drag_thing = (density_of_air * drag_coefficient * cross_area) / 2; // kg/m
             public static final double resolution = 0.1;// in s
-            public static final double shooter_height = 0; // in meter
+            public static final double shooter_height = 0.85; // in meter
             public static double threashold_x = 0.0508;// in meter
-            public static final double threashold_y = 0.0508;// in meter
-            public static final double hub_height = 2.64; // in meter
+            public static double threashold_y = -0.0;// in meter
+            public static final double hub_height = 2.22; // in meter
             public static final double precentage = 1 - RPM_presentange_loss;
 
             public final class Motors {
-                public static final int Kmaster = 50;
-                public static final int Kslave = 51;
+                public static final int Kbottom = 50;
+                public static final int Ktop = 51;
                 public static final int left_master = 41;
                 public static final int right_slave = 40;
                 public static final double Min = 0;
                 public static final double Max = 90;
                 public static final double AngleThreashold = 2.5;
-                public static final double AnglePrecentage = 0.30;
+                public static final double AnglePrecentage = 0.5;
             }
 
-            public static final double left_home = 166; // needs to be adjested
-            public static final double right_home = 220; // needs to be adjested
+            public static double left_home = 166; // needs to be adjested
+            public static double right_home = 55.546875; // needs to be adjested
             public static final boolean left_moving_towords_ = false;
             public static final boolean right_moving_towords_ = false;
 
             public final class PIDAngle {
-                public static final double kP = 0;
+                public static final double kP = 0.2;
                 public static final double kI = 0;
                 public static final double kD = 0;
                 public static final double kF = 0;
@@ -202,7 +220,7 @@ public final class Constants {
 
             public final class PID {
                 // needs to be set to real value
-                public static final double kP =0.005;
+                public static final double kP = 0.005;
                 public static final double kI = 0;
                 public static final double kD = 10;
                 public static final double kF = 0.18;
@@ -240,7 +258,7 @@ public final class Constants {
 
             public static final int Kmaster = 5;
             public static final int Kslave = 4;
-            public static final double elevator_precentage = 1;
+            public static final double elevator_precentage = 0.8;
             public static final int KangleMotor = 6;
             public static final double angle_move_precentage = 1;
             public static final int Khook = 7;
@@ -282,4 +300,6 @@ public final class Constants {
             public static final String CurrentAngle = "Climbing Current Angle";
         }
     }
+
+    public static double CAMERA_OFFSET = 0;
 }

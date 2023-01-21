@@ -1,6 +1,5 @@
 package frc.robot.MethTools;
 
-import java.time.Instant    ;
 import java.util.ArrayList;
 
 import frc.robot.Globals;
@@ -143,14 +142,13 @@ public class ShooterMeth {
     }
 
     public static void main(String[] args) {
-        Globals.hub_distance = 1; // TODO: WAS 7
+        Globals.hub_distance = 0.87; // TODO: WAS 7
         long startTime = System.currentTimeMillis();
-        // Run some code;
-
+        // Run some code
         double[] a = optimize();
         long stopTime = System.currentTimeMillis();
-        System.out.println("Elapsed time was " + (stopTime - startTime) + " miliseconds.");
-        System.out.println(">>>>= " + a[0] + " " + a[1]);
+        // System.out.println("Elapsed time was " + (stopTime - startTime) + " miliseconds.");
+        // System.out.println(">>>>= " + a[0] + " " + a[1]);
 
     }
 }

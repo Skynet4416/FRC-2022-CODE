@@ -6,29 +6,31 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch Main",
+      "request": "launch",
+      "mainClass": "frc.robot.Main",
+      "projectName": "FRC-2022-CODE"
+    },
+    {
+      "type": "java",
+      "name": "Launch Ball",
+      "request": "launch",
+      "mainClass": "frc.robot.lib.Physics.lib.Ball",
+      "projectName": "FRC-2022-CODE"
+    },
+    {
+      "type": "java",
+      "name": "Launch AutonimusMeth",
+      "request": "launch",
+      "mainClass": "frc.robot.MethTools.AutonimusMeth",
+      "projectName": "FRC-2022-CODE"
+    },
+    {
+      "type": "java",
       "name": "Launch ShooterMeth",
       "request": "launch",
       "mainClass": "frc.robot.MethTools.ShooterMeth",
       "projectName": "FRC-2022-CODE"
-    },
-    // {
-    //   "type": "java",
-    //   "name": "Launch Main",
-    //   "request": "launch",
-    //   "mainClass": "frc.robot.Main",
-    //   "projectName": "FRC-2022-CODE"
-    // },
-    // {
-    //   "type": "wpilib",
-    //   "name": "WPILib Desktop Debug",
-    //   "request": "launch",
-    //   "desktop": true
-    // },
-    // {
-    //   "type": "wpilib",
-    //   "name": "WPILib roboRIO Debug",
-    //   "request": "launch",
-    //   "desktop": false
-    // }
+    }
   ]
 }
