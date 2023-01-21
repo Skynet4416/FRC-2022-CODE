@@ -85,9 +85,9 @@ public class ChassisSubsystem extends SubsystemBase {
 
   }
 
-  public void setCervetureDrive(double idk1, double idk2) {
-    m_drive.curvatureDrive(idk1, idk2, true);
-  }
+  // public void setCervetureDrive(double idk1, double idk2) {
+  //   m_drive.curvatureDrive(idk1, idk2, true);
+  // }
 
   public PIDController getRotatPidController() {
     return turn_Controller;
@@ -113,7 +113,8 @@ public class ChassisSubsystem extends SubsystemBase {
   }
 
   public void setArcadeDrive(double forward_speed, double rotation_speed) {
-    m_drive.arcadeDrive(forward_speed, rotation_speed);
+    m_left.set(forward_speed + rotation_speed);
+    m_right.set(forward_speed - rotation_speed);
   }
 
   private double getLeftDistance() {
@@ -146,7 +147,8 @@ public class ChassisSubsystem extends SubsystemBase {
    */
 
   public void set(double left, double right) {
-    m_drive.tankDrive(left, right);
+    m_left.set(left);
+    m_right.set(right);
   }
 
   @Override

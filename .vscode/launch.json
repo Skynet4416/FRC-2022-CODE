@@ -6,6 +6,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch Main",
+      "request": "launch",
+      "mainClass": "frc.robot.Main",
+      "projectName": "FRC-2022-CODE"
+    },
+    {
+      "type": "java",
+      "name": "Launch Ball",
+      "request": "launch",
+      "mainClass": "frc.robot.lib.Physics.lib.Ball",
+      "projectName": "FRC-2022-CODE"
+    },
+    {
+      "type": "java",
       "name": "Launch AutonimusMeth",
       "request": "launch",
       "mainClass": "frc.robot.MethTools.AutonimusMeth",

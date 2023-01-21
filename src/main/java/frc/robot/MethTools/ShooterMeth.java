@@ -147,8 +147,8 @@ public class ShooterMeth {
         // Run some code
         double[] a = optimize();
         long stopTime = System.currentTimeMillis();
-        System.out.println("Elapsed time was " + (stopTime - startTime) + " miliseconds.");
-        System.out.println(">>>>= " + a[0] + " " + a[1]);
+        // System.out.println("Elapsed time was " + (stopTime - startTime) + " miliseconds.");
+        // System.out.println(">>>>= " + a[0] + " " + a[1]);
 
     }
 }

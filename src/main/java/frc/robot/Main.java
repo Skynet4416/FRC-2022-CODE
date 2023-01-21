@@ -26,8 +26,8 @@ public final class Main {
   public static void main(String... args) {
     
     Thread robot_code = new Thread(()-> {RobotBase.startRobot(Robot::new);},"robot code");
-    Thread running = new Thread(()->{BallFunction.wrapper();});
+    BallFunction ballFunction = new BallFunction();
     robot_code.start();
-    running.start();
+    ballFunction.start();
   }
 }

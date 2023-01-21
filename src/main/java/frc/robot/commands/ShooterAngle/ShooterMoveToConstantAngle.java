@@ -42,7 +42,7 @@ public class ShooterMoveToConstantAngle extends CommandBase {
       cancel();
       return;
     }
-    System.out.println("Initialized Shooter Constant Angle");
+    // System.out.println("Initialized Shooter Constant Angle");
   }
 
   // Called every time the scheduler runs while the command is scheduled.`x

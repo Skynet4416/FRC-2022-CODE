@@ -33,7 +33,7 @@ public class ShooterMoveToGivenAngleCommand extends CommandBase {
     @Override
     public void initialize() {
       this.angle = Globals.angle;
-      System.out.println("Initialized Shooter Constant Angle");
+      // System.out.println("Initialized Shooter Constant Angle");
       // _angle_moving.SetAngle(0);
       // System.out.println(SmartsDashboard.getNumber(frc.robot.Constants.Shooter.SmartDashboard.AngleToSet,
       // 0));
@@ -58,7 +58,7 @@ public class ShooterMoveToGivenAngleCommand extends CommandBase {
     public void end(boolean interrupted) {
       // System.out.println("Command Ended");
       _angle_moving.setPrecnetage(0);
-      System.out.println("Finished Shooter Constant Angle");
+      // System.out.println("Finished Shooter Constant Angle");
   
     }
   
