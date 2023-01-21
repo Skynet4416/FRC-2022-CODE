@@ -79,7 +79,7 @@ public class ChassisSubsystem extends SubsystemBase {
     m_right = new MotorControllerGroup(_rightMaster, _rightSlave);
     m_right.setInverted(true);
     m_left = new MotorControllerGroup(_leftMaster, _leftSlave);
-    // m_drive = new DifferentialDrive(m_left, m_right);
+    m_drive = new DifferentialDrive(m_left, m_right);
     // ahrs = m_gyro.ahrs;
     turn_Controller = new PIDController(TurnToAngleConstants.kP, TurnToAngleConstants.kI, TurnToAngleConstants.kD);
 
